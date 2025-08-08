@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="us-us">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - GreenToastSoftware</title>
+    <title>Contact - GreenToastSoftware</title>
+    <link rel="icon" type="image/png" href="Resources/Toast_4K_icon.png">
+    <link rel="shortcut icon" href="Resources/Toast_4K_icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,21 +14,37 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" data-aos="fade-down">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <img src="Toast_4K_icon.png" 
-                     alt="Toast Icon" 
-                     class="nav-logo-icon"
-                     onerror="this.src='./Resources/Toast_4K_icon.png'; this.onerror=function(){this.src='Resources/Toast_4K_icon.png';};">
+                <img src="Resources/Toast_4K_icon.png" alt="Toast Icon" class="nav-logo-icon" onerror="this.src='Toast_4K_icon.png'">
                 <span class="logo-text">GreenToastSoftware</span>
-                <div class="logo-dot"></div>
+                <span class="logo-dot"></span>
             </a>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Início</a></li>
-                <li><a href="index.html#services" class="nav-link">Serviços</a></li>
-                <li><a href="about.html" class="nav-link">Sobre</a></li>
-                <li><a href="contact.html" class="nav-link active">Contacto</a></li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="index.html#innovation" class="nav-link">
+                        Innovation
+                        <span class="dropdown-arrow">▾</span>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="GreenToast Apps.html" class="dropdown-link">
+                            <span class="dropdown-text">GreenToast Apps</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact Us</a>
+                </li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -64,41 +82,37 @@
         <div class="container">
             <div class="contact-hero-content">
                 <div class="hero-badge">
-                    <span class="badge-text">VAMOS CONVERSAR</span>
+                    <span class="badge-text">CONTACT US!</span>
                 </div>
                 <h1 class="hero-title">
-                    <span class="animate-text">Pronto para</span>
-                    <span class="animate-text brand-highlight">Transformar</span>
-                    <span class="animate-text">a sua Ideia</span>
-                    <span class="question-mark">?</span>
+                    <span class="animate-text">Need help?</span>
+                    <span class="animate-text brand-highlight">Found an error?</span>
+                    <span class="animate-text">Do you have any suggestions?</span>
                 </h1>
                 <p class="hero-subtitle animate-fade">
-                    Estamos aqui para tornar os seus sonhos digitais em realidade. 
-                    Entre em contacto connosco e vamos criar algo extraordinário juntos.
+                    Don't hesitate to contact us!
+                    Fast, simple and easy, just GreenToastSoftware.
                 </p>
                 
                 <div class="hero-stats">
                     <div class="stat-item">
                         <span class="stat-number" data-aos="counter-up">24h</span>
-                        <span class="stat-label">Resposta</span>
+                        <span class="stat-label">Response</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number" data-aos="counter-up">100%</span>
-                        <span class="stat-label">Dedicação</span>
+                        <span class="stat-label">Dedication</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number" data-aos="counter-up">∞</span>
-                        <span class="stat-label">Possibilidades</span>
+                        <span class="stat-label">Possibilities</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <span>Scroll para baixo</span>
+            <span>Scroll down</span>
         </div>
     </section>
 
@@ -106,8 +120,8 @@
     <section class="contact-methods-section">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title gradient-text">Como Nos Contactar</h2>
-                <p class="section-subtitle">Escolha a forma que mais lhe convém para iniciarmos a nossa conversa</p>
+                <h2 class="section-title gradient-text">How to contact us</h2>
+                <p class="section-subtitle">Choose the way that suits you best to start our conversation.</p>
             </div>
 
             <div class="contact-methods-grid">
@@ -118,8 +132,8 @@
                         </svg>
                     </div>
                     <h3>Email</h3>
-                    <p>A forma mais rápida e eficiente</p>
-                    <a href="mailto:contact@greentoastsoftware.com" class="method-link">contact@greentoastsoftware.com</a>
+                    <p>The fastest and most efficient way</p>
+                    <a href="mailto:official_greentoastsoftware@outlook.com?subject=Contact%20from%20Website&body=Hello%20GreenToastSoftware%20team,%0D%0A%0D%0AI%20would%20like%20to%20get%20in%20touch%20regarding:%0D%0A%0D%0A" class="method-link" style="word-break: break-all; line-height: 1.4;">official_greentoastsoftware@outlook.com</a>
                 </div>
 
                 <div class="contact-method-card" data-aos="fade-up" data-aos-delay="200">
@@ -128,9 +142,9 @@
                             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                         </svg>
                     </div>
-                    <h3>Telefone</h3>
-                    <p>Para conversas diretas e urgentes</p>
-                    <a href="tel:+351123456789" class="method-link">+351 123 456 789</a>
+                    <h3>SMS</h3>
+                    <p>For direct and urgent conversations</p>
+                    <a href="tel:+351937725264" class="method-link">+351 937 725 264</a>
                 </div>
 
                 <div class="contact-method-card" data-aos="fade-up" data-aos-delay="300">
@@ -139,24 +153,12 @@
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                         </svg>
                     </div>
-                    <h3>Localização</h3>
-                    <p>Visite-nos pessoalmente</p>
+                    <h3>Location</h3>
+                    <p>We are a international company based in:</p>
                     <span class="method-link">Lisboa, Portugal</span>
                 </div>
 
-                <div class="contact-method-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="method-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </div>
-                    <h3>Redes Sociais</h3>
-                    <p>Siga-nos para novidades</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">LinkedIn</a>
-                        <a href="#" class="social-link">Instagram</a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -166,9 +168,8 @@
         <div class="container">
             <div class="contact-form-content">
                 <div class="form-info" data-aos="fade-right">
-                    <h2>Vamos Criar Algo Incrível</h2>
-                    <p>Conte-nos sobre o seu projeto e como podemos ajudar a transformar a sua visão em realidade digital.</p>
-                    
+                    <h2>Contact us easily</h2>
+                    <p>Tell us your question, and we will get back to you shortly.</p>
                     <div class="info-highlights">
                         <div class="highlight-item">
                             <div class="highlight-icon">
@@ -177,8 +178,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4>Consultoria Gratuita</h4>
-                                <p>Primeira consulta sem compromisso</p>
+                                <h4>Better accessibility</h4>
+                                <p>You can write in any language, and we will respond accurately.</p>
                             </div>
                         </div>
                         
@@ -189,36 +190,26 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4>Resposta Rápida</h4>
-                                <p>Resposta em até 24 horas</p>
+                                <h4>Quick Response</h4>
+                                <p>Response within 24 hours</p>
                             </div>
                         </div>
                         
-                        <div class="highlight-item">
-                            <div class="highlight-icon">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>Atendimento Personalizado</h4>
-                                <p>Cada projeto é único para nós</p>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
 
                 <div class="contact-form-container" data-aos="fade-left">
-                    <form class="contact-form" id="contactForm">
+                    <form class="contact-form" id="contactForm" action="https://formspree.io/f/xovlpgpb" method="POST">
                         <div class="form-header">
-                            <h3>Envie-nos uma Mensagem</h3>
-                            <p>Preencha o formulário e entraremos em contacto consigo brevemente</p>
+                            <h3>Send us a message</h3>
+                            <p>Fill in the form and we will contact you soon!</p>
                         </div>
 
                         <div class="form-grid">
                             <div class="form-group">
                                 <input type="text" id="name" name="name" required>
-                                <label for="name">Nome Completo</label>
+                                <label for="name">Full Name</label>
                                 <div class="form-highlight"></div>
                             </div>
 
@@ -230,39 +221,38 @@
 
                             <div class="form-group">
                                 <input type="tel" id="phone" name="phone">
-                                <label for="phone">Telefone (Opcional)</label>
+                                <label for="phone">Phone (Optional)</label>
                                 <div class="form-highlight"></div>
                             </div>
 
                             <div class="form-group">
                                 <select id="service" name="service" required>
-                                    <option value="">Selecione um serviço</option>
-                                    <option value="desenvolvimento-web">Desenvolvimento Web</option>
-                                    <option value="aplicacoes-moveis">Aplicações Móveis</option>
-                                    <option value="sistemas-personalizados">Sistemas Personalizados</option>
-                                    <option value="consultoria">Consultoria Técnica</option>
-                                    <option value="outros">Outros</option>
+                                    <option value="">Select a context</option>
+                                    <option value="Suggestion">Suggestion</option>
+                                    <option value="Question">Question</option>
+                                    <option value="App problems">App problems</option>
+                                    <option value="Others">Others</option>
                                 </select>
-                                <label for="service">Tipo de Serviço</label>
+                                <label for="service">Context</label>
                                 <div class="form-highlight"></div>
                             </div>
                         </div>
 
                         <div class="form-group full-width">
                             <textarea id="message" name="message" required rows="6"></textarea>
-                            <label for="message">Descreva o seu Projeto</label>
+                            <label for="message">Description</label>
                             <div class="form-highlight"></div>
                         </div>
 
                         <div class="form-group checkbox-group">
                             <input type="checkbox" id="terms" name="terms" required>
                             <label for="terms" class="checkbox-label">
-                                Concordo com os <a href="#" class="terms-link">termos e condições</a> e política de privacidade
+                                I agree with <a href="#" class="terms-link">terms and conditions</a> and Privacy Policy
                             </label>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-large">
-                            <span>Enviar Mensagem</span>
+                            <span>Send Message</span>
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                             </svg>
@@ -277,14 +267,14 @@
     <section class="faq-section">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title gradient-text">Perguntas Frequentes</h2>
-                <p class="section-subtitle">Encontre respostas para as dúvidas mais comuns</p>
+                <h2 class="section-title gradient-text">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Find answers to the most common questions</p>
             </div>
 
             <div class="faq-container">
                 <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="faq-question">
-                        <h3>Quanto tempo demora um projeto?</h3>
+                        <h3>How long does it take an application to be launched?</h3>
                         <div class="faq-icon">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
@@ -292,13 +282,13 @@
                         </div>
                     </div>
                     <div class="faq-answer">
-                        <p>O tempo varia conforme a complexidade do projeto. Sites simples podem ficar prontos em 2-3 semanas, enquanto aplicações complexas podem levar 2-6 meses. Fornecemos sempre um cronograma detalhado após a análise inicial.</p>
+                        <p>The timeframe varies depending on the complexity of the project, as it depends on several factors, such as functionality, design, and accessibility for all users.</p>
                     </div>
                 </div>
 
                 <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="faq-question">
-                        <h3>Oferecem suporte após a entrega?</h3>
+                        <h3>Do they offer technical app support?</h3>
                         <div class="faq-icon">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
@@ -306,13 +296,13 @@
                         </div>
                     </div>
                     <div class="faq-answer">
-                        <p>Sim! Oferecemos suporte completo pós-entrega, incluindo manutenção, atualizações e resolução de problemas. Temos diferentes planos de suporte para atender às suas necessidades específicas.</p>
+                        <p>Yes! We offer complete support after Greentoast app launch, including maintenance, updates and problem solving.</p>
                     </div>
                 </div>
 
                 <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
                     <div class="faq-question">
-                        <h3>Como funciona o processo de desenvolvimento?</h3>
+                        <h3>How does the development process work?</h3>
                         <div class="faq-icon">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
@@ -320,13 +310,13 @@
                         </div>
                     </div>
                     <div class="faq-answer">
-                        <p>Seguimos uma metodologia ágil: 1) Análise de requisitos, 2) Prototipagem e design, 3) Desenvolvimento, 4) Testes, 5) Entrega e deploy. Mantemos comunicação constante durante todo o processo.</p>
+                        <p>We follow an agile methodology: 1) Requirements analysis, 2) Prototyping and design, 3) Development, 4) Testing, 5) Official launch. After the main development, our secondary team will provide security updates, functionality, and bug fixes.</p>
                     </div>
                 </div>
 
                 <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
                     <div class="faq-question">
-                        <h3>Trabalham com que tecnologias?</h3>
+                        <h3>What programming languages do they work for with?</h3>
                         <div class="faq-icon">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
@@ -334,7 +324,7 @@
                         </div>
                     </div>
                     <div class="faq-answer">
-                        <p>Utilizamos as tecnologias mais modernas e adequadas para cada projeto: React, Vue.js, Node.js, Python, PHP, bases de dados SQL e NoSQL, cloud computing (AWS, Azure), e muito mais.</p>
+                        <p>We use the most modern and suitable technologies for each project: C#, Visual Basic, Xaml, Html, MS-DOS, JavaScript and CSS and much more.</p>
                     </div>
                 </div>
             </div>
@@ -345,25 +335,25 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="nav-logo">
+                <div class="footer-brand"><div class="nav-logo">
                         <img src="Toast_4K_icon.png" 
                              alt="Toast Icon" 
                              class="nav-logo-icon"
                              onerror="this.src='./Resources/Toast_4K_icon.png'; this.onerror=function(){this.src='Resources/Toast_4K_icon.png';};">
-                        <span class="logo-text">GreenToastSoftware</span>
+                        <span class="logo-text">©GreenToastSoftware Corporation</span>
                     </div>
-                    <p>Transformando ideias em realidade digital com excelência e inovação.</p>
+                    <p>Imagining a technological future for everyone®</p>
                 </div>
                 <div class="footer-links">
-                    <a href="index.html">Início</a>
-                    <a href="index.html#services">Serviços</a>
-                    <a href="about.html">Sobre</a>
-                    <a href="contact.html">Contacto</a>
+                    <a href="index.html">Home</a>
+                    <a href="index.html#innovation">Innovation</a>
+                    <a href="index.html#services">Services</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 GreenToastSoftware. Todos os direitos reservados.</p>
+                <p>&copy;GreenToastSoftware. All rights reserved 2020-2025.</p>
             </div>
         </div>
     </footer>
@@ -435,7 +425,7 @@
             });
         });
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Simple form validation
@@ -452,16 +442,124 @@
             });
 
             if (isValid) {
-                // Show success message (in a real app, you'd send the data to a server)
-                alert('Mensagem enviada com sucesso! Entraremos em contacto brevemente.');
-                form.reset();
-                
-                // Remove focused and has-value classes
-                document.querySelectorAll('.form-group').forEach(group => {
-                    group.classList.remove('focused', 'has-value');
-                });
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span>Sending...</span>';
+                submitBtn.disabled = true;
+
+                try {
+                    // Send form data using Formspree
+                    const formData = new FormData(form);
+                    
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        // Success
+                        showNotification('Message sent successfully! We will contact you soon.', 'success');
+                        form.reset();
+                        
+                        // Remove focused and has-value classes
+                        document.querySelectorAll('.form-group').forEach(group => {
+                            group.classList.remove('focused', 'has-value');
+                        });
+                    } else {
+                        // Error response from Formspree
+                        const data = await response.json();
+                        console.error('Formspree error:', data);
+                        showNotification('Error sending message. Please try again or contact us directly.', 'error');
+                    }
+
+                } catch (error) {
+                    console.error('Network error:', error);
+                    showNotification('Connection error. Please check your internet and try again.', 'error');
+                } finally {
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
             }
         });
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                max-width: 400px;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+
+            notification.querySelector('.notification-content').style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+            `;
+
+            notification.querySelector('.notification-close').style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                transition: background 0.2s ease;
+            `;
+
+            // Add to page
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.transform = 'translateX(400px)';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
