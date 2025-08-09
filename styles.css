@@ -330,8 +330,8 @@ p {
     height: 100%;
     background-image: 
         url('Theme_colour.png'),
-        url('./Resources/Theme_colour.png'),
-        url('Resources/Theme_colour.png'),
+        url('Theme_colour.png'),
+        url('Theme_colour.png'),
         linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
     background-size: cover;
     background-position: center;
@@ -375,8 +375,8 @@ p {
     animation: toastFloatSmooth 8s ease-in-out infinite;
     background-image: 
         url('Toast_4K_icon.png'),
-        url('Resources/Toast_4K_icon.png'),
-        url('./Resources/Toast_4K_icon.png');
+        url('Toast_4K_icon.png'),
+        url('Toast_4K_icon.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -1487,8 +1487,8 @@ section {
     height: 100% !important;
     background-image: 
         url('Theme_colour2.png'),
-        url('./Resources/Theme_colour2.png'),
-        url('Resources/Theme_colour2.png'),
+        url('Theme_colour2.png'),
+        url('Theme_colour2.png'),
         linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%) !important;
     background-size: cover !important;
     background-position: center !important;
@@ -1933,8 +1933,8 @@ section {
     height: 100%;
     background-image: 
         url('Theme_colour.png'),
-        url('./Resources/Theme_colour.png'),
-        url('Resources/Theme_colour.png');
+        url('Theme_colour.png'),
+        url('Theme_colour.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1969,8 +1969,8 @@ section {
     height: 100%;
     background-image: 
         url('Theme_colour.png'),
-        url('./Resources/Theme_colour.png'),
-        url('Resources/Theme_colour.png'),
+        url('Theme_colour.png'),
+        url('Theme_colour.png'),
         linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
     background-size: cover;
     background-position: center;
@@ -2655,8 +2655,8 @@ section {
     height: 100%;
     background-image: 
         url('Theme_colour.png'),
-        url('./Resources/Theme_colour.png'),
-        url('Resources/Theme_colour.png'),
+        url('Theme_colour.png'),
+        url('Theme_colour.png'),
         linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
     background-size: cover;
     background-position: center;
@@ -3280,8 +3280,8 @@ section {
     height: 100%;
     background-image: 
         url('Theme_colour.png'),
-        url('./Resources/Theme_colour.png'),
-        url('Resources/Theme_colour.png'),
+        url('Theme_colour.png'),
+        url('Theme_colour.png'),
         linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
     background-size: cover;
     background-position: center;
