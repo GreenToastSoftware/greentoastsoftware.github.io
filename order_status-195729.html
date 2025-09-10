@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Progress - #195729 - GreenToastSoftware</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #f8fafc;
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .order-progress-container {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      margin: 3rem auto;
+      text-align: center;
+    }
+    .order-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2563eb;
+      margin-bottom: 2rem;
+    }
+    .progress-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.15rem;
+      color: #334155;
+    }
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: 2px solid #cbd5e1;
+      transition: background 0.2s, color 0.2s;
+      margin-right: 0.2rem;
+    }
+    .step.completed .step-circle {
+      background: #22c55e;
+      color: #fff;
+      border: none;
+    }
+    .step.current .step-circle {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+    }
+    .step-icon {
+      display: flex;
+      align-items: center;
+      margin-right: 0.5rem;
+    }
+    .step-label {
+      flex: 1;
+      text-align: left;
+    }
+    .order-info {
+      color: #64748b;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .order-id {
+      font-weight: 700;
+      color: #2563eb;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.04);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 1.5rem;
+    }
+    .logo-text {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #2563eb;
+      margin-left: 0.5rem;
+    }
+    .logo-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #38bdf8;
+      border-radius: 50%;
+      margin-left: 0.3rem;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-link {
+      color: #334155;
+      text-decoration: none;
+      font-size: 1.08rem;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: #2563eb;
+      transition: width 0.3s;
+    }
+    .nav-link:hover {
+      color: #2563eb;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-arrow {
+      font-size: 0.8rem;
+      margin-left: 0.2rem;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 2.2rem;
+      left: 0;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.08);
+      border-radius: 8px;
+      min-width: 180px;
+      z-index: 1001;
+    }
+    .dropdown:hover .dropdown-content,
+    .dropdown:focus-within .dropdown-content,
+    .dropdown-content:hover {
+      display: block;
+    }
+    .dropdown-link {
+      display: block;
+      padding: 0.7rem 1.2rem;
+      color: #334155;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+    }
+    .dropdown-link::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: #2563eb;
+      transition: width 0.3s;
+    }
+    .dropdown-link:hover {
+      background: #e0e7ff;
+      color: #2563eb;
+    }
+    .dropdown-link:hover::after {
+      width: 100%;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      margin-left: 1.5rem;
+    }
+    .bar {
+      width: 24px;
+      height: 3px;
+      background: #2563eb;
+      margin: 3px 0;
+      border-radius: 2px;
+    }
+    @media (max-width: 900px) {
+      .nav-container { flex-direction: column; align-items: flex-start; }
+      .nav-menu { flex-direction: column; gap: 1rem; margin-top: 1rem; }
+      .hamburger { display: flex; }
+      .dropdown-content { position: static; box-shadow: none; min-width: 100%; border-radius: 0; }
+    }
+
+    .nav-logo-icon {
+      width: 38px;
+      height: 38px;
+      vertical-align: middle;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    body {
+      padding-top: 5.5rem;
+    }
+  </style>
+</head>
+<body>
+    
+  <nav class="navbar" data-aos="fade-down">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="Toast_4K_icon.png" alt="Toast Icon" class="nav-logo-icon" onerror="this.src='Toast_4K_icon.png'">
+            <span class="logo-text">GreenToastSoftware</span>
+            <span class="logo-dot"></span>
+        </a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#home" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#innovation" class="nav-link">
+                    Innovation
+                    <span class="dropdown-arrow">▾</span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="GreenToast Apps.html" class="dropdown-link">
+                        <span class="dropdown-text">GreenToast Apps</span>
+                    </a>
+                    <a href="SPE_blog.html" class="dropdown-link">
+                        <span class="dropdown-text">SPE Blog</span>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#services" class="nav-link">Services</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.html" class="nav-link">Contact Us</a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </div>
+  </nav>
+
+  <div class="order-progress-container">
+    <div class="order-title">Order Progress</div>
+    <div class="order-info">
+      Order ID: <span class="order-id">#195729</span><br>
+      Placed on: 10/09/2025 - 02:13 PM
+    </div>
+    <div class="progress-steps">
+      <div class="step completed">
+        <div class="step-circle">1</div>
+        <span class="step-icon" title="Order Received">
+          <svg width="20" height="20" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M6 10l2 2 4-4"/></svg>
+        </span>
+        <div class="step-label">Order Received</div>
+      </div>
+      <div class="step completed">
+        <div class="step-circle">2</div>
+        <span class="step-icon" title="Processing">
+          <svg width="20" height="20" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2.5 2.5"/></svg>
+        </span>
+        <div class="step-label">Processing</div>
+      </div>
+      <div class="step current">
+        <div class="step-circle">3</div>
+        <span class="step-icon" title="Shipped">
+          <svg width="20" height="20" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="12" height="7" rx="2"/><path d="M17 11l2 2-2 2"/><circle cx="8.5" cy="16" r="1"/><circle cx="14.5" cy="16" r="1"/></svg>
+        </span>
+        <div class="step-label">Shipped</div>
+      </div>
+      <div class="step">
+        <div class="step-circle">4</div>
+        <span class="step-icon" title="Delivered">
+          <svg width="20" height="20" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>
+        </span>
+        <div class="step-label">Delivered</div>
+      </div>
+    </div>
+    <div class="order-info">
+      If you have questions, contact our support.<br>
+      This page is only accessible via direct link.
+    </div>
+  </div>
+
+  <script>
+    // Dropdown fix: mantém aberto enquanto mouse está sobre o botão ou menu
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownContent = dropdown.querySelector('.dropdown-content');
+    let dropdownTimeout;
+
+    function showDropdown() {
+      clearTimeout(dropdownTimeout);
+      dropdownContent.style.display = 'block';
+    }
+    function hideDropdown() {
+      dropdownTimeout = setTimeout(() => {
+        dropdownContent.style.display = 'none';
+      }, 180);
+    }
+    dropdown.addEventListener('mouseenter', showDropdown);
+    dropdown.addEventListener('mouseleave', hideDropdown);
+    dropdownContent.addEventListener('mouseenter', showDropdown);
+    dropdownContent.addEventListener('mouseleave', hideDropdown);
+
+    // Defina aqui os passos que deseja mostrar, ex: [1, 2, 3] ou [2, 4]
+    const visibleSteps = [1, 2];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const steps = document.querySelectorAll('.progress-steps .step');
+      steps.forEach((step, idx) => {
+        if (visibleSteps.includes(idx + 1)) {
+          step.style.display = 'flex';
+        } else {
+          step.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
