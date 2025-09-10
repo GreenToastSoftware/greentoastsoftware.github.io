@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPE 5.0 (08.W.7C-build.23.05/25) - GreenToast Insider Blog</title>
+    <link rel="icon" type="image/png" href="Toast_4K_icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #f8fafc; font-family: Inter, Arial, sans-serif; }
+        .blog-header {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 2rem 0 1rem 0;
+            text-align: center;
+        }
+        .blog-header .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .blog-header .logo img {
+            width: 48px;
+            height: 48px;
+        }
+        .blog-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2563eb;
+            margin: 0;
+        }
+        .blog-main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 0 1rem;
+        }
+        .blog-featured {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+            padding: 2rem 2rem 2.5rem 2rem;
+            margin-bottom: 3rem;
+        }
+        .blog-featured .post-image {
+            width: 100%;
+            max-height: 340px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+            margin-bottom: 2rem;
+        }
+        .blog-featured .post-title {
+            font-size: 2rem;
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .blog-featured .post-meta {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        .blog-featured .post-content {
+            color: #334155;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        .blog-featured ul {
+            margin: 1rem 0 1.5rem 0;
+            padding-left: 1.2rem;
+        }
+        .back-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: #fff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #1e40af;
+        }
+        .spe-details-section {
+            max-width: 900px;
+            margin: 0 auto 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .spe-details-cards {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+        .spe-card {
+            background: #23202b;
+            color: #fff;
+            border-radius: 12px;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            min-width: 320px;
+            max-width: 400px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+        .spe-card h2 {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        .spe-card hr {
+            border: none;
+            border-top: 2px solid #ff2a6d;
+            margin: 0.5rem 0 1rem 0;
+        }
+        .spe-license {
+            font-size: 0.95rem;
+            white-space: pre-line;
+            margin: 0;
+            color: #fff;
+        }
+        .spe-added {
+            min-width: 260px;
+            max-width: 340px;
+            background: #23202b;
+            color: #fff;
+            border-radius: 12px;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        .spe-added h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 8px #23202b44;
+        }
+        .spe-added ul {
+            list-style: none;
+            padding: 0;
+            color: #fff;
+            font-size: 1.15rem;
+        }
+        .spe-added li {
+            margin-bottom: 0.7rem;
+        }
+        .spe-details-more {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #fff;
+            margin: 2.5rem 0 1.5rem 0;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        .spe-specs-section {
+            max-width: 900px;
+            margin: 0 auto 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .spe-specs {
+            text-align: center;
+            color: #fff;
+            font-family: 'Inter', Arial, sans-serif;
+            margin-bottom: 2rem;
+            background: #23202b;
+            border-radius: 12px;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .spe-specs h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+        .spe-specs p {
+            font-size: 1.15rem;
+            margin: 0.5rem 0;
+        }
+        @media (max-width: 600px) {
+            .blog-main { padding: 1rem 0.3rem; }
+            .post-title { font-size: 1.3rem; }
+        }
+        @media (max-width: 900px) {
+            .spe-details-cards { flex-direction: column; align-items: stretch; }
+            .spe-card, .spe-added { max-width: 100%; min-width: 0; }
+        }
+        .insider-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6rem 1rem 2rem 1rem; /* Espaço extra para navbar fixa */
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.insider-title {
+  font-size: 2.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #1a1a1a;
+}
+.insider-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 3rem;
+}
+.insider-meta {
+  color: #444;
+  font-size: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+.meta-label {
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 0.2rem;
+}
+.meta-author, .meta-date, .meta-version {
+  margin-bottom: 0.7rem;
+}
+.insider-content {
+  color: #222;
+  font-size: 1.18rem;
+  line-height: 1.7;
+}
+.insider-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #2563eb;
+}
+.insider-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.7rem;
+  color: #1a1a1a;
+}
+.insider-img {
+  width: 100%;
+  max-width: 540px;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+  margin: 1.2rem 0 0.5rem 0;
+  display: block;
+}
+.insider-caption {
+  font-size: 0.98rem;
+  color: #555;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 900px) {
+  .insider-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .insider-meta {
+    flex-direction: row;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+  }
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(79,70,229,0.04);
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1.5rem;
+}
+.logo-text {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-left: 0.5rem;
+}
+.logo-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #38bdf8;
+    border-radius: 50%;
+    margin-left: 0.3rem;
+}
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.nav-link {
+    color: #334155;
+    text-decoration: none;
+    font-size: 1.08rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.2s;
+}
+.nav-link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: #2563eb;
+    transition: width 0.3s;
+}
+.nav-link:hover {
+    color: #2563eb;
+}
+.nav-link:hover::after {
+    width: 100%;
+}
+.dropdown {
+    position: relative;
+}
+.dropdown-arrow {
+    font-size: 0.8rem;
+    margin-left: 0.2rem;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 2.2rem;
+    left: 0;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(79,70,229,0.08);
+    border-radius: 8px;
+    min-width: 180px;
+    z-index: 1001;
+}
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content,
+.dropdown-content:hover {
+    display: block;
+}
+.dropdown-link {
+    display: block;
+    padding: 0.7rem 1.2rem;
+    color: #334155;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
+    position: relative;
+}
+.dropdown-link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: #2563eb;
+    transition: width 0.3s;
+}
+.dropdown-link:hover {
+    background: #e0e7ff;
+    color: #2563eb;
+}
+.dropdown-link:hover::after {
+    width: 100%;
+}
+@media (max-width: 900px) {
+    .nav-container { flex-direction: column; align-items: flex-start; }
+    .nav-menu { flex-direction: column; gap: 1rem; margin-top: 1rem; }
+    .hamburger { display: flex; }
+    .dropdown-content { position: static; box-shadow: none; min-width: 100%; border-radius: 0; }
+}
+.nav-logo-icon {
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+}
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+.specs-card {
+  max-width: 600px;
+  margin: 4rem auto 2rem auto;
+  background: linear-gradient(135deg, #6d162b 0%, #3a1c3a 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  color: #fff;
+  padding: 2.5rem 2rem 2.5rem 2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.specs-title {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+.specs-list {
+  width: 100%;
+  font-size: 1.18rem;
+  margin-bottom: 2.2rem;
+}
+.specs-download {
+  display: block;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.08rem;
+  text-align: center;
+  padding: 1rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 0 auto;
+  transition: background 0.2s;
+  width: 100%;
+  max-width: 420px;
+}
+.specs-download:hover {
+  background: #2563eb;
+}
+    </style>
+</head>
+<body>
+  
+    <!-- Navigation -->
+<nav class="navbar" data-aos="fade-down">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="Toast_4K_icon.png" alt="Toast Icon" class="nav-logo-icon" onerror="this.src='Toast_4K_icon.png'">
+            <span class="logo-text">GreenToastSoftware</span>
+            <span class="logo-dot"></span>
+        </a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#home" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item dropdown" tabindex="0">
+                <a href="#innovation" class="nav-link">
+                    Innovation
+                    <span class="dropdown-arrow">▾</span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="GreenToast Apps.html" class="dropdown-link">
+                        <span class="dropdown-text">GreenToast Apps</span>
+                    </a>
+                    <a href="SPE_blog.html" class="dropdown-link">
+                        <span class="dropdown-text">SPE Blog</span>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#services" class="nav-link">Services</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.html" class="nav-link">Contact Us</a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </div>
+</nav>
+
+<main class="insider-main">
+  <h1 class="insider-title">SPE 5.0 (08.W.7C-build.23.05/25) BETA</h1>
+  <div class="insider-grid">
+    <aside class="insider-meta">
+      <div class="meta-label">Written by </div>
+    <Div Class = "Meta-Author"> Alfredo Silva </div>
+    <div class = "meta-label"> Published </div>
+    <Div Class = "Meta-Date"> Mai 24, 2025 </div>
+    <div class = "meta-label"> version </div>
+      <div class="meta-version">SPE 5.0 BETA</div>
+    </aside>
+    <article class="insider-content">
+      <p>Hello SPE INSIDERS, today we are launching <b> SPE 5.0 (08.W.9C_build.29.03/25) BETA</b> for all users! </p>
+      <p> News and improvements are organized in two areas: resources and corrections.Follow below the main changes of this version. </p>
+      <H2> New features gradually released </h2>
+      <p>This update brings a lot of bug repair and performance improvements, but also new features!</p>
+      <h3 style="font-size:2rem; font-weight:600;">- New SPE Terminal</h3>
+      <p>New functionality:</p>
+      <figure>
+        <img src="Captura de ecrã 2025-05-22 221356.png" alt="Nova tela inicial SPE 5" class="insider-img">
+        <figcaption class="insider-caption">Main Commands of SPE Terminal</figcaption>
+      </figure>
+      <p style="font-size:2rem; font-weight:600;">Introducing the SPE Terminal...</p>
+      <p>The SPE Terminal is designed for developers and the GreenToastSoftware testing team, where there are commands for certain functions:</p>
+<div style="line-height:1.3; font-weight:600;">
+  <p>&gt; help: indicates all commands</p>
+  <p>&gt; open: opens certain hidden dialogs and pages</p>
+  <p>&gt; clear: clears the terminal screen</p>
+  <p>&gt; close: closes the terminal</p>
+  <p>&gt; exit: closes the SPE completely.</p>
+  
+</div>
+      <h3>Extended support for screen readers</h3>
+      <p>SPE now offers total compatibility with screen readers, making the system more accessible to everyone.</p>
+      <figure>
+        <img src="Captura de ecrã 2025-05-22 221906.png" alt="Acessibilidade SPE 5" class="insider-img">
+        <figcaption class="insider-caption">Improved accessibility in SPE 5.</figcaption>
+      </figure>
+      <H3> How to obtain new features?</h3>
+<OL>
+<li> Install the new version of SPE from GitHub</li>
+</ol>
+<P> Keep following the blog for more news and tips!</p>
+    </article>
+  </div>
+</main>
+
+<div class="specs-card">
+  <h2 class="specs-title">Technical specifications</h2>
+  <div class="specs-list">
+    <p><b>Version:</b> SPE 5.0 VERSION (06.Y.7b-build.18.12/24)</p>
+    <p><b>Release date:</b> 25/03/2025 (EUROPEAN DATE)</p>
+    <p><b>Languages:</b> English</p>
+    <p><b>App size:</b> 0,51MB</p>
+  </div>
+  <a href="https://github.com/AlfredoProgramer/SPE-4.X/releases/tag/SPE_5.0_08.W.9c-build.29.03.25" class="specs-download" target="_blank" rel="noopener">Download SPE 5.0 VERSION (08.W.9C_build.29.03/25)</a>
+</div>
+
+<style>
+.specs-card {
+  max-width: 900px;
+  margin: 4rem auto 2rem auto;
+  background: url('Theme_colour.png') center/cover no-repeat;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  color: #fff;
+  padding: 2.5rem 2rem 2.5rem 2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.specs-title {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+.specs-list {
+  width: 100%;
+  font-size: 1.18rem;
+  margin-bottom: 2.2rem;
+}
+.specs-download {
+  display: block;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.08rem;
+  text-align: center;
+  padding: 1rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 0 auto;
+  transition: background 0.2s;
+  width: 100%;
+  max-width: 420px;
+}
+.specs-download:hover {
+  background: #2563eb;
+}
+</style>
+
+<script>
+// Dropdown fix: mantém aberto enquanto mouse está sobre o botão ou menu
+const dropdown = document.querySelector('.dropdown');
+const dropdownContent = dropdown.querySelector('.dropdown-content');
+let dropdownTimeout;
+
+function showDropdown() {
+  clearTimeout(dropdownTimeout);
+  dropdownContent.style.display = 'block';
+}
+function hideDropdown() {
+  dropdownTimeout = setTimeout(() => {
+    dropdownContent.style.display = 'none';
+  }, 180);
+}
+dropdown.addEventListener('mouseenter', showDropdown);
+dropdown.addEventListener('mouseleave', hideDropdown);
+dropdownContent.addEventListener('mouseenter', showDropdown);
+dropdownContent.addEventListener('mouseleave', hideDropdown);
+</script>
+</body>
+</html>

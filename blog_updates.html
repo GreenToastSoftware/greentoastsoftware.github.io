@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Blog Updates (Oculto)</title>
+    <link rel="icon" type="image/png" href="Toast_4K_icon.png">
+    <style>
+        body { background: #f8fafc; font-family: Inter, Arial, sans-serif; }
+        .editor-container { max-width: 600px; margin: 3rem auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(79,70,229,0.08); padding: 2rem; }
+        h1 { text-align: center; color: #2563eb; margin-bottom: 2rem; }
+        label { font-weight: 600; color: #334155; display: block; margin-top: 1.2rem; }
+        input, textarea { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid #e5e7eb; margin-top: 0.5rem; font-size: 1rem; }
+        textarea { min-height: 80px; }
+        button { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 0.8rem 2rem; font-weight: 700; margin-top: 2rem; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #1e40af; }
+        .posts-preview { margin-top: 3rem; }
+        .post-card { background: #f1f5f9; border-radius: 10px; padding: 1rem; margin-bottom: 1.2rem; }
+        .post-card h3 { color: #2563eb; margin-bottom: 0.5rem; }
+        .post-card p { color: #334155; }
+        .post-card img { max-width: 120px; border-radius: 6px; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <h1>Adicionar/Editar Blog Updates</h1>
+        <form id="blogForm">
+            <label for="title">Título</label>
+            <input type="text" id="title" name="title" required>
+            <label for="summary">Resumo</label>
+            <textarea id="summary" name="summary" required></textarea>
+            <label for="image">Nome do arquivo da imagem (ex: Toast_4K_icon.png)</label>
+            <input type="text" id="image" name="image">
+            <label for="link">Link do artigo (opcional)</label>
+            <input type="text" id="link" name="link">
+            <button type="submit">Adicionar Post</button>
+        </form>
+        <div class="posts-preview" id="postsPreview">
+            <!-- Preview dos posts adicionados -->
+        </div>
+    </div>
+    <script>
+        // Salva posts no localStorage (apenas local, não publica)
+        const form = document.getElementById('blogForm');
+        const preview = document.getElementById('postsPreview');
+        let posts = JSON.parse(localStorage.getItem('blogUpdates') || '[]');
+
+        function renderPosts() {
+            preview.innerHTML = '';
+            posts.forEach((post, idx) => {
+                preview.innerHTML += `
+                <div class='post-card'>
+                    ${post.image ? `<img src='${post.image}' alt='${post.title}'>` : ''}
+                    <h3>${post.title}</h3>
+                    <p>${post.summary}</p>
+                    ${post.link ? `<a href='${post.link}' target='_blank'>Ler artigo</a>` : ''}
+                    <button onclick='removePost(${idx})' style='margin-top:0.7rem;background:#ef4444;'>Remover</button>
+                </div>`;
+            });
+        }
+        function removePost(idx) {
+            posts.splice(idx, 1);
+            localStorage.setItem('blogUpdates', JSON.stringify(posts));
+            renderPosts();
+        }
+        form.onsubmit = function(e) {
+            e.preventDefault();
+            const post = {
+                title: form.title.value,
+                summary: form.summary.value,
+                image: form.image.value,
+                link: form.link.value
+            };
+            posts.unshift(post);
+            localStorage.setItem('blogUpdates', JSON.stringify(posts));
+            form.reset();
+            renderPosts();
+        };
+        renderPosts();
+    </script>
+</body>
+</html>
