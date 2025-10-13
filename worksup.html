@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenToast Apps - GreenToastSoftware</title>
+    <title>WorksUP - GreenToastSoftware</title>
     <link rel="icon" type="image/png" href="Toast_4K_icon.png">
     <link rel="shortcut icon" href="Toast_4K_icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="apple-touch-icon" href="Toast_4K_icon.png">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        /* Override local do background apenas para a página WorksUP */
+        .apps-hero.worksup-hero .theme-image-bg {
+            background-image:
+                url('Theme2_colour.png'),
+                url('Theme2_colour.png'),
+                url('Theme2_colour.png'),
+                linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -59,18 +68,25 @@
             </div>
         </div>
     </nav>
-
-    <!-- Apps Hero Section -->
-    <section class="apps-hero">
+    <!-- WorksUP Hero -->
+    <section class="apps-hero worksup-hero">
         <div class="hero-background">
             <div class="theme-image-bg"></div>
             <div class="hero-overlay"></div>
         </div>
         <div class="container">
             <div class="hero-content" data-aos="fade-up">
-                <h1 class="hero-title">GreenToast Apps</h1>
-                <p class="hero-subtitle">Discover our innovative applications designed to enhance your digital experience</p>
+                <h1 class="hero-title" aria-label="WorksUP">
+                    <img src="WorksUP_icon.png" alt="WorksUP" style="max-width: 600px; width: 80vw; height: auto; display: inline-block;" onerror="this.src='Toast_4K_icon.png'">
+                </h1>
+                <p class="hero-subtitle">Learning has never been so easy!</p>
             </div>
+        </div>
+        <div class="scroll-indicator" style="color: #fff;" data-aos="bounce" data-aos-delay="1000">
+            <div class="mouse" style="border: 2px solid #fff;">
+                <div class="wheel" style="border: 2px solid #fff;"></div>
+            </div>
+            <span>Discover More</span>
         </div>
     </section>
 
@@ -86,94 +102,77 @@
                     <div class="service-icon">
                         <img src="SPE_icon.png" alt="SPE Icon" class="service-icon-image" onerror="this.src='SPE_icon.png'">
                     </div>
-                    <h3>Systems Programs Easier®</h3>
-                    <p>SPE 4 and 5 series represents a milestone in our journey to transform the digital world into an accessible and inclusive space.</p>
+                    <h3>WorksUP Programmation Pack®</h3>
+                    <p>Pseudocode Editor and FlowChart Maker, all in one!</p>
                     <ul class="service-features">
                         <li>Easy use</li>
                         <li>Intuitive navigation</li>
-                        <li>Modern design with ToastUI 3.2</li>
-                    </ul>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">
-                        <img src="GreenPC Info_icon.png" alt="GreenPC Info Icon" class="service-icon-image" onerror="this.src='GreenPC Info_icon.png'">
-                    </div>
-                    <h3>GreenPC Info</h3>
-                    <p>Get more informations of your PC! GreenPC Info are included a Task Manager, a Component Check and a Driver Monitor!</p>
-                    <ul class="service-features">
-                        <li>Driver Monitor</li>
-                        <li>Task Manager</li>
-                        <li>Component Check</li>
-                    </ul>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-icon">
-                        <img src="Key_icon.png" alt="GreenPassKey Icon" class="service-icon-image" onerror="this.src='GreenPassKey_icon.png'">
-                    </div>
-                    <h3>GreenPassKey</h3>
-                    <p>Store all your passing words safely, easy and accessible.</p>
-                    <ul class="service-features">
-                        <li>High Security</li>
-                        <li>Easy Access</li>
-                        <li>Fast and intuitive</li>
+                        <li>Modern design with Toast AURA UI</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
+    
+
+
+    <!-- FAQ -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 data-aos="fade-up">FAQ</h2>
+            <div class="faq-container">
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                    <div class="faq-question">
+                        <h3>Is WorksUP free?</h3>
+                        <div class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer"><p>Yes, because everyone has the same right to learn. Let's make the world better together!</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="nav-logo">
+                <div class="footer-brand"><div class="nav-logo">
                         <img src="Toast_4K_icon.png" 
                              alt="Toast Icon" 
-                             class="nav-logo-icon" 
-                             onerror="this.src='Toast_4K_icon.png'">
-                        <span class="logo-text">GreenToastSoftware</span>
-                        <span class="logo-dot"></span>
+                             class="nav-logo-icon"
+                             onerror="this.src='Toast_4K_icon.png';">
+                        <span class="logo-text">©GreenToastSoftware Corporation</span>
                     </div>
-                    <p class="footer-description">
-                        Innovating for a better digital future.
-                    </p>
+                    <p>Imagining a technological future for everyone®</p>
                 </div>
                 <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Products</h4>
-                        <ul>
-                            <li><a href="GreenToast Apps.html">GreenToast Apps</a></li>
-                            <li><a href="#">Systems Programs Easier®</a></li>
-                            <li><a href="#">GreenPC Info</a></li>
-                            <li><a href="#">GreenPassKey</a></li>
-                        </ul>
-                    </div>
+                    <a href="index.html">Home</a>
+                    <a href="index.html#innovation">Innovation</a>
+                    <a href="index.html#services">Services</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 GreenToastSoftware. All rights reserved.</p>
+                <p>&copy;GreenToastSoftware. All rights reserved 2020-2025.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+        // Initialize AOS
         AOS.init({
             duration: 800,
             offset: 100,
             once: true
         });
 
-        // Mobile menu toggle
+        // Mobile Menu Toggle
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
 
@@ -182,23 +181,35 @@
             navMenu.classList.toggle('active');
         });
 
-        // Close mobile menu when clicking on nav link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+
+        // FAQ toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('.faq-question');
+                if (question) {
+                    question.addEventListener('click', () => {
+                        item.classList.toggle('active');
+                    });
+                }
             });
         });
 
-        // Service cards animation
-        const serviceCards = document.querySelectorAll('.service-card');
-        serviceCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
     </script>
