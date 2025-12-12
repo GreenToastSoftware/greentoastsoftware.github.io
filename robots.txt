@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://greentoastsoftware.github.io/sitemap.xml
