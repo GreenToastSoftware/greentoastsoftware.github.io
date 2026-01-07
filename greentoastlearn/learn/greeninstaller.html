@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn GreenInstaller - GreenToastSoftware</title>
+  <link rel="icon" type="image/png" href="../../Toast_4K_icon.png">
+  <link rel="apple-touch-icon" href="../../Toast_4K_icon.png">
+  <link rel="stylesheet" href="../../styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" data-aos="fade-down">
+    <div class="nav-container">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Toast_4K_icon.png" alt="Toast Icon" class="nav-logo-icon" onerror="this.src='../../Toast_4K_icon.png'">
+        <span class="logo-text">GreenToastSoftware</span>
+        <span class="logo-dot"></span>
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="../../index.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="../../index.html#innovation" class="nav-link">
+            Innovation
+            <span class="dropdown-arrow">▾</span>
+          </a>
+          <div class="dropdown-content">
+            <a href="../../GreenToast Apps.html" class="dropdown-link">
+              <span class="dropdown-text">GreenToast Apps</span>
+            </a>
+            <a href="../../greentoastinsider_blog.html" class="dropdown-link">
+              <span class="dropdown-text">GreenInsider Blog</span>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="../../worksup.html" class="nav-link">WorksUP</a>
+        </li>
+        <li class="nav-item">
+          <a href="../../index.html#services" class="nav-link">Services</a>
+        </li>
+        <li class="nav-item">
+          <a href="../../about.html" class="nav-link">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a href="../../contact.html" class="nav-link">Contact Us</a>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height: 60vh; margin-top: 80px;">
+    <div class="hero-background">
+      <div class="theme-image-bg"></div>
+    </div>
+    <div class="container" style="position: relative; z-index: 4;">
+      <div class="intro-grid solo">
+        <div>
+          <h1 class="hero-title gradient-text">Learn GreenInstaller</h1>
+          <p style="margin-top:.75rem; color: var(--gray-200); max-width:760px;">
+            Master the installation process with GreenInstaller, the powerful tool that simplifies deploying GreenToast applications.
+            This guide covers step-by-step installation instructions, troubleshooting tips, and best practices to ensure a smooth setup experience.
+          </p>
+          <div style="margin-top:1rem;">
+            <a class="quick-link" href="../index.html">← Back to GreenToast Learn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="padding: 2rem 0 4rem;">
+    <!-- O que é GreenInstaller -->
+    <section style="margin-bottom: 3rem;">
+      <h2 style="margin-bottom: 1rem; color: var(--gray-900);">What is GreenInstaller?</h2>
+      <p style="color: var(--gray-600); max-width: 800px; line-height: 1.8;">
+        <strong>GreenInstaller</strong> is the core installation and deployment feature for GreenToast applications.
+        It manages the entire lifecycle: from requirements checks, through installation and initial setup,
+        to validation and troubleshooting. It can be used for single installs, batch installs, or fully automated via scripts.
+      </p>
+    </section>
+
+    <!-- Etapas de Instalação -->
+    <section style="margin-bottom: 3rem;">
+      <h3 style="margin-bottom: 1.5rem; color: var(--gray-900);">Installation Steps</h3>
+      
+      <!-- Passo 1 -->
+      <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">1</div>
+          <div style="flex: 1;">
+            <h4 style="margin-bottom: 0.5rem; color: var(--gray-900);">Download and Preparation</h4>
+            <p style="color: var(--gray-600); margin-bottom: 0.75rem;">
+              Download GreenInstaller from the official portal or each app's page.
+              Save it to an accessible folder and unzip.
+            </p>
+            <code style="background: #f1f5f9; padding: 0.5rem 1rem; border-radius: 8px; color: var(--gray-800); font-size: 0.9rem;">
+              _App Name_[PACKAGE INSTALLER] (v0.0.0).zip
+            </code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 2 -->
+      <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">2</div>
+          <div style="flex: 1;">
+            <h4 style="margin-bottom: 0.5rem; color: var(--gray-900);">Run the Installer</h4>
+            <p style="color: var(--gray-600); margin-bottom: 0.75rem;">
+              Double-click the GreenInstaller shourtcut to start the installation wizard.
+              If prompted, confirm privilege elevation (UAC) to proceed.
+            </p>
+            <p style="color: var(--gray-500); font-size: 0.9rem;">
+              ⚠️ Ensure no other installer is running.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 3 -->
+      <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--tertiary-color) 0%, var(--primary-color) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">3</div>
+          <div style="flex: 1;">
+            <h4 style="margin-bottom: 0.5rem; color: var(--gray-900);">Requirements Check</h4>
+            <p style="color: var(--gray-600); margin-bottom: 0.75rem;">
+              GreenInstaller checks your system for:
+            </p>
+            <ul style="list-style: none; display: grid; gap: 0.5rem; color: var(--gray-600); padding-left: 1rem;">
+              <li>• Available disk space</li>
+              <li>• Compatible OS version</li>
+              <li>• Free network ports</li>
+              <li>• Required system dependencies installed</li>
+            </ul>
+            <p style="color: var(--gray-500); font-size: 0.9rem; margin-top: 0.75rem;">
+              If a requirement is not met, you'll see a warning with remediation instructions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 4 -->
+      <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; background: #06b6d4; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">4</div>
+          <div style="flex: 1;">
+            <h4 style="margin-bottom: 0.5rem; color: var(--gray-900);">Start Installation and Terms and Conditions</h4>
+            <p style="color: var(--gray-600); margin-bottom: 0.75rem;">
+              First, click the "Install" button to start the installation process.
+              Then read and accept the Terms and Conditions to continue.
+            </p>
+            <ul style="list-style: none; display: grid; gap: 0.5rem; color: var(--gray-600); padding-left: 1rem;">
+              <li>• Click the "Install" button</li>
+              <li>• Accept the Terms and Conditions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 5 -->
+      <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; background: #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">5</div>
+          <div style="flex: 1;">
+            <h4 style="margin-bottom: 0.5rem; color: var(--gray-900);">Installation in Progress</h4>
+            <p style="color: var(--gray-600); margin-bottom: 0.75rem;">
+              The installer will install the application, showing a progress bar and status messages.
+              Do not close the installer until it completes.
+            </p>
+            <p style="color: var(--gray-500); font-size: 0.9rem;">
+              ⏱️ Estimated time: 0-1 minutes, depending on how the application size and system performance.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 6 -->
+      <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">6</div>
+          <div style="flex: 1;">
+            <h4 style="margin-bottom: 0.5rem; color: var(--gray-900);">Completion and Verification</h4>
+            <p style="color: var(--gray-600); margin-bottom: 0.75rem;">
+              When installation finishes, the installer will show a success message.
+              You can then:
+            </p>
+            <ul style="list-style: none; display: grid; gap: 0.5rem; color: var(--gray-600); padding-left: 1rem;">
+              <li>✓ Launch the app immediately</li>
+              <li>✓ Close the installer</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resolução de Problemas -->
+    <section style="margin-bottom: 3rem;">
+      <h3 style="margin-bottom: 1rem; color: var(--gray-900);">Troubleshooting</h3>
+      
+      <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h4 style="margin-bottom: 0.5rem; color: #92400e;">❌ Error: "Windows Defender"</h4>
+        <p style="color: #78350f; margin-bottom: 0.75rem;">
+          Windows Defender SmartScreen may block the installer, flagging it as unrecognized.
+        </p>
+        <p style="color: #92400e; font-weight: 500;">Solution:</p>
+        <ul style="list-style: none; padding-left: 1rem; color: #78350f;">
+          <li>1. Temporarily disable Windows Defender SmartScreen</li>
+          <li>2. Add the installer to the exclusion list</li>
+          <li>3. Run the installer again</li>
+        </ul>
+      </div>
+
+      <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1.5rem; border-radius: 8px;">
+        <h4 style="margin-bottom: 0.5rem; color: #1e3a8a;">❌ Error: "Administrator privileges required"</h4>
+        <p style="color: #1e40af; margin-bottom: 0.75rem;">
+          The installer requires administrator permissions to proceed.
+        </p>
+        <p style="color: #1e3a8a; font-weight: 500;">Solution:</p>
+        <ul style="list-style: none; padding-left: 1rem; color: #1e40af;">
+          <li>1. Right-click the installer</li>
+          <li>2. Select "Run as administrator"</li>
+          <li>3. Confirm the User Account Control (UAC) prompt</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- Recursos Úteis -->
+    <section>
+      <h3 style="margin-bottom: 1rem;">Useful Resources</h3>
+      <div class="quick-links" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+        <a class="quick-link" href="../../GreenToast Apps.html">Available Apps</a>
+        <a class="quick-link" href="../../contact.html">Technical Support</a>
+        <a class="quick-link" href="../../greentoastinsider_blog.html">Blog & News</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../../script.js"></script>
+</body>
+</html>
