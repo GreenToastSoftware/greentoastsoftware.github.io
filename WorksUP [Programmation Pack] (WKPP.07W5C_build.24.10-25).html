@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <meta charset="UTF-8">
-    <title>SPE 5.0 (08.W.9C_build.29.03/25) - GreenToast Insider Blog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorksUP [Programmation Pack] (WKPP.07W5C_build.24.10/25) - GreenToast Insider Blog</title>
     <link rel="icon" type="image/png" href="Toast_4K_icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #f8fafc; font-family: Inter, Arial, sans-serif; }
+  body { background: #f8fafc; font-family: Inter, Arial, sans-serif; overflow-x: hidden; }
         .blog-header {
             background: #fff;
             border-bottom: 1px solid #e5e7eb;
@@ -28,6 +29,32 @@
             font-weight: 700;
             color: #2563eb;
             margin: 0;
+        }
+        .blog-main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 0 1rem;
+        }
+        .blog-featured {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+            padding: 2rem 2rem 2.5rem 2rem;
+            margin-bottom: 3rem;
+        }
+        .blog-featured .post-image {
+            width: 100%;
+            max-height: 340px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+            margin-bottom: 2rem;
+        }
+        .blog-featured .post-title {
+            font-size: 2rem;
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
         .blog-featured .post-meta {
             color: #64748b;
@@ -250,6 +277,13 @@
     margin-bottom: 2rem;
   }
 }
+@media (max-width: 600px) {
+  .insider-title { font-size: 2rem; margin-bottom: 1.5rem; }
+  .insider-main { padding: 5rem 0.8rem 1.5rem 0.8rem; }
+  .insider-content { font-size: 1.05rem; }
+  .insider-content h2 { font-size: 1.25rem; }
+  .insider-content h3 { font-size: 1.1rem; }
+}
 .navbar {
     position: fixed;
     top: 0;
@@ -308,9 +342,15 @@
       border-radius: 3px;
       transition: transform 0.25s ease, opacity 0.25s ease, background 0.2s ease;
     }
-    .hamburger.open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .hamburger.open .bar:nth-child(2) { opacity: 0; }
-    .hamburger.open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .hamburger.open .bar:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+    .hamburger.open .bar:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open .bar:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
 .nav-link {
     color: #334155;
     text-decoration: none;
@@ -387,18 +427,26 @@
     width: 100%;
 }
 @media (max-width: 900px) {
-    .nav-container { flex-direction: row; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; position: relative; }
-    .hamburger { display: flex; margin-left: 0.5rem; }
-    .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; width: 100%; flex-direction: column; gap: 0; margin-top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0,0,0,0.06); padding: 0.5rem 1rem 0.8rem; z-index: 1002; }
-    .nav-menu.open { display: flex; }
-    .dropdown-content { position: static; box-shadow: none; min-width: 100%; border-radius: 0; }
-}
-@media (max-width: 600px) {
-  .insider-title { font-size: 2rem; margin-bottom: 1.5rem; }
-  .insider-main { padding: 5rem 0.8rem 1.5rem 0.8rem; }
-  .insider-content { font-size: 1.05rem; }
-  .insider-content h2 { font-size: 1.25rem; }
-  .insider-content h3 { font-size: 1.1rem; }
+  .nav-container { flex-direction: row; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; position: relative; }
+  .hamburger { display: flex; margin-left: 0.5rem; }
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 0;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    padding: 0.5rem 1rem 0.8rem;
+    z-index: 1002;
+  }
+  .nav-menu.open { display: flex; }
+  .dropdown-content { position: static; box-shadow: none; min-width: 100%; border-radius: 0; }
 }
 .nav-logo-icon {
     width: 38px;
@@ -503,47 +551,74 @@
 </nav>
 
 <main class="insider-main">
-  <h1 class="insider-title">SPE 5.0 (08.W.9C_build.29.03/25) PRE-BETA</h1>
+  <h1 class="insider-title">WorksUP [Programmation Pack] (WKPP.07W5C_build.24.10/25) BETA</h1>
   <div class="insider-grid">
     <aside class="insider-meta">
-      <div class="meta-label">Written by</div>
-      <div class="meta-author">Alfredo Silva</div>
-      <div class="meta-label">Published</div>
-      <div class="meta-date">March 25, 2025</div>
-      <div class="meta-label">Version</div>
-      <div class="meta-version">SPE 5.0 PRE-BETA</div>
+          <div class="meta-label">Written by</div>
+          <div class="meta-author">Alfredo Silva</div>
+          <div class="meta-label">Published</div>
+          <div class="meta-date">October 24, 2025</div>
+          <div class="meta-label">Version</div>
+          <div class="meta-version">WorksUP [Programmation Pack] (WKPP.07W5C_build.24.10/25) BETA</div>
     </aside>
     <article class="insider-content">
-      <p>Hello SPE INSIDERS, today we are launching <b> SPE 5.0 (08.W.9C_build.29.03/25) PRE-BETA</b> for all users! </p>
-      <p> News and improvements are organized in two areas: resources and corrections.Follow below the main changes of this version. </p>
-      <H2> New features gradually released </h2>
-      <p>This update brings a lot of bug repair and performance improvements, but also new features!</p>
-      <h3 style="font-size:2rem; font-weight:600;">- New SPE Terminal</h3>
+      <p>Hello WorksUP INSIDERS, today we are launching the second INSIDER VERSION of our new app! And we are launching<b> WorksUP [Programmation Pack] (v0.1.2_WKPP.07W5C_build.24.10/25) BETA</b> for all users! </p>
+      <H2>DISCLAIMER: This version has only Portuguese(Portugal) language, we are working on adding more languages in the future!</h2>
+      <p>WorksUP [Programmation Pack] comes with a lot new features!</p>
+      <h3 style="font-size:2rem; font-weight:600;">- C Editor</h3>
       <p>New functionality:</p>
       <figure>
-        <img src="Captura de ecrã 2025-05-22 221356.png" alt="Nova tela inicial SPE 5" class="insider-img">
-        <figcaption class="insider-caption">Main Commands of SPE Terminal</figcaption>
+        <a href="Captura de ecrã 2025-10-20 142454.png" target="_blank" rel="noopener">
+          <img src="Captura de ecrã 2025-10-20 142454.png" alt="Tela C Editor" class="insider-img" style="cursor: pointer;">
+        </a>
+        <figcaption class="insider-caption">C Editor interface</figcaption>
       </figure>
-      <p style="font-size:2rem; font-weight:600;">Introducing the SPE Terminal...</p>
-      <p>The SPE Terminal is designed for developers and the GreenToastSoftware testing team, where there are commands for certain functions:</p>
-<div style="line-height:1.3; font-weight:600;">
-  <p>&gt; help: indicates all commands</p>
-  <p>&gt; open: opens certain hidden dialogs and pages</p>
-  <p>&gt; clear: clears the terminal screen</p>
-  <p>&gt; close: closes the terminal</p>
-  <p>&gt; exit: closes the SPE completely.</p>
-  
-</div>
-      <h3>Extended support for screen readers</h3>
-      <p>SPE now offers total compatibility with screen readers, making the system more accessible to everyone.</p>
-      <figure>
-        <img src="Captura de ecrã 2025-05-22 221906.png" alt="Acessibilidade SPE 5" class="insider-img">
-        <figcaption class="insider-caption">Improved accessibility in SPE 5.</figcaption>
-      </figure>
+      <p style="font-size:2rem; font-weight:600;">Introducing the C Editor...</p>
+      <p>The C Editor is a powerful tool for transforming your ideas into structured code. C Editor allows you to create and edit C code easily.</p>
+      <ul>
+        <li>Smart Code Compilator</li>
+        <li>Code Suggestions</li>
+        <li>Easy C Code Export</li>
+      </ul>
+      <p style="font-size:2rem; font-weight:600;">.C file format...</p>
+      <p>The .c file format is designed specifically for the C Editor, allowing you to save and share your codes easily.</p>
+      <ul>
+        <li>Secure file format</li>
+        <li>Notepad compatibility</li>
+      </ul>
+      <h3 style="font-size:2rem; font-weight:600;">Repaired Issues:</h3>
+      <ul>
+        <li>Monaco Editor freezing</li>
+        <li>File saving errors</li>
+        <li>Appearance glitches</li>
+        <li>PseudoCode Editor crashes</li>
+        <li>Tab System issues</li>
+      </ul>
+      <h3 style="font-size:2rem; font-weight:600;">Known Issues:</h3>
+      <ul>
+        <li>Compilator with issues with rendering</li>
+        <li>Memory leaks</li>
+        <li>Slow C Compilator (minGW64_x64)</li>
+        <li>Visual/Rendering UI glitches</li>
+      </ul>
+      <h3 style="font-size:2rem; font-weight:600;">Planned Features:</h3>
+      <ul>
+        <li>Multi-functions C editor</li>
+        <li>PseudoCode language better</li>
+        <li>IntelliSense integration</li>
+        <li>FlowCharts file integration</li>
+        <li>GreenToast Accounts</li>
+        <li>WorksUP Online Editor</li>
+
+        
+      
       <H3> How to obtain new features?</h3>
 <OL>
-<li> Install the new version of SPE from GitHub</li>
+<li> Install the new version of WorksUP [Programmation Pack] (v0.1.2_WKPP.07W5C_build.24.10/25) BETA from GitHub</li>
 </ol>
+<div style="margin-top: 0.5rem; padding: 12px; border-radius: 8px; background: #fff3cd; color: #664d03; border: 1px solid #ffecb5;" role="note" aria-label="Atenção: mudança na instalação">
+  <strong>Attention:</strong> The installation method has been changed.<a href="greentoastlearn/learn/greeninstaller.html" style="color: #664d03; font-weight: 600; text-decoration: underline;">Click here to see updated instructions</a> before installing.
+</div>
 <P> Keep following the blog for more news and tips!</p>
     </article>
   </div>
@@ -552,12 +627,12 @@
 <div class="specs-card">
   <h2 class="specs-title">Technical specifications</h2>
   <div class="specs-list">
-    <p><b>Version:</b> SPE 5.0 VERSION (06.Y.7b-build.18.12/24)</p>
-    <p><b>Release date:</b> 25/03/2025 (EUROPEAN DATE)</p>
-    <p><b>Languages:</b> English</p>
-    <p><b>App size:</b> 0,51MB</p>
+    <p><b>Version:</b> WorksUP [Programmation Pack] (v0.1.2_WKPP.07W5C_build.24.10/25)</p>
+    <p><b>Release date:</b> 24/10/2025 (EUROPEAN DATE)</p>
+    <p><b>Languages:</b> Portuguese</p>
+    <p><b>App size:</b> 42,2MB</p>
   </div>
-  <a href="https://github.com/AlfredoProgramer/SPE-4.X/releases/tag/SPE_5.0_08.W.9c-build.29.03.25" class="specs-download" target="_blank" rel="noopener">Download SPE 5.0 VERSION (08.W.9C_build.29.03/25)</a>
+  <a href="https://github.com/GreenToastSoftware/WorksUP-series/releases/tag/v0.1.2" class="specs-download" target="_blank" rel="noopener">Download WorksUP [Programmation Pack] (v0.1.2_WKPP.07W5C_build.24.10/25)</a>
 </div>
 
 <style>
@@ -605,27 +680,69 @@
 .specs-download:hover {
   background: #2563eb;
 }
+@media (max-width: 600px) {
+  .specs-card { padding: 1.5rem 1rem; margin: 2rem 0.5rem; }
+  .specs-title { font-size: 1.6rem; margin-bottom: 1rem; }
+  .specs-list { font-size: 1.05rem; }
+  .specs-download { font-size: 1rem; padding: 0.8rem 1rem; }
+}
 </style>
 
 <script>
-// Dropdown fix: mantém aberto enquanto mouse está sobre o botão ou menu
+// Acessibilidade e responsividade do menu e dropdown
+const navMenu = document.querySelector('.nav-menu');
+const hamburger = document.querySelector('.hamburger');
 const dropdown = document.querySelector('.dropdown');
-const dropdownContent = dropdown.querySelector('.dropdown-content');
+const dropdownContent = dropdown?.querySelector('.dropdown-content');
 let dropdownTimeout;
 
+// Toggle menu mobile
+hamburger?.addEventListener('click', () => {
+  navMenu?.classList.toggle('open');
+  hamburger.classList.toggle('open');
+});
+
+// Dropdown: mantém aberto em hover (desktop) e alterna em click (mobile)
 function showDropdown() {
+  if (!dropdownContent) return;
   clearTimeout(dropdownTimeout);
   dropdownContent.style.display = 'block';
 }
 function hideDropdown() {
+  if (!dropdownContent) return;
   dropdownTimeout = setTimeout(() => {
     dropdownContent.style.display = 'none';
   }, 180);
 }
-dropdown.addEventListener('mouseenter', showDropdown);
-dropdown.addEventListener('mouseleave', hideDropdown);
-dropdownContent.addEventListener('mouseenter', showDropdown);
-dropdownContent.addEventListener('mouseleave', hideDropdown);
+if (dropdown && dropdownContent) {
+  // Hover para desktop
+  dropdown.addEventListener('mouseenter', showDropdown);
+  dropdown.addEventListener('mouseleave', hideDropdown);
+  dropdownContent.addEventListener('mouseenter', showDropdown);
+  dropdownContent.addEventListener('mouseleave', hideDropdown);
+  // Click/touch para mobile
+  dropdown.querySelector('a.nav-link')?.addEventListener('click', (e) => {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (isMobile) {
+      e.preventDefault();
+      if (dropdownContent.style.display === 'block') {
+        hideDropdown();
+      } else {
+        showDropdown();
+      }
+    }
+  });
+}
+
+// Fechar menu ao clicar fora (mobile)
+document.addEventListener('click', (e) => {
+  const within = e.target.closest('.navbar');
+  if (!within) {
+    navMenu?.classList.remove('open');
+    hamburger?.classList.remove('open');
+    if (dropdownContent) dropdownContent.style.display = 'none';
+  }
+});
 </script>
 </body>
 </html>

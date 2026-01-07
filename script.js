@@ -1,11 +1,13 @@
 // Initialize AOS (Animate On Scroll)
 document.addEventListener('DOMContentLoaded', function() {
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        offset: 100
-    });
+    if (window.AOS && typeof window.AOS.init === 'function') {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+    }
 });
 
 // Mobile menu toggle
@@ -261,7 +263,8 @@ window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     const shapes = document.querySelectorAll('.shape');
     
-    if (hero) {
+    // Only apply parallax on homepage (hero without margin-top)
+    if (hero && !hero.style.marginTop) {
         hero.style.transform = `translateY(${scrolled * 0.5}px)`;
     }
     
@@ -399,3 +402,33 @@ window.addEventListener('load', () => {
     
     document.head.appendChild(loadingStyle);
 });
+
+    // Learn: busca e filtro de categorias
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('learnSearch');
+        const cards = document.querySelectorAll('.learn-card');
+        const chips = document.querySelectorAll('.chip');
+
+        if (!searchInput || cards.length === 0) return;
+
+        const applyFilter = () => {
+            const q = searchInput.value.toLowerCase().trim();
+            const activeChip = document.querySelector('.chip.active');
+            const activeCat = activeChip ? activeChip.dataset.category : 'all';
+
+            cards.forEach(card => {
+                const matchesText = card.textContent.toLowerCase().includes(q);
+                const matchesCat = activeCat === 'all' || card.dataset.category === activeCat;
+                card.style.display = (matchesText && matchesCat) ? '' : 'none';
+            });
+        };
+
+        searchInput.addEventListener('input', applyFilter);
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                applyFilter();
+            });
+        });
+    });

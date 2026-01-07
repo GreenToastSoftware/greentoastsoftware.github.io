@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPE 5.0 (08.W.7C-build.23.05/25) - GreenToast Insider Blog</title>
     <link rel="icon" type="image/png" href="Toast_4K_icon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { background: #f8fafc; font-family: Inter, Arial, sans-serif; }
+          <a href="greentoastinsider_blog.html" class="dropdown-link">
+  <style>
+    body { background: #f8fafc; font-family: Inter, Arial, sans-serif; overflow-x: hidden; }
         .blog-header {
             background: #fff;
             border-bottom: 1px solid #e5e7eb;
@@ -277,6 +277,13 @@
     margin-bottom: 2rem;
   }
 }
+@media (max-width: 600px) {
+  .insider-title { font-size: 2rem; margin-bottom: 1.5rem; }
+  .insider-main { padding: 5rem 0.8rem 1.5rem 0.8rem; }
+  .insider-content { font-size: 1.05rem; }
+  .insider-content h2 { font-size: 1.25rem; }
+  .insider-content h3 { font-size: 1.1rem; }
+}
 .navbar {
     position: fixed;
     top: 0;
@@ -316,6 +323,28 @@
     margin: 0;
     padding: 0;
 }
+    .hamburger {
+      display: none;
+      width: 36px;
+      height: 28px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+    }
+    .hamburger .bar {
+      width: 26px;
+      height: 3px;
+      background: #334155;
+      border-radius: 3px;
+      transition: transform 0.25s ease, opacity 0.25s ease, background 0.2s ease;
+    }
+    .hamburger.open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open .bar:nth-child(2) { opacity: 0; }
+    .hamburger.open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 .nav-link {
     color: #334155;
     text-decoration: none;
@@ -392,10 +421,11 @@
     width: 100%;
 }
 @media (max-width: 900px) {
-    .nav-container { flex-direction: column; align-items: flex-start; }
-    .nav-menu { flex-direction: column; gap: 1rem; margin-top: 1rem; }
-    .hamburger { display: flex; }
-    .dropdown-content { position: static; box-shadow: none; min-width: 100%; border-radius: 0; }
+  .nav-container { flex-direction: row; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; position: relative; }
+  .hamburger { display: flex; margin-left: 0.5rem; }
+  .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; width: 100%; flex-direction: column; gap: 0; margin-top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0,0,0,0.06); padding: 0.5rem 1rem 0.8rem; z-index: 1002; }
+  .nav-menu.open { display: flex; }
+  .dropdown-content { position: static; box-shadow: none; min-width: 100%; border-radius: 0; }
 }
 .nav-logo-icon {
     width: 38px;
@@ -465,10 +495,10 @@
         </a>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="#home" class="nav-link">Home</a>
+                <a href="index.html#home" class="nav-link">Home</a>
             </li>
             <li class="nav-item dropdown" tabindex="0">
-                <a href="#innovation" class="nav-link">
+                <a href="index.html#innovation" class="nav-link">
                     Innovation
                     <span class="dropdown-arrow">▾</span>
                 </a>
@@ -476,13 +506,13 @@
                     <a href="GreenToast Apps.html" class="dropdown-link">
                         <span class="dropdown-text">GreenToast Apps</span>
                     </a>
-                    <a href="SPE_blog.html" class="dropdown-link">
-                        <span class="dropdown-text">SPE Blog</span>
+                    <a href="greentoastinsider_blog.html" class="dropdown-link">
+                        <span class="dropdown-text">GreenInsider Blog</span>
                     </a>
                 </div>
             </li>
             <li class="nav-item">
-                <a href="#services" class="nav-link">Services</a>
+                <a href="index.html#services" class="nav-link">Services</a>
             </li>
             <li class="nav-item">
                 <a href="about.html" class="nav-link">About Us</a>
@@ -503,11 +533,11 @@
   <h1 class="insider-title">SPE 5.0 (08.W.7C-build.23.05/25) BETA</h1>
   <div class="insider-grid">
     <aside class="insider-meta">
-      <div class="meta-label">Written by </div>
-    <Div Class = "Meta-Author"> Alfredo Silva </div>
-    <div class = "meta-label"> Published </div>
-    <Div Class = "Meta-Date"> Mai 24, 2025 </div>
-    <div class = "meta-label"> version </div>
+      <div class="meta-label">Written by</div>
+      <div class="meta-author">Alfredo Silva</div>
+      <div class="meta-label">Published</div>
+      <div class="meta-date">Mai 24, 2025</div>
+      <div class="meta-label">Version</div>
       <div class="meta-version">SPE 5.0 BETA</div>
     </aside>
     <article class="insider-content">
@@ -616,24 +646,55 @@
 </style>
 
 <script>
-// Dropdown fix: mantém aberto enquanto mouse está sobre o botão ou menu
+// Menu móvel e dropdown híbrido
+const navMenu = document.querySelector('.nav-menu');
+const hamburger = document.querySelector('.hamburger');
 const dropdown = document.querySelector('.dropdown');
-const dropdownContent = dropdown.querySelector('.dropdown-content');
+const dropdownContent = dropdown?.querySelector('.dropdown-content');
 let dropdownTimeout;
 
+hamburger?.addEventListener('click', () => {
+  navMenu?.classList.toggle('open');
+  hamburger.classList.toggle('open');
+});
+
 function showDropdown() {
+  if (!dropdownContent) return;
   clearTimeout(dropdownTimeout);
   dropdownContent.style.display = 'block';
 }
 function hideDropdown() {
+  if (!dropdownContent) return;
   dropdownTimeout = setTimeout(() => {
     dropdownContent.style.display = 'none';
   }, 180);
 }
-dropdown.addEventListener('mouseenter', showDropdown);
-dropdown.addEventListener('mouseleave', hideDropdown);
-dropdownContent.addEventListener('mouseenter', showDropdown);
-dropdownContent.addEventListener('mouseleave', hideDropdown);
+if (dropdown && dropdownContent) {
+  dropdown.addEventListener('mouseenter', showDropdown);
+  dropdown.addEventListener('mouseleave', hideDropdown);
+  dropdownContent.addEventListener('mouseenter', showDropdown);
+  dropdownContent.addEventListener('mouseleave', hideDropdown);
+  dropdown.querySelector('a.nav-link')?.addEventListener('click', (e) => {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (isMobile) {
+      e.preventDefault();
+      if (dropdownContent.style.display === 'block') {
+        hideDropdown();
+      } else {
+        showDropdown();
+      }
+    }
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const within = e.target.closest('.navbar');
+  if (!within) {
+    navMenu?.classList.remove('open');
+    hamburger?.classList.remove('open');
+    if (dropdownContent) dropdownContent.style.display = 'none';
+  }
+});
 </script>
 </body>
 </html>

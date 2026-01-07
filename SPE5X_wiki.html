@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorksUP - GreenToastSoftware</title>
+    <title>SPE 5X WIKI - GreenToastSoftware</title>
     <link rel="icon" type="image/png" href="Toast_4K_icon.png">
     <link rel="apple-touch-icon" href="Toast_4K_icon.png">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <style>
-        /* Override local do background apenas para a página WorksUP */
-        .apps-hero.worksup-hero .theme-image-bg {
-            background-image:
-                url('Theme2_colour.png'),
-                url('Theme2_colour.png'),
-                url('Theme2_colour.png'),
-                linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+        /* Override local do background apenas para a página SPE WIKI */
+        .apps-hero.spe-hero .theme-image-bg {
+            background-image: url('Theme_colour.png');
+        }
+    </style>
+    <style>
+        /* Temas dos cards: substitui gradientes por cores/imagens de tema */
+        .service-card.card-theme1::before {
+            background: url('Theme_colour.png') center/cover no-repeat !important;
+        }
+        .service-card.card-theme2::before {
+            background: url('Theme2_colour.png') center/cover no-repeat !important;
+        }
+        .service-card.card-theme1 .service-icon {
+            background: url('Theme_colour.png') center/cover no-repeat !important;
+        }
+        .service-card.card-theme2 .service-icon {
+            background: url('Theme2_colour.png') center/cover no-repeat !important;
         }
     </style>
 </head>
@@ -67,8 +78,8 @@
             </div>
         </div>
     </nav>
-    <!-- WorksUP Hero -->
-    <section class="apps-hero worksup-hero">
+    <!-- SPE WIKI Hero -->
+    <section class="apps-hero spe-hero">
         <div class="hero-background">
             <div class="theme-image-bg"></div>
             <div class="hero-overlay"></div>
@@ -76,9 +87,9 @@
         <div class="container">
             <div class="hero-content" data-aos="fade-up">
                 <h1 class="hero-title" aria-label="WorksUP">
-                    <img src="WorksUP_icon.png" alt="WorksUP" style="max-width: 600px; width: 80vw; height: auto; display: inline-block;" onerror="this.src='Toast_4K_icon.png'">
+                    <img src="SPE_logo_remastered.png" alt="WorksUP" style="max-width: 600px; width: 80vw; height: auto; display: inline-block;" onerror="this.src='Toast_4K_icon.png'">
                 </h1>
-                <p class="hero-subtitle">Learning has never been so easy!</p>
+                <p class="hero-subtitle">Systems Programs Easier®</p>
             </div>
         </div>
         <div class="scroll-indicator" style="color: #fff;" data-aos="bounce" data-aos-delay="1000">
@@ -93,41 +104,74 @@
     <section id="apps" class="services">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Our Applications</h2>
-                <p class="section-subtitle">Innovative solutions for your daily needs</p>
+                <h2 class="section-title">SPE 5X Series</h2>
+                <p class="section-subtitle">Click to see more!</p>
             </div>
             <div class="services-grid">
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <a class="service-card card-theme1" href="SPE50_wiki.html" aria-label="Abrir página SPE50_wiki" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-icon">
                         <img src="SPE_icon.png" alt="SPE Icon" class="service-icon-image" onerror="this.src='SPE_icon.png'">
                     </div>
-                    <h3>WorksUP Programmation Pack®</h3>
-                    <p>Pseudocode Editor and FlowChart Maker, all in one!</p>
+                    <h3>Systems Programs Easier 5.0®</h3>
+                    <p>SPE 5.0 is the best application in the world to control your PC with ease by clicking a single button! Unlock powerful hidden native ©Microsoft Windows® tools! All with the ease of just one click!</p>
                     <ul class="service-features">
                         <li>Easy use</li>
                         <li>Intuitive navigation</li>
-                        <li>Modern design with Toast AURA UI</li>
+                        <li>Modern design with ToastUI 3.2</li>
                     </ul>
-                </div>
+                </a>
+                <a class="service-card card-theme2" href="SPE5X_wiki.html" aria-label="Abrir página SPE5X_wiki" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon">
+                        <img src="SPE_icon.png" alt="SPE Icon" class="service-icon-image" onerror="this.src='SPE_icon.png'">
+                    </div>
+                    <h3>Systems Programs Easier 5.1®</h3>
+                    <p>SPE 5.1 is the best application in the world to control your PC with ease by clicking a single button! Unlock powerful hidden native ©Microsoft Windows® tools! All with the ease of just one click!</p>
+                    <ul class="service-features">
+                        <li>More Intelligent with Toast Assistence 2.0</li>
+                        <li>Super+ Intuitive navigation</li>
+                        <li>Modern design with Toast AURA UI (WinUI3)</li>
+                    </ul>
+                </a>
             </div>
         </div>
     </section>
     
 
-
-    <!-- FAQ -->
-    <section id="faq" class="faq-section">
+    <!-- FAQ Section -->
+    <section class="faq-section">
         <div class="container">
-            <h2 data-aos="fade-up">FAQ</h2>
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title gradient-text">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Find answers to the most common questions</p>
+            </div>
+
             <div class="faq-container">
-                <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="faq-question">
-                        <h3>Is WorksUP free?</h3>
+                        <h3>It is safe to use?</h3>
                         <div class="faq-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
                         </div>
                     </div>
-                    <div class="faq-answer"><p>Yes, because everyone has the same right to learn. Let's make the world better together!</p></div>
+                    <div class="faq-answer">
+                        <p>Yes, the SPE series is safe to use as the SPE works locally and does not collect personal data.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="faq-question">
+                        <h3>Which version should I choose?</h3>
+                        <div class="faq-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>SPE 5.0 is recommended for users who need basic functionality and ease of use. SPE 5.1 is ideal for those who want advanced features and enhanced performance with ©Microsoft Windows 11®.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -209,6 +253,37 @@
                         block: 'start'
                     });
                 }
+            });
+        });
+
+        // 3D Tilt Effect for Service Cards (igual ao index)
+        const speServiceCards = document.querySelectorAll('.service-card');
+        speServiceCards.forEach(card => {
+            let isAnimating = false;
+
+            card.addEventListener('mousemove', (e) => {
+                if (isAnimating) return;
+                isAnimating = true;
+                requestAnimationFrame(() => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = (y - centerY) / centerY * -12;
+                    const rotateY = (x - centerX) / centerX * 12;
+
+                    card.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                    card.style.transition = 'none';
+                    isAnimating = false;
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                card.style.transform = 'translateY(0) rotateX(0) rotateY(0) scale(1)';
             });
         });
     </script>
