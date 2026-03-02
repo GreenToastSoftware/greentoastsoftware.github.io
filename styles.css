@@ -199,6 +199,59 @@ p {
     cursor: pointer;
 }
 
+/* Ticker (texto rolante) */
+.has-ticker {
+    padding-top: 34px;
+}
+
+.ticker-bar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    background: rgba(15, 15, 35, 0.9);
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    z-index: 999;
+}
+
+.ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 22s linear infinite;
+}
+
+.ticker-content {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    white-space: nowrap;
+    padding: 0 2rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.ticker-sep {
+    opacity: 0.6;
+}
+
+@keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+        animation: none;
+        transform: translateX(0);
+    }
+}
+
 /* Navigation Dropdown */
 .nav-item.dropdown {
     position: relative;
