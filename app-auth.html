@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Sign In - GreenToastSoftware</title>
+    <link rel="icon" type="image/png" href="Toast_4K_icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="Toast_4K_icon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* App-specific styles */
+        .app-info-banner {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(46, 125, 50, 0.1));
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .app-info-banner .app-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .app-info-banner .app-details h3 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .app-info-banner .app-details p {
+            margin: 4px 0 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .auth-notice {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #3b82f6;
+            text-align: center;
+        }
+
+        .auth-notice svg {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .error-container svg {
+            width: 64px;
+            height: 64px;
+            color: #ef4444;
+            margin-bottom: 16px;
+        }
+
+        .error-container h2 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .error-container p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .success-redirect {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-redirect svg {
+            width: 64px;
+            height: 64px;
+            color: #10b981;
+            margin-bottom: 16px;
+        }
+
+        .success-redirect h2 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .success-redirect p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .redirect-spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(76, 175, 80, 0.3);
+            border-top-color: #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .open-app-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .open-app-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .manual-token {
+            margin-top: 24px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .manual-token h4 {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .manual-token code {
+            display: block;
+            background: var(--bg-tertiary);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            word-break: break-all;
+            color: var(--text-primary);
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .copy-token-btn {
+            margin-top: 8px;
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-token-btn:hover {
+            background: var(--bg-hover);
+        }
+    </style>
+</head>
+<body class="auth-page">
+    <!-- Navigation (minimal for app auth) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="Toast_4K_icon.png" alt="Toast Icon" class="nav-logo-icon">
+                <span class="logo-text">GreenToastSoftware</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Auth Container -->
+    <main class="auth-main">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Error State (no valid params) -->
+                <div id="error-state" class="error-container" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <h2>Invalid Request</h2>
+                    <p>This page requires valid app parameters. Please open this page from within a GreenToast application.</p>
+                    <a href="login.html" class="open-app-btn">Go to Regular Login</a>
+                </div>
+
+                <!-- Success State (redirect to app) -->
+                <div id="success-state" class="success-redirect" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    <h2>Sign In Successful!</h2>
+                    <p>Opening <span id="app-name-success">the app</span>...</p>
+                    <div class="redirect-spinner"></div>
+                    <br><br>
+                    <a id="open-app-link" href="#" class="open-app-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                        Open App Manually
+                    </a>
+                    <div id="manual-token-section" class="manual-token" style="display: none;">
+                        <h4>If the app doesn't open, copy this token:</h4>
+                        <code id="token-display"></code>
+                        <button class="copy-token-btn" onclick="copyToken()">Copy Token</button>
+                    </div>
+                </div>
+
+                <!-- Login Form State -->
+                <div id="login-state">
+                    <!-- Logo -->
+                    <div class="auth-logo">
+                        <img src="Toast_4K_icon.png" alt="GreenToast">
+                        <h1>GreenToast Account</h1>
+                    </div>
+
+                    <!-- App Info Banner -->
+                    <div id="app-info-banner" class="app-info-banner">
+                        <div class="app-icon" id="app-icon-letter">?</div>
+                        <div class="app-details">
+                            <h3 id="app-name-display">Unknown App</h3>
+                            <p>wants to access your GreenToast account</p>
+                        </div>
+                    </div>
+
+                    <!-- Notice -->
+                    <div class="auth-notice">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="16" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        Sign in to connect your account with the app
+                    </div>
+
+                    <!-- Tab Switcher -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="signin">Sign In</button>
+                        <button class="auth-tab" data-tab="signup">Sign Up</button>
+                    </div>
+
+                    <!-- Sign In Form -->
+                    <form id="signin-form" class="auth-form active">
+                        <div class="form-group">
+                            <label for="signin-email">Email</label>
+                            <input type="email" id="signin-email" name="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signin-password">Password</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="signin-password" name="password" placeholder="Enter your password" required>
+                                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="auth-submit-btn">
+                            <span class="btn-text">Sign In & Connect App</span>
+                            <span class="btn-loader" style="display: none;">
+                                <svg class="spinner" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="30 60"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </form>
+
+                    <!-- Sign Up Form -->
+                    <form id="signup-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <input type="text" id="signup-name" name="fullName" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" name="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="signup-password" name="password" placeholder="Create a password" required minlength="8">
+                                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-bar"><div class="strength-fill"></div></div>
+                                <span class="strength-text">Password strength</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-confirm">Confirm Password</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="signup-confirm" name="confirmPassword" placeholder="Confirm your password" required>
+                                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="agree-terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#">Terms of Service</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="auth-submit-btn">
+                            <span class="btn-text">Create Account & Connect App</span>
+                            <span class="btn-loader" style="display: none;">
+                                <svg class="spinner" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="30 60"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </form>
+
+                    <!-- Messages -->
+                    <div id="auth-message" class="auth-message"></div>
+                </div>
+            </div>
+
+            <!-- Background decoration -->
+            <div class="auth-decoration">
+                <div class="decoration-circle circle-1"></div>
+                <div class="decoration-circle circle-2"></div>
+                <div class="decoration-circle circle-3"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // ============================================
+        // App Authentication Flow
+        // ============================================
+        // URL Parameters:
+        //   - app: App identifier (e.g., "spe", "worksup")
+        //   - callback: URL scheme to redirect back (e.g., "spe://auth")
+        //   - state: Optional security state parameter
+        // ============================================
+
+        // Known apps configuration
+        const KNOWN_APPS = {
+            'spe': { name: 'SPE 5.0', icon: 'S' },
+            'worksup': { name: 'WorksUP', icon: 'W' },
+            'greeninstaller': { name: 'GreenInstaller', icon: 'G' },
+            'greentoast': { name: 'GreenToast App', icon: 'GT' }
+        };
+
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const appId = urlParams.get('app')?.toLowerCase();
+        const callbackUrl = urlParams.get('callback');
+        const stateParam = urlParams.get('state');
+
+        // Stored auth data for redirect
+        let authData = null;
+
+        // Validate parameters
+        function validateParams() {
+            if (!appId || !callbackUrl) {
+                return false;
+            }
+            // Basic URL scheme validation (allows custom schemes like "spe://")
+            if (!callbackUrl.includes('://')) {
+                return false;
+            }
+            return true;
+        }
+
+        // Initialize page based on params
+        function initializePage() {
+            if (!validateParams()) {
+                document.getElementById('login-state').style.display = 'none';
+                document.getElementById('error-state').style.display = 'block';
+                return;
+            }
+
+            // Set app info
+            const appInfo = KNOWN_APPS[appId] || { name: appId.toUpperCase(), icon: appId.charAt(0).toUpperCase() };
+            document.getElementById('app-name-display').textContent = appInfo.name;
+            document.getElementById('app-icon-letter').textContent = appInfo.icon;
+            document.title = `Sign In to ${appInfo.name} - GreenToastSoftware`;
+        }
+
+        // Build callback URL with auth data using hash fragments
+        // Format: appscheme://auth/callback#access_token=TOKEN&refresh_token=REFRESH&...
+        function buildCallbackUrl(session, user) {
+            // Build hash fragment with auth parameters
+            const params = new URLSearchParams();
+            params.set('access_token', session.access_token);
+            params.set('refresh_token', session.refresh_token);
+            params.set('expires_at', session.expires_at);
+            params.set('user_id', user.id);
+            params.set('email', user.email);
+            
+            if (user.user_metadata?.full_name) {
+                params.set('name', user.user_metadata.full_name);
+            }
+            
+            // Return state if provided
+            if (stateParam) {
+                params.set('state', stateParam);
+            }
+
+            // Append as hash fragment
+            return `${callbackUrl}#${params.toString()}`;
+        }
+
+        // Redirect to app
+        function redirectToApp(session, user) {
+            const appInfo = KNOWN_APPS[appId] || { name: appId.toUpperCase() };
+            
+            // Store auth data for manual copy
+            authData = {
+                access_token: session.access_token,
+                refresh_token: session.refresh_token,
+                expires_at: session.expires_at,
+                user_id: user.id,
+                email: user.email,
+                name: user.user_metadata?.full_name || ''
+            };
+
+            // Show success state
+            document.getElementById('login-state').style.display = 'none';
+            document.getElementById('success-state').style.display = 'block';
+            document.getElementById('app-name-success').textContent = appInfo.name;
+
+            // Build callback URL
+            const redirectUrl = buildCallbackUrl(session, user);
+            document.getElementById('open-app-link').href = redirectUrl;
+            document.getElementById('token-display').textContent = JSON.stringify(authData, null, 2);
+
+            // Try to redirect automatically
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+                
+                // Show manual options after a delay (in case redirect failed)
+                setTimeout(() => {
+                    document.getElementById('manual-token-section').style.display = 'block';
+                }, 2000);
+            }, 1000);
+        }
+
+        // Copy token to clipboard
+        function copyToken() {
+            const tokenText = JSON.stringify(authData);
+            navigator.clipboard.writeText(tokenText).then(() => {
+                const btn = document.querySelector('.copy-token-btn');
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = 'Copy Token';
+                }, 2000);
+            });
+        }
+
+        // Show message
+        function showMessage(message, type = 'info') {
+            const messageEl = document.getElementById('auth-message');
+            messageEl.textContent = message;
+            messageEl.className = `auth-message ${type}`;
+            messageEl.style.display = 'block';
+            
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+
+        // Tab switching
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                
+                authTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                authForms.forEach(form => {
+                    form.classList.remove('active');
+                    if (form.id === `${targetTab}-form`) {
+                        form.classList.add('active');
+                    }
+                });
+
+                document.getElementById('auth-message').style.display = 'none';
+            });
+        });
+
+        // Toggle password visibility
+        document.querySelectorAll('.toggle-password').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = btn.previousElementSibling;
+                const eyeOpen = btn.querySelector('.eye-open');
+                const eyeClosed = btn.querySelector('.eye-closed');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eyeOpen.style.display = 'none';
+                    eyeClosed.style.display = 'block';
+                } else {
+                    input.type = 'password';
+                    eyeOpen.style.display = 'block';
+                    eyeClosed.style.display = 'none';
+                }
+            });
+        });
+
+        // Password strength indicator
+        const passwordInput = document.getElementById('signup-password');
+        const strengthBar = document.querySelector('.strength-fill');
+        const strengthText = document.querySelector('.strength-text');
+
+        if (passwordInput) {
+            passwordInput.addEventListener('input', () => {
+                const password = passwordInput.value;
+                let strength = 0;
+                
+                if (password.length >= 8) strength += 25;
+                if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength += 25;
+                if (password.match(/\d/)) strength += 25;
+                if (password.match(/[^a-zA-Z\d]/)) strength += 25;
+
+                strengthBar.style.width = `${strength}%`;
+                
+                if (strength <= 25) {
+                    strengthBar.style.background = '#ef4444';
+                    strengthText.textContent = 'Weak';
+                } else if (strength <= 50) {
+                    strengthBar.style.background = '#f59e0b';
+                    strengthText.textContent = 'Fair';
+                } else if (strength <= 75) {
+                    strengthBar.style.background = '#3b82f6';
+                    strengthText.textContent = 'Good';
+                } else {
+                    strengthBar.style.background = '#10b981';
+                    strengthText.textContent = 'Strong';
+                }
+            });
+        }
+
+        // Sign In handler
+        document.getElementById('signin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = e.target.querySelector('.auth-submit-btn');
+            const btnText = btn.querySelector('.btn-text');
+            const btnLoader = btn.querySelector('.btn-loader');
+            
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'block';
+            btn.disabled = true;
+
+            const email = document.getElementById('signin-email').value;
+            const password = document.getElementById('signin-password').value;
+
+            const result = await auth.signIn(email, password);
+
+            btnText.style.display = 'block';
+            btnLoader.style.display = 'none';
+            btn.disabled = false;
+
+            if (result.success && result.data?.session) {
+                showMessage('Sign in successful! Redirecting to app...', 'success');
+                redirectToApp(result.data.session, result.data.user);
+            } else {
+                showMessage(result.error || 'Sign in failed. Please try again.', 'error');
+            }
+        });
+
+        // Sign Up handler
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('.auth-submit-btn');
+            const btnText = btn.querySelector('.btn-text');
+            const btnLoader = btn.querySelector('.btn-loader');
+
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm').value;
+
+            if (password !== confirmPassword) {
+                showMessage('Passwords do not match!', 'error');
+                return;
+            }
+
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'block';
+            btn.disabled = true;
+
+            const email = document.getElementById('signup-email').value;
+            const fullName = document.getElementById('signup-name').value;
+
+            const result = await auth.signUp(email, password, { fullName });
+
+            btnText.style.display = 'block';
+            btnLoader.style.display = 'none';
+            btn.disabled = false;
+
+            if (result.success) {
+                if (result.data?.session) {
+                    // Auto-confirmed, redirect to app
+                    showMessage('Account created! Redirecting to app...', 'success');
+                    redirectToApp(result.data.session, result.data.user);
+                } else {
+                    // Needs email confirmation
+                    showMessage('Account created! Please check your email to verify, then sign in.', 'success');
+                }
+            } else {
+                showMessage(result.error || 'Sign up failed. Please try again.', 'error');
+            }
+        });
+
+        // Check if already logged in
+        (async () => {
+            initializePage();
+            
+            if (validateParams()) {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session && session.user) {
+                    // Already logged in, redirect directly
+                    redirectToApp(session, session.user);
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
