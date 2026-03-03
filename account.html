@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - GreenToastSoftware</title>
+    <link rel="icon" type="image/png" href="Toast_4K_icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="Toast_4K_icon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="account-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="Toast_4K_icon.png" alt="Toast Icon" class="nav-logo-icon">
+                <span class="logo-text">GreenToastSoftware</span>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="GreenToast Apps.html" class="nav-link">Apps</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link account-link" id="auth-nav-btn">Account</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Account Main -->
+    <main class="account-main">
+        <div class="account-container">
+            <!-- Sidebar -->
+            <aside class="account-sidebar">
+                <div class="sidebar-header">
+                    <div class="user-avatar" id="sidebar-avatar">
+                        <span class="avatar-placeholder">U</span>
+                    </div>
+                    <div class="user-info">
+                        <h3 id="sidebar-name">User</h3>
+                        <p id="sidebar-email">user@email.com</p>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <button class="sidebar-link active" data-tab="profile">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Profile
+                    </button>
+                    <button class="sidebar-link" data-tab="security">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        Security
+                    </button>
+                    <button class="sidebar-link" data-tab="preferences">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                        Preferences
+                    </button>
+                    <button class="sidebar-link" data-tab="sessions">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                        Sessions
+                    </button>
+                    <hr class="sidebar-divider">
+                    <button class="sidebar-link danger" id="logout-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        Sign Out
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="account-content">
+                <!-- Profile Tab -->
+                <section class="account-tab active" id="profile-tab">
+                    <div class="tab-header">
+                        <h2>Profile Settings</h2>
+                        <p>Manage your personal information and avatar</p>
+                    </div>
+
+                    <div class="settings-card">
+                        <div class="avatar-section">
+                            <div class="avatar-preview" id="avatar-preview">
+                                <span class="avatar-placeholder">U</span>
+                            </div>
+                            <div class="avatar-actions">
+                                <input type="file" id="avatar-input" accept="image/*" hidden>
+                                <button class="btn btn-secondary" id="change-avatar-btn">Change Avatar</button>
+                                <button class="btn btn-ghost" id="remove-avatar-btn">Remove</button>
+                            </div>
+                        </div>
+
+                        <form id="profile-form" class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profile-name">Full Name</label>
+                                    <input type="text" id="profile-name" placeholder="Your name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile-username">Username</label>
+                                    <input type="text" id="profile-username" placeholder="username">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profile-email">Email Address</label>
+                                <input type="email" id="profile-email" placeholder="your@email.com" disabled>
+                                <small class="form-help">Email cannot be changed here. Use Security tab.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profile-bio">Bio</label>
+                                <textarea id="profile-bio" rows="3" placeholder="Tell us a little about yourself..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profile-website">Website</label>
+                                <input type="url" id="profile-website" placeholder="https://yourwebsite.com">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button type="button" class="btn btn-ghost" id="reset-profile-btn">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Security Tab -->
+                <section class="account-tab" id="security-tab">
+                    <div class="tab-header">
+                        <h2>Security Settings</h2>
+                        <p>Manage your password and account security</p>
+                    </div>
+
+                    <!-- Change Password -->
+                    <div class="settings-card">
+                        <h3>Change Password</h3>
+                        <form id="password-form" class="settings-form">
+                            <div class="form-group">
+                                <label for="current-password">Current Password</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="current-password" placeholder="Enter current password">
+                                    <button type="button" class="toggle-password">
+                                        <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password">New Password</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="new-password" placeholder="Enter new password" minlength="8">
+                                    <button type="button" class="toggle-password">
+                                        <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-new-password">Confirm New Password</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="confirm-new-password" placeholder="Confirm new password">
+                                    <button type="button" class="toggle-password">
+                                        <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Update Password</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Change Email -->
+                    <div class="settings-card">
+                        <h3>Change Email</h3>
+                        <form id="email-form" class="settings-form">
+                            <div class="form-group">
+                                <label for="new-email">New Email Address</label>
+                                <input type="email" id="new-email" placeholder="new@email.com">
+                                <small class="form-help">A verification link will be sent to your new email.</small>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Update Email</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="settings-card danger-zone">
+                        <h3>Danger Zone</h3>
+                        <p>Once you delete your account, there is no going back. Please be certain.</p>
+                        <button class="btn btn-danger" id="delete-account-btn">Delete Account</button>
+                    </div>
+                </section>
+
+                <!-- Preferences Tab -->
+                <section class="account-tab" id="preferences-tab">
+                    <div class="tab-header">
+                        <h2>Preferences</h2>
+                        <p>Customize your experience</p>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Appearance</h3>
+                        <div class="preference-group">
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <span class="preference-label">Theme</span>
+                                    <span class="preference-description">Choose your preferred color scheme</span>
+                                </div>
+                                <div class="theme-selector">
+                                    <button class="theme-option active" data-theme="light">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="5"/>
+                                            <line x1="12" y1="1" x2="12" y2="3"/>
+                                            <line x1="12" y1="21" x2="12" y2="23"/>
+                                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                            <line x1="1" y1="12" x2="3" y2="12"/>
+                                            <line x1="21" y1="12" x2="23" y2="12"/>
+                                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                                        </svg>
+                                        Light
+                                    </button>
+                                    <button class="theme-option" data-theme="dark">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                                        </svg>
+                                        Dark
+                                    </button>
+                                    <button class="theme-option" data-theme="system">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                            <line x1="8" y1="21" x2="16" y2="21"/>
+                                            <line x1="12" y1="17" x2="12" y2="21"/>
+                                        </svg>
+                                        System
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Language & Region</h3>
+                        <div class="preference-group">
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <span class="preference-label">Language</span>
+                                    <span class="preference-description">Select your preferred language</span>
+                                </div>
+                                <select id="language-select" class="preference-select">
+                                    <option value="en">English</option>
+                                    <option value="pt">Português</option>
+                                    <option value="es">Español</option>
+                                    <option value="ja">日本語</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Notifications</h3>
+                        <div class="preference-group">
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <span class="preference-label">Email Notifications</span>
+                                    <span class="preference-description">Receive updates about your account via email</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="email-notifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <span class="preference-label">Product Updates</span>
+                                    <span class="preference-description">Get notified about new features and updates</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="product-updates">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <span class="preference-label">Security Alerts</span>
+                                    <span class="preference-description">Get notified about suspicious activity</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="security-alerts" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-primary" id="save-preferences">Save Preferences</button>
+                    </div>
+                </section>
+
+                <!-- Sessions Tab -->
+                <section class="account-tab" id="sessions-tab">
+                    <div class="tab-header">
+                        <h2>Active Sessions</h2>
+                        <p>View and manage your login sessions</p>
+                    </div>
+
+                    <div class="settings-card">
+                        <div class="session-header">
+                            <h3>Current Session</h3>
+                            <span class="current-badge">Active Now</span>
+                        </div>
+                        <div class="session-item current" id="current-session">
+                            <div class="session-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                            </div>
+                            <div class="session-info">
+                                <span class="session-device">Loading...</span>
+                                <span class="session-details">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <div class="session-header">
+                            <h3>Session History</h3>
+                            <button class="btn btn-ghost btn-sm" id="clear-history-btn">Clear History</button>
+                        </div>
+                        <div id="session-history" class="session-list">
+                            <p class="no-sessions">No previous sessions recorded.</p>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Security Actions</h3>
+                        <p>If you notice any suspicious activity, you can sign out from all devices.</p>
+                        <button class="btn btn-warning" id="signout-all-btn">Sign Out All Devices</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title">Confirm Action</h3>
+            <p id="modal-message">Are you sure you want to proceed?</p>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+                <button class="btn btn-danger" id="modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        console.log('=== ACCOUNT PAGE SCRIPT STARTING ===');
+        
+        // Check for backup session from sessionStorage
+        const backupSession = sessionStorage.getItem('gt-temp-session');
+        console.log('Backup session in sessionStorage:', backupSession ? 'EXISTS' : 'NONE');
+        
+        // Hide page content until authenticated
+        document.body.style.visibility = 'hidden';
+        
+        let pageInitialized = false;
+        let authCheckDone = false;
+        let currentSession = null; // Store session for operations
+
+        // Initialize page with user data
+        function showPageWithUser(user, session) {
+            if (pageInitialized) return;
+            
+            console.log('=== SHOWING PAGE FOR USER ===', user.email);
+            pageInitialized = true;
+            currentSession = session; // Store session
+            document.body.style.visibility = 'visible';
+            
+            initializePage(user);
+        }
+
+        // Ensure session is available before operations
+        async function ensureSession() {
+            // First check if Supabase has a session
+            const { data } = await supabaseClient.auth.getSession();
+            if (data?.session) {
+                return data.session;
+            }
+            
+            // If not, try to restore from backup
+            const backupData = sessionStorage.getItem('gt-temp-session');
+            if (backupData) {
+                try {
+                    const sessionData = JSON.parse(backupData);
+                    const { data: restored, error } = await supabaseClient.auth.setSession({
+                        access_token: sessionData.access_token,
+                        refresh_token: sessionData.refresh_token
+                    });
+                    if (restored?.session) {
+                        console.log('Session restored for operation');
+                        return restored.session;
+                    }
+                } catch (e) {
+                    console.error('Failed to restore session for operation:', e);
+                }
+            }
+            
+            return null;
+        }
+
+        // Try to restore session from backup if Supabase didn't persist it
+        async function tryRestoreSession() {
+            const backupData = sessionStorage.getItem('gt-temp-session');
+            if (backupData) {
+                console.log('=== ATTEMPTING TO RESTORE SESSION FROM BACKUP ===');
+                try {
+                    const sessionData = JSON.parse(backupData);
+                    console.log('Backup session user:', sessionData.user?.email);
+                    
+                    // Try to set the session in Supabase
+                    const { data, error } = await supabaseClient.auth.setSession({
+                        access_token: sessionData.access_token,
+                        refresh_token: sessionData.refresh_token
+                    });
+                    
+                    console.log('setSession result:', data ? 'success' : 'failed', error);
+                    
+                    if (data?.session?.user) {
+                        showPageWithUser(data.session.user, data.session);
+                        return true;
+                    }
+                } catch (e) {
+                    console.error('Failed to restore session:', e);
+                }
+            }
+            return false;
+        }
+
+        // Use onAuthStateChange as the PRIMARY auth check
+        supabaseClient.auth.onAuthStateChange(async (event, session) => {
+            console.log('=== AUTH STATE CHANGE ===');
+            console.log('Event:', event);
+            console.log('Session:', session ? 'exists' : 'null');
+            console.log('User:', session?.user?.email);
+            
+            if (event === 'SIGNED_IN' || (event === 'INITIAL_SESSION' && session)) {
+                // User is authenticated
+                showPageWithUser(session.user, session);
+                authCheckDone = true;
+                // Keep backup in sessionStorage for operations since localStorage isn't persisting
+                // sessionStorage.removeItem('gt-temp-session'); // Don't remove - needed for operations
+            } else if (event === 'SIGNED_OUT') {
+                window.location.replace('login.html');
+            } else if (event === 'INITIAL_SESSION' && !session) {
+                // No session on initial load - try backup
+                console.log('INITIAL_SESSION with no session, trying backup...');
+                authCheckDone = true;
+                
+                const restored = await tryRestoreSession();
+                
+                if (!restored) {
+                    // Give a moment, then redirect
+                    setTimeout(() => {
+                        if (!pageInitialized) {
+                            console.log('No session after attempts, redirecting to login');
+                            window.location.replace('login.html');
+                        }
+                    }, 1000);
+                }
+            }
+        });
+
+        // Fallback: if onAuthStateChange doesn't fire within 3 seconds, check manually
+        setTimeout(async () => {
+            if (!authCheckDone && !pageInitialized) {
+                console.log('=== FALLBACK AUTH CHECK ===');
+                
+                // Try backup first
+                const restored = await tryRestoreSession();
+                if (restored) return;
+                
+                const { data } = await supabaseClient.auth.getSession();
+                console.log('Fallback session:', data?.session);
+                
+                if (data?.session?.user) {
+                    showPageWithUser(data.session.user);
+                } else {
+                    console.log('Fallback: No session, redirecting');
+                    window.location.replace('login.html');
+                }
+            }
+        }, 3000);
+
+        // Initialize page with user data
+        async function initializePage(user) {
+            const metadata = user.user_metadata || {};
+            
+            // Sidebar
+            document.getElementById('sidebar-name').textContent = metadata.full_name || 'User';
+            document.getElementById('sidebar-email').textContent = user.email;
+            
+            // Avatar
+            const avatarPlaceholder = (metadata.full_name || user.email || 'U').charAt(0).toUpperCase();
+            if (metadata.avatar_url) {
+                document.getElementById('sidebar-avatar').innerHTML = `<img src="${metadata.avatar_url}" alt="Avatar">`;
+                document.getElementById('avatar-preview').innerHTML = `<img src="${metadata.avatar_url}" alt="Avatar">`;
+            } else {
+                document.getElementById('sidebar-avatar').innerHTML = `<span class="avatar-placeholder">${avatarPlaceholder}</span>`;
+                document.getElementById('avatar-preview').innerHTML = `<span class="avatar-placeholder">${avatarPlaceholder}</span>`;
+            }
+
+            // Profile form
+            document.getElementById('profile-name').value = metadata.full_name || '';
+            document.getElementById('profile-username').value = metadata.username || '';
+            document.getElementById('profile-email').value = user.email;
+            document.getElementById('profile-bio').value = metadata.bio || '';
+            document.getElementById('profile-website').value = metadata.website || '';
+
+            // Preferences
+            const prefs = metadata.preferences || {};
+            document.getElementById('language-select').value = prefs.language || 'en';
+            document.getElementById('email-notifications').checked = prefs.emailNotifications ?? false;
+            document.getElementById('product-updates').checked = prefs.productUpdates ?? false;
+            document.getElementById('security-alerts').checked = prefs.securityAlerts ?? true;
+
+            // Theme
+            const theme = prefs.theme || 'light';
+            document.querySelectorAll('.theme-option').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.theme === theme);
+            });
+
+            // Current session
+            updateCurrentSession();
+
+            // Session history
+            loadSessionHistory();
+
+            // Check URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+            if (tab) {
+                switchTab(tab);
+            }
+        }
+
+        // Tab switching
+        const sidebarLinks = document.querySelectorAll('.sidebar-link[data-tab]');
+        const accountTabs = document.querySelectorAll('.account-tab');
+
+        function switchTab(tabId) {
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.tab === tabId);
+            });
+            accountTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.id === `${tabId}-tab`);
+            });
+        }
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                switchTab(link.dataset.tab);
+            });
+        });
+
+        // Toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMessage = toast.querySelector('.toast-message');
+            toastMessage.textContent = message;
+            toast.className = `toast show ${type}`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Modal
+        function showModal(title, message, onConfirm) {
+            const modal = document.getElementById('confirm-modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            modal.classList.add('show');
+
+            document.getElementById('modal-confirm').onclick = () => {
+                modal.classList.remove('show');
+                onConfirm();
+            };
+            
+            document.getElementById('modal-cancel').onclick = () => {
+                modal.classList.remove('show');
+            };
+        }
+
+        // Profile form
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const profileData = {
+                full_name: document.getElementById('profile-name').value,
+                username: document.getElementById('profile-username').value,
+                bio: document.getElementById('profile-bio').value,
+                website: document.getElementById('profile-website').value
+            };
+
+            const result = await auth.updateProfile(profileData);
+            
+            if (result.success) {
+                showToast('Profile updated successfully!', 'success');
+                document.getElementById('sidebar-name').textContent = profileData.full_name || 'User';
+            } else {
+                showToast(result.error || 'Failed to update profile', 'error');
+            }
+        });
+
+        // Avatar upload
+        document.getElementById('change-avatar-btn').addEventListener('click', () => {
+            document.getElementById('avatar-input').click();
+        });
+
+        document.getElementById('avatar-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Image must be less than 2MB', 'error');
+                return;
+            }
+
+            showToast('Uploading avatar...', 'info');
+            const result = await auth.uploadAvatar(file);
+            
+            if (result.success) {
+                document.getElementById('avatar-preview').innerHTML = `<img src="${result.url}" alt="Avatar">`;
+                document.getElementById('sidebar-avatar').innerHTML = `<img src="${result.url}" alt="Avatar">`;
+                showToast('Avatar updated!', 'success');
+            } else {
+                showToast(result.error || 'Failed to upload avatar', 'error');
+            }
+        });
+
+        document.getElementById('remove-avatar-btn').addEventListener('click', async () => {
+            const result = await auth.updateProfile({ avatar_url: null });
+            if (result.success) {
+                const user = await auth.getCurrentUser();
+                const initial = (user.user_metadata?.full_name || user.email || 'U').charAt(0).toUpperCase();
+                document.getElementById('avatar-preview').innerHTML = `<span class="avatar-placeholder">${initial}</span>`;
+                document.getElementById('sidebar-avatar').innerHTML = `<span class="avatar-placeholder">${initial}</span>`;
+                showToast('Avatar removed', 'success');
+            }
+        });
+
+        // Password form
+        document.getElementById('password-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-new-password').value;
+
+            if (newPassword !== confirmPassword) {
+                showToast('Passwords do not match!', 'error');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                showToast('Password must be at least 8 characters', 'error');
+                return;
+            }
+
+            const result = await auth.updatePassword(newPassword);
+            
+            if (result.success) {
+                showToast('Password updated successfully!', 'success');
+                e.target.reset();
+            } else {
+                showToast(result.error || 'Failed to update password', 'error');
+            }
+        });
+
+        // Email form
+        document.getElementById('email-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const newEmail = document.getElementById('new-email').value;
+            const result = await auth.updateEmail(newEmail);
+            
+            if (result.success) {
+                showToast(result.message, 'success');
+            } else {
+                showToast(result.error || 'Failed to update email', 'error');
+            }
+        });
+
+        // Toggle password visibility
+        document.querySelectorAll('.toggle-password').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = btn.previousElementSibling;
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+        });
+
+        // Theme selector
+        document.querySelectorAll('.theme-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.theme-option').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Save preferences
+        document.getElementById('save-preferences').addEventListener('click', async () => {
+            const activeTheme = document.querySelector('.theme-option.active');
+            const preferences = {
+                theme: activeTheme ? activeTheme.dataset.theme : 'light',
+                language: document.getElementById('language-select').value,
+                emailNotifications: document.getElementById('email-notifications').checked,
+                productUpdates: document.getElementById('product-updates').checked,
+                securityAlerts: document.getElementById('security-alerts').checked
+            };
+
+            const result = await auth.updatePreferences(preferences);
+            
+            if (result.success) {
+                showToast('Preferences saved!', 'success');
+            } else {
+                showToast(result.error || 'Failed to save preferences', 'error');
+            }
+        });
+
+        // Current session info
+        function updateCurrentSession() {
+            const sessionEl = document.getElementById('current-session');
+            const ua = navigator.userAgent;
+            let device = 'Unknown Device';
+            let os = 'Unknown OS';
+
+            if (ua.includes('Windows')) os = 'Windows';
+            else if (ua.includes('Mac')) os = 'macOS';
+            else if (ua.includes('Linux')) os = 'Linux';
+            else if (ua.includes('Android')) os = 'Android';
+            else if (ua.includes('iOS') || ua.includes('iPhone')) os = 'iOS';
+
+            if (ua.includes('Chrome')) device = 'Chrome';
+            else if (ua.includes('Firefox')) device = 'Firefox';
+            else if (ua.includes('Safari')) device = 'Safari';
+            else if (ua.includes('Edge')) device = 'Edge';
+
+            sessionEl.querySelector('.session-device').textContent = `${device} on ${os}`;
+            sessionEl.querySelector('.session-details').textContent = new Date().toLocaleString();
+        }
+
+        // Session history
+        function loadSessionHistory() {
+            const history = auth.getSessionHistory();
+            const container = document.getElementById('session-history');
+
+            if (history.length === 0) {
+                container.innerHTML = '<p class="no-sessions">No previous sessions recorded.</p>';
+                return;
+            }
+
+            container.innerHTML = history.map(session => {
+                const ua = session.userAgent || '';
+                let device = 'Unknown';
+                if (ua.includes('Chrome')) device = 'Chrome';
+                else if (ua.includes('Firefox')) device = 'Firefox';
+                else if (ua.includes('Safari')) device = 'Safari';
+
+                let os = session.platform || 'Unknown';
+                if (os.includes('Win')) os = 'Windows';
+                else if (os.includes('Mac')) os = 'macOS';
+                else if (os.includes('Linux')) os = 'Linux';
+
+                return `
+                    <div class="session-item">
+                        <div class="session-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <div class="session-info">
+                            <span class="session-device">${device} on ${os}</span>
+                            <span class="session-details">${new Date(session.timestamp).toLocaleString()}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Clear history
+        document.getElementById('clear-history-btn').addEventListener('click', () => {
+            auth.clearSessionHistory();
+            loadSessionHistory();
+            showToast('Session history cleared', 'success');
+        });
+
+        // Sign out all devices
+        document.getElementById('signout-all-btn').addEventListener('click', () => {
+            showModal('Sign Out All Devices', 'This will sign you out from all devices including this one.', async () => {
+                await auth.signOut();
+                window.location.href = 'login.html';
+            });
+        });
+
+        // Delete account
+        document.getElementById('delete-account-btn').addEventListener('click', () => {
+            showModal('Delete Account', 'Are you sure you want to delete your account? This action cannot be undone.', async () => {
+                const result = await auth.deleteAccount();
+                showToast(result.message, result.success ? 'info' : 'error');
+                if (result.success) {
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
+            });
+        });
+
+        // Sign out
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await auth.signOut();
+            window.location.href = 'login.html';
+        });
+
+        // Mobile menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
