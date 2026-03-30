@@ -180,16 +180,53 @@
                     </button>
                 </form>
 
+                <!-- Email Confirmation Screen -->
+                <div id="email-confirmation-screen" class="email-confirmation-screen" style="display: none;">
+                    <div class="email-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <div class="email-badge">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h2>Check your email</h2>
+                    <p class="email-sent-to">We sent a confirmation link to:</p>
+                    <p class="email-address" id="confirmation-email">your@email.com</p>
+                    <div class="email-instructions">
+                        <div class="instruction-step">
+                            <span class="step-number">1</span>
+                            <span>Open your email inbox</span>
+                        </div>
+                        <div class="instruction-step">
+                            <span class="step-number">2</span>
+                            <span>Click the confirmation link</span>
+                        </div>
+                        <div class="instruction-step">
+                            <span class="step-number">3</span>
+                            <span>Return here to sign in</span>
+                        </div>
+                    </div>
+                    <p class="email-note">Didn't receive the email? Check your spam folder or</p>
+                    <button type="button" class="resend-email-btn" id="resend-email-btn">Resend confirmation email</button>
+                    <div class="email-divider"></div>
+                    <button type="button" class="back-to-login-btn" id="back-to-signin">
+                        ← Back to Sign In
+                    </button>
+                </div>
+
                 <!-- Messages -->
                 <div id="auth-message" class="auth-message"></div>
 
                 <!-- Divider -->
-                <div class="auth-divider">
+                <div class="auth-divider" id="social-divider">
                     <span>or continue with</span>
                 </div>
 
                 <!-- Social Login -->
-                <div class="social-login">
+                <div class="social-login" id="social-login-section">
                     <button type="button" class="social-btn google" id="google-login">
                         <svg viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -391,6 +428,8 @@
         // Sign Up handler
         document.getElementById('signup-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            console.log('=== SIGNUP FORM SUBMITTED ===');
+            
             const btn = e.target.querySelector('.auth-submit-btn');
             const btnText = btn.querySelector('.btn-text');
             const btnLoader = btn.querySelector('.btn-loader');
@@ -410,16 +449,120 @@
             const email = document.getElementById('signup-email').value;
             const fullName = document.getElementById('signup-name').value;
 
-            const result = await auth.signUp(email, password, { fullName });
+            console.log('Calling auth.signUp with:', email, fullName);
+            
+            try {
+                const result = await auth.signUp(email, password, { fullName });
+                console.log('SignUp result:', result);
 
-            btnText.style.display = 'block';
-            btnLoader.style.display = 'none';
-            btn.disabled = false;
+                btnText.style.display = 'block';
+                btnLoader.style.display = 'none';
+                btn.disabled = false;
 
-            if (result.success) {
-                showMessage(result.message || 'Account created! Please check your email.', 'success');
+                if (result.success) {
+                    console.log('SignUp successful, needsConfirmation:', result.needsConfirmation);
+                    if (result.needsConfirmation) {
+                        // Show email confirmation screen
+                        console.log('Showing email confirmation screen');
+                        showEmailConfirmationScreen(email);
+                    } else if (result.data?.session) {
+                        // Auto-confirmed, redirect
+                        showMessage('Account created! Redirecting...', 'success');
+                        if (result.data?.session) {
+                            sessionStorage.setItem('gt-temp-session', JSON.stringify(result.data.session));
+                        }
+                        setTimeout(() => {
+                            window.location.replace('account.html');
+                        }, 1500);
+                    } else {
+                        showMessage(result.message || 'Account created!', 'success');
+                    }
+                } else {
+                    console.log('SignUp failed:', result.error);
+                    showMessage(result.error || 'Sign up failed. Please try again.', 'error');
+                }
+            } catch (err) {
+                console.error('SignUp exception:', err);
+                btnText.style.display = 'block';
+                btnLoader.style.display = 'none';
+                btn.disabled = false;
+                showMessage('An error occurred. Please try again.', 'error');
+            }
+        });
+
+        // Show email confirmation screen
+        let pendingConfirmationEmail = '';
+        
+        function showEmailConfirmationScreen(email) {
+            console.log('=== SHOWING EMAIL CONFIRMATION SCREEN ===');
+            console.log('Email:', email);
+            pendingConfirmationEmail = email;
+            
+            // Hide other elements
+            document.querySelectorAll('.auth-tabs, .auth-form, #social-divider, #social-login-section, .auth-logo').forEach(el => {
+                if (el) el.style.display = 'none';
+            });
+            document.getElementById('auth-message').style.display = 'none';
+            
+            // Show confirmation screen
+            const confirmScreen = document.getElementById('email-confirmation-screen');
+            if (confirmScreen) {
+                confirmScreen.style.display = 'block';
+                document.getElementById('confirmation-email').textContent = email;
+                console.log('Confirmation screen is now visible');
             } else {
-                showMessage(result.error || 'Sign up failed. Please try again.', 'error');
+                console.error('email-confirmation-screen element not found!');
+            }
+        }
+
+        function hideEmailConfirmationScreen() {
+            // Show other elements
+            document.querySelectorAll('.auth-tabs, .auth-divider, .social-login, .auth-logo').forEach(el => {
+                el.style.display = '';
+            });
+            document.getElementById('signin-form').classList.add('active');
+            document.getElementById('signup-form').classList.remove('active');
+            authTabs[0].classList.add('active');
+            authTabs[1].classList.remove('active');
+            
+            // Hide confirmation screen
+            document.getElementById('email-confirmation-screen').style.display = 'none';
+            
+            // Pre-fill email
+            if (pendingConfirmationEmail) {
+                document.getElementById('signin-email').value = pendingConfirmationEmail;
+            }
+        }
+
+        // Back to sign in from confirmation screen
+        document.getElementById('back-to-signin').addEventListener('click', hideEmailConfirmationScreen);
+
+        // Resend confirmation email
+        document.getElementById('resend-email-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('resend-email-btn');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            try {
+                const { error } = await supabaseClient.auth.resend({
+                    type: 'signup',
+                    email: pendingConfirmationEmail
+                });
+
+                if (error) throw error;
+
+                btn.textContent = 'Email sent!';
+                setTimeout(() => {
+                    btn.textContent = 'Resend confirmation email';
+                    btn.disabled = false;
+                }, 3000);
+            } catch (error) {
+                console.error('Resend error:', error);
+                btn.textContent = 'Failed to resend';
+                setTimeout(() => {
+                    btn.textContent = 'Resend confirmation email';
+                    btn.disabled = false;
+                }, 3000);
             }
         });
 
@@ -469,14 +612,25 @@
             if (error) showMessage(error.message, 'error');
         });
 
-        // Check if already logged in
+        // Check if already logged in - only on initial page load
+        let isProcessingAuth = false;
+        
         (async () => {
             const { data: { session } } = await supabaseClient.auth.getSession();
             console.log('Login page session check:', session ? 'Already logged in' : 'Not logged in');
-            if (session && session.user) {
+            if (session && session.user && !isProcessingAuth) {
                 window.location.replace('account.html');
             }
         })();
+
+        // Mark as processing when forms are submitted to prevent redirect during signup/signin
+        document.getElementById('signup-form').addEventListener('submit', () => {
+            isProcessingAuth = true;
+        }, true);
+        
+        document.getElementById('signin-form').addEventListener('submit', () => {
+            isProcessingAuth = true;
+        }, true);
     </script>
 </body>
 </html>
