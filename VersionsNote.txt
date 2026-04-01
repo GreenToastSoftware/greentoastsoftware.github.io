@@ -1,0 +1,59 @@
+﻿Version 0.1.4v
+Released on 30/03/2026
+
+Latest Features:
+    - New Left SideBar
+        - Includes ExplorerBar;
+        - NoteBar;
+        - AI Bar;
+        - Debug Panel;
+    - New MainPage Interface
+        - Updated Dashboard with widgets for quick access to recent files and activities
+        - Enhanced Search Functionality with filters and sorting options
+        - Improved Notifications System for real-time updates
+    - C_EditorPage Enhancements
+        - New Tabview system for managing multiple documents
+        - Colored Tabs for better organization and visual appeal (optional)
+        - New Toolbar with frequently used actions
+        - InteliSense support for code completion and suggestions
+        - Improved Syntax Highlighting for better code readability
+    - English Language Support added
+    - New .ctxt file format for save and load .c files combined with .txt files
+    - New GreenToastSoftware Account system for personalized user experience and cloud storage
+    - Search Box added for quick access to files, settings, and features
+    - New Wizard for first-time users to guide them through the setup and features of WorksUP
+    - New Settings Page with more customization options for themes, editor preferences, and account management
+    - New Home Page with quick access to recent projects
+
+ExplorerBar:
+    - Quick Access to files used folders
+    - Updated icons and layout for easier navigation
+
+NoteBar:
+    - Added functionality for quick note-taking and organization
+    - Convert to .txt file or .ctxt file
+
+AI Bar:
+    - AI sidebar for future integration of AI features, including gemini and groq for enhanced user experience and productivity
+
+DebugBar (GDB):
+    - Improved debugging tools and interface for better error tracking and resolution
+    - Enhanced output and error panels for clearer information display
+
+About New .ctxt File Format:
+    - Introduction of .ctxt file format for save and load .c files combined with .txt files
+    - Only in WorksUP, not compatible with other software
+    - Convert .ctxt files to .c and .txt files for use in other applications
+
+Principal Changes:
+    - Principal Tab System removed
+    - Improved performance and stability
+    - Menu and Toolbar redesigned for better user experience
+    - Inferior Painel (Output/Errors) improved for better debugging experience
+
+Technical Improvements:
+    - Codebase refactored for better maintainability
+    - Updated dependencies to latest versions
+    - Monaco Editor code re-coded for better integration
+    - Clangd integration improved for enhanced code analysis
+    - Compiler optimizations for faster build times and improved performance
