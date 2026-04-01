@@ -54,6 +54,9 @@ async function ensureSession() {
  */
 async function signUp(email, password, metadata = {}) {
     try {
+        console.log('=== SIGN UP ATTEMPT ===' );
+        console.log('Email:', email);
+        
         const { data, error } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
@@ -70,9 +73,36 @@ async function signUp(email, password, metadata = {}) {
             }
         });
 
-        if (error) throw error;
+        console.log('Sign up response:', data, error);
 
-        return { success: true, data: data, message: 'Account created! Please check your email to verify.' };
+        if (error) {
+            // Handle specific errors
+            if (error.message?.includes('rate limit') || error.status === 429) {
+                throw new Error('Too many attempts. Please wait a few minutes and try again.');
+            }
+            throw error;
+        }
+
+        // Check if email confirmation is required
+        if (data?.user && !data?.session) {
+            // User created but needs email confirmation
+            return { 
+                success: true, 
+                data: data, 
+                needsConfirmation: true,
+                message: 'Account created! Check your email inbox and click the confirmation link to activate your account.' 
+            };
+        } else if (data?.session) {
+            // Auto-confirmed (no email verification required)
+            return { 
+                success: true, 
+                data: data, 
+                needsConfirmation: false,
+                message: 'Account created successfully!' 
+            };
+        }
+
+        return { success: true, data: data, message: 'Account created!' };
     } catch (error) {
         console.error('Sign up error:', error);
         return { success: false, error: error.message };

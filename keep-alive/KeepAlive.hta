@@ -1,0 +1,488 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Supabase Keep-Alive - GreenToastSoftware</title>
+<HTA:APPLICATION
+    ID="KeepAliveApp"
+    APPLICATIONNAME="SupabaseKeepAlive"
+    BORDER="dialog"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="keep-alive.ico"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    SCROLL="no"
+    SHOWINTASKBAR="yes"
+    SINGLEINSTANCE="yes"
+    SYSMENU="yes"
+    VERSION="1.0"
+    WINDOWSTATE="normal"
+/>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background: #1a1a2e;
+        color: #e0e0e0;
+        padding: 20px;
+        overflow: hidden;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #16213e;
+    }
+    .header h1 {
+        color: #4ade80;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .header p {
+        color: #888;
+        font-size: 11px;
+        margin-top: 4px;
+    }
+    .status-bar {
+        background: #16213e;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+    }
+    .status-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 10px;
+        background: #666;
+    }
+    .status-dot.ok { background: #4ade80; }
+    .status-dot.running { background: #facc15; }
+    .status-dot.error { background: #f87171; }
+    .status-text {
+        font-size: 13px;
+        flex: 1;
+    }
+    .section-title {
+        font-size: 12px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        margin-top: 4px;
+    }
+    .info-grid {
+        background: #16213e;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        font-size: 12px;
+        line-height: 1.8;
+    }
+    .info-grid .label {
+        color: #888;
+        display: inline-block;
+        width: 120px;
+    }
+    .info-grid .value {
+        color: #e0e0e0;
+    }
+    .info-grid .value.green { color: #4ade80; }
+    .buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+    button {
+        flex: 1;
+        padding: 10px 14px;
+        border: none;
+        border-radius: 6px;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    button:hover { opacity: 0.9; }
+    button:disabled { opacity: 0.5; cursor: default; }
+    .btn-primary {
+        background: #4ade80;
+        color: #1a1a2e;
+    }
+    .btn-secondary {
+        background: #334155;
+        color: #e0e0e0;
+    }
+    .btn-danger {
+        background: #7f1d1d;
+        color: #fca5a5;
+    }
+    .btn-small {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    .log-area {
+        background: #0f0f1a;
+        border: 1px solid #16213e;
+        border-radius: 8px;
+        padding: 10px;
+        font-family: 'Cascadia Code', 'Consolas', monospace;
+        font-size: 11px;
+        color: #a0a0a0;
+        height: 180px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    .log-line { margin-bottom: 2px; }
+    .log-line.ok { color: #4ade80; }
+    .log-line.warn { color: #facc15; }
+    .log-line.error { color: #f87171; }
+    .log-line.info { color: #60a5fa; }
+    .footer {
+        text-align: center;
+        margin-top: 12px;
+        font-size: 10px;
+        color: #555;
+    }
+</style>
+
+<script language="VBScript">
+    Dim shell, fso, appPath, configPath, scriptPath, logFilePath, taskName
+    Dim initOk
+    initOk = False
+
+    Function UrlDecode(sUrl)
+        Dim s, i, c
+        s = ""
+        i = 1
+        Do While i <= Len(sUrl)
+            c = Mid(sUrl, i, 1)
+            If c = "%" And i + 2 <= Len(sUrl) Then
+                s = s & Chr(CInt("&H" & Mid(sUrl, i + 1, 2)))
+                i = i + 3
+            Else
+                s = s & c
+                i = i + 1
+            End If
+        Loop
+        UrlDecode = s
+    End Function
+
+    Sub Window_OnLoad()
+        On Error Resume Next
+
+        window.resizeTo 520, 620
+
+        Set shell = CreateObject("WScript.Shell")
+        Set fso = CreateObject("Scripting.FileSystemObject")
+
+        Dim htaPath
+        htaPath = document.location.pathname
+        If Left(htaPath, 1) = "/" Then htaPath = Mid(htaPath, 2)
+        htaPath = Replace(htaPath, "/", "\")
+        htaPath = UrlDecode(htaPath)
+        appPath = fso.GetParentFolderName(htaPath)
+        configPath = appPath & "\config.json"
+        scriptPath = appPath & "\supabase-keepalive.js"
+        logFilePath = appPath & "\keepalive.log"
+        taskName = "SupabaseKeepAlive_GreenToast"
+
+        If Err.Number <> 0 Then
+            MsgBox "Erro na inicializacao: " & Err.Description, vbExclamation, "Erro"
+            Err.Clear
+        End If
+        On Error GoTo 0
+
+        initOk = True
+        Call LoadConfig()
+        Call CheckScheduledTask()
+        Call LoadLog()
+        Call AddLog "info", "Aplicacao iniciada"
+    End Sub
+
+    Sub LoadConfig()
+        If Not fso.FileExists(configPath) Then
+            document.getElementById("cfgEmail").innerText = "config.json nao encontrado!"
+            document.getElementById("cfgUrl").innerText = "-"
+            Exit Sub
+        End If
+
+        Dim f, content
+        Set f = fso.OpenTextFile(configPath, 1, False, -1)
+        content = f.ReadAll()
+        f.Close
+
+        ' Parse simples do JSON
+        Dim email, url
+        email = ExtractJsonValue(content, "ADMIN_EMAIL")
+        url = ExtractJsonValue(content, "SUPABASE_URL")
+
+        document.getElementById("cfgEmail").innerText = email
+        document.getElementById("cfgUrl").innerText = url
+    End Sub
+
+    Function ExtractJsonValue(json, key)
+        Dim startPos, endPos, searchStr
+        searchStr = """" & key & """:"
+        startPos = InStr(json, searchStr)
+        If startPos = 0 Then
+            searchStr = """" & key & """: "
+            startPos = InStr(json, searchStr)
+        End If
+        If startPos > 0 Then
+            startPos = InStr(startPos, json, ":") + 1
+            ' Pular espaços e aspas
+            Do While Mid(json, startPos, 1) = " " Or Mid(json, startPos, 1) = """"
+                startPos = startPos + 1
+            Loop
+            endPos = InStr(startPos, json, """")
+            If endPos > startPos Then
+                ExtractJsonValue = Mid(json, startPos, endPos - startPos)
+            Else
+                ExtractJsonValue = "(erro a ler)"
+            End If
+        Else
+            ExtractJsonValue = "(não encontrado)"
+        End If
+    End Function
+
+    Sub CheckScheduledTask()
+        On Error Resume Next
+        Dim result, statusEl
+        Set statusEl = document.getElementById("taskStatus")
+        
+        Dim execObj
+        Set execObj = shell.Exec("schtasks /Query /TN """ & taskName & """ /FO CSV /NH")
+        result = execObj.StdOut.ReadAll()
+        
+        If InStr(result, taskName) > 0 Then
+            statusEl.innerText = "Ativo (cada 3 dias)"
+            statusEl.className = "value green"
+            document.getElementById("statusDot").className = "status-dot ok"
+            document.getElementById("statusText").innerText = "Tarefa agendada esta ativa"
+        Else
+            statusEl.innerText = "Nao agendado"
+            statusEl.className = "value"
+            document.getElementById("statusDot").className = "status-dot"
+            document.getElementById("statusText").innerText = "Tarefa nao agendada - clique 'Agendar Tarefa'"
+        End If
+        On Error GoTo 0
+    End Sub
+
+    Sub RunKeepAlive()
+        If Not initOk Then
+            MsgBox "A aplicacao nao foi inicializada corretamente.", vbExclamation, "Erro"
+            Exit Sub
+        End If
+        If Not fso.FileExists(scriptPath) Then
+            MsgBox "supabase-keepalive.js nao encontrado!" & vbCrLf & scriptPath, vbExclamation, "Erro"
+            Exit Sub
+        End If
+
+        document.getElementById("btnRun").disabled = True
+        document.getElementById("btnRun").innerText = "A executar..."
+        document.getElementById("statusDot").className = "status-dot running"
+        document.getElementById("statusText").innerText = "Keep-alive em execucao..."
+        Call AddLog "info", "A iniciar keep-alive..."
+
+        ' Executar assincronamente
+        Dim cmd
+        cmd = "cmd /c node """ & scriptPath & """"
+        shell.Run cmd, 0, True
+
+        ' Esperar e recarregar log
+        Call LoadLog()
+        
+        document.getElementById("btnRun").disabled = False
+        document.getElementById("btnRun").innerText = "Executar Agora"
+        document.getElementById("statusDot").className = "status-dot ok"
+        document.getElementById("statusText").innerText = "Ultima execucao concluida"
+        Call AddLog "ok", "Keep-alive executado com sucesso!"
+    End Sub
+
+    Sub ScheduleTask()
+        Dim nodePath
+        On Error Resume Next
+        Dim execNode
+        Set execNode = shell.Exec("where node")
+        nodePath = Trim(execNode.StdOut.ReadLine())
+        On Error GoTo 0
+
+        If nodePath = "" Or InStr(nodePath, "node") = 0 Then
+            MsgBox "Node.js nao encontrado no PATH!", vbExclamation, "Erro"
+            Exit Sub
+        End If
+
+        Call AddLog "info", "A criar tarefa agendada..."
+
+        ' Remover tarefa antiga se existir
+        shell.Run "schtasks /Delete /TN """ & taskName & """ /F", 0, True
+
+        ' Criar nova tarefa: a cada 3 dias
+        Dim startTime, cmd
+        startTime = FormatDateTime(Now, vbShortTime)
+
+        cmd = "schtasks /Create /TN """ & taskName & """ " & _
+              "/TR ""\"" & nodePath & "\"  \""" & scriptPath & "\"""" " & _
+              "/SC DAILY /MO 3 " & _
+              "/ST " & Replace(startTime, ":", "") & " " & _
+              "/F"
+
+        ' Usar formato correto
+        Dim hour, minute
+        hour = Right("0" & Hour(Now), 2)
+        minute = Right("0" & Minute(Now), 2)
+
+        cmd = "schtasks /Create /TN """ & taskName & """ " & _
+              "/TR ""cmd /c node \""" & scriptPath & "\"""" " & _
+              "/SC DAILY /MO 3 " & _
+              "/ST " & hour & ":" & minute & " " & _
+              "/F"
+
+        Dim result
+        Set result = shell.Exec(cmd)
+        Dim output
+        output = result.StdOut.ReadAll() & result.StdErr.ReadAll()
+
+        If InStr(LCase(output), "sucesso") > 0 Or InStr(LCase(output), "success") > 0 Then
+            Call AddLog "ok", "Tarefa agendada criada! A cada 3 dias às " & hour & ":" & minute
+            MsgBox "Tarefa agendada com sucesso!" & vbCrLf & "Executa a cada 3 dias às " & hour & ":" & minute, vbInformation, "Sucesso"
+        Else
+            Call AddLog "error", "Erro ao criar tarefa: " & output
+            MsgBox "Erro ao criar tarefa. Tente executar como Administrador." & vbCrLf & vbCrLf & output, vbExclamation, "Erro"
+
+        End If
+
+        Call CheckScheduledTask()
+    End Sub
+
+    Sub RemoveTask()
+        Dim resp
+        resp = MsgBox("Tem a certeza que deseja remover a tarefa agendada?", vbYesNo + vbQuestion, "Confirmar")
+        If resp = vbYes Then
+            shell.Run "schtasks /Delete /TN """ & taskName & """ /F", 0, True
+            Call AddLog "warn", "Tarefa agendada removida"
+            Call CheckScheduledTask()
+        End If
+    End Sub
+
+    Sub LoadLog()
+        Dim logDiv
+        Set logDiv = document.getElementById("logArea")
+
+        If Not fso.FileExists(logFilePath) Then
+            logDiv.innerHTML = "<div class='log-line info'>Nenhum log ainda. Execute o keep-alive primeiro.</div>"
+
+            Exit Sub
+        End If
+
+        Dim f, content, lines, html, i, lineClass, line
+        Set f = fso.OpenTextFile(logFilePath, 1, False, -1)
+        If Not f.AtEndOfStream Then
+            content = f.ReadAll()
+        Else
+            content = ""
+        End If
+        f.Close
+
+        lines = Split(content, vbLf)
+        html = ""
+        ' Mostrar apenas as últimas 50 linhas
+        Dim startLine
+        startLine = 0
+        If UBound(lines) > 50 Then startLine = UBound(lines) - 50
+
+        For i = startLine To UBound(lines)
+            line = Trim(lines(i))
+            If Len(line) > 0 Then
+                lineClass = ""
+                If InStr(line, "OK") > 0 Or InStr(line, "sucesso") > 0 Then
+                    lineClass = "ok"
+                ElseIf InStr(line, "ERRO") > 0 Or InStr(line, "FATAL") > 0 Then
+                    lineClass = "error"
+                ElseIf InStr(line, "AVISO") > 0 Then
+                    lineClass = "warn"
+                ElseIf InStr(line, "PASSO") > 0 Or InStr(line, "iniciado") > 0 Then
+                    lineClass = "info"
+                End If
+                html = html & "<div class='log-line " & lineClass & "'>" & EscapeHtml(line) & "</div>"
+            End If
+        Next
+
+        logDiv.innerHTML = html
+        logDiv.scrollTop = logDiv.scrollHeight
+    End Sub
+
+    Sub AddLog(logClass, msg)
+        Dim logDiv, ts
+        Set logDiv = document.getElementById("logArea")
+        ts = "[" & FormatDateTime(Now, vbShortDate) & " " & FormatDateTime(Now, vbLongTime) & "] "
+        logDiv.innerHTML = logDiv.innerHTML & "<div class='log-line " & logClass & "'>" & EscapeHtml(ts & msg) & "</div>"
+        logDiv.scrollTop = logDiv.scrollHeight
+    End Sub
+
+    Function EscapeHtml(s)
+        s = Replace(s, "&", "&amp;")
+        s = Replace(s, "<", "&lt;")
+        s = Replace(s, ">", "&gt;")
+        EscapeHtml = s
+    End Function
+
+    Sub OpenLogFile()
+        If fso.FileExists(logFilePath) Then
+            shell.Run "notepad """ & logFilePath & """", 1, False
+        Else
+            MsgBox "Ficheiro de log nao existe ainda.", vbInformation, "Info"
+        End If
+    End Sub
+
+    Sub OpenConfig()
+        If fso.FileExists(configPath) Then
+            shell.Run "notepad """ & configPath & """", 1, False
+        End If
+    End Sub
+</script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Supabase Keep-Alive</h1>
+        <p>GreenToastSoftware - Manter o projeto Supabase ativo</p>
+    </div>
+
+    <div class="status-bar">
+        <div id="statusDot" class="status-dot"></div>
+        <span id="statusText" class="status-text">A verificar...</span>
+    </div>
+
+    <div class="section-title">Configuracao</div>
+    <div class="info-grid">
+        <div><span class="label">URL:</span> <span id="cfgUrl" class="value">...</span></div>
+        <div><span class="label">Email:</span> <span id="cfgEmail" class="value">...</span></div>
+        <div><span class="label">Agendamento:</span> <span id="taskStatus" class="value">A verificar...</span></div>
+    </div>
+
+    <div class="buttons">
+        <button class="btn-primary" id="btnRun" onclick="RunKeepAlive()">Executar Agora</button>
+        <button class="btn-secondary" onclick="ScheduleTask()">Agendar Tarefa</button>
+        <button class="btn-danger btn-small" onclick="RemoveTask()">X Remover</button>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <div class="section-title" style="margin: 0;">Log de Execucoes</div>
+        <div>
+            <button class="btn-secondary btn-small" onclick="LoadLog()" style="flex:0; margin-right: 4px;">Atualizar</button>
+            <button class="btn-secondary btn-small" onclick="OpenLogFile()" style="flex:0;">Abrir</button>
+        </div>
+    </div>
+    <div id="logArea" class="log-area">A carregar...</div>
+
+    <div class="footer">
+        <a href="#" onclick="OpenConfig()" style="color:#4ade80; text-decoration:none; font-size:10px;">Editar config.json</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1010 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Version Creator - GreenToast Tools</title>
+    <link rel="icon" type="image/png" href="../Toast_4K_icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a5f 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .header img { width: 40px; height: 40px; }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .status-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse 2s infinite;
+        }
+        .status-dot.offline { background: #ef4444; animation: none; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Main Tabs */
+        .main-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 0 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .main-tab {
+            padding: 1rem 2rem;
+            border: none;
+            background: rgba(255,255,255,0.05);
+            color: #94a3b8;
+            cursor: pointer;
+            border-radius: 12px 12px 0 0;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-bottom: none;
+        }
+        .main-tab:hover { color: #fff; background: rgba(255,255,255,0.1); }
+        .main-tab.active {
+            background: rgba(255,255,255,0.1);
+            color: #38bdf8;
+            border-color: rgba(56,189,248,0.3);
+        }
+        .main-tab svg { width: 20px; height: 20px; }
+        .main-content { display: none; }
+        .main-content.active { display: block; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 2rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 0 16px 16px 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .panel-alt {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .panel-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: #cbd5e1;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(37,99,235,0.4);
+        }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #fff;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(5,150,105,0.4);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+        .btn-group { display: flex; gap: 0.8rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .preview-card {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            max-width: 320px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .preview-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            background: #e0e7ff;
+        }
+        .preview-card-content { padding: 1rem; }
+        .preview-card-content h3 { font-size: 1rem; color: #2563eb; margin-bottom: 0.5rem; }
+        .preview-card-content p { font-size: 0.85rem; color: #334155; margin-bottom: 0.3rem; }
+        .feature-input { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .feature-input input { flex: 1; }
+        .feature-list { list-style: none; margin-top: 0.8rem; max-height: 150px; overflow-y: auto; }
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+        .feature-list li button {
+            background: #dc2626;
+            border: none;
+            color: #fff;
+            width: 24px; height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #059669;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+            max-width: 400px;
+        }
+        .toast.error { background: #dc2626; }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .help-text { font-size: 0.8rem; color: #64748b; margin-top: 0.3rem; }
+        .section-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 1.5rem 0; }
+        .quick-templates { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .quick-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: #94a3b8;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .quick-btn:hover {
+            background: rgba(56,189,248,0.2);
+            color: #38bdf8;
+            border-color: #38bdf8;
+        }
+        .result-panel {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+        .result-panel.show { display: block; }
+        .result-panel h3 {
+            color: #22c55e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .result-panel .filename {
+            background: rgba(0,0,0,0.3);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            color: #a5f3fc;
+            word-break: break-all;
+        }
+        .result-panel .actions { margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .loading {
+            display: inline-block;
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .log-panel {
+            margin-top: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+        }
+        .log-entry { padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .log-entry.success { color: #22c55e; }
+        .log-entry.error { color: #ef4444; }
+        .log-entry.info { color: #38bdf8; }
+
+        /* Card Only Specific */
+        .output-box {
+            background: #1e1e2e;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            max-height: 300px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: #a5f3fc;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        .output-header h3 { font-size: 1rem; color: #818cf8; }
+
+        @media (max-width: 1100px) {
+            .container { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .form-row, .form-row-3 { grid-template-columns: 1fr; }
+            .container { padding: 1rem; }
+            .main-tabs { padding: 1rem 1rem 0 1rem; flex-wrap: wrap; }
+            .main-tab { padding: 0.7rem 1rem; font-size: 0.9rem; }
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(56,189,248,0.1);
+            border: 1px solid rgba(56,189,248,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #a5f3fc;
+        }
+        .info-box strong { color: #38bdf8; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="../Toast_4K_icon.png" alt="GreenToast">
+        <h1>Blog Version Creator</h1>
+        <div class="header-status">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Conectado</span>
+        </div>
+    </header>
+
+    <!-- Main Tabs -->
+    <div class="main-tabs">
+        <button class="main-tab active" onclick="switchMainTab('card')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+            </svg>
+            Criar Card
+        </button>
+        <button class="main-tab" onclick="switchMainTab('full')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+            Criar Post Completo
+        </button>
+    </div>
+
+    <!-- ==================== CARD ONLY SECTION ==================== -->
+    <div id="content-card" class="main-content active">
+        <div class="container">
+            <div class="panel">
+                <h2 class="panel-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="3" y1="9" x2="21" y2="9"/>
+                    </svg>
+                    Criar Card para o Blog
+                </h2>
+
+                <div class="info-box">
+                    <strong>Apenas Card:</strong> Gera o código HTML do card para adicionar ao SPE_blog.html. 
+                    Use quando já tiver a página do post criada.
+                </div>
+
+                <div class="quick-templates">
+                    <button class="quick-btn" onclick="loadCardTemplate('spe')">SPE 5.0</button>
+                    <button class="quick-btn" onclick="loadCardTemplate('worksup')">WorksUP</button>
+                    <button class="quick-btn" onclick="loadCardTemplate('greenpc')">GreenPC Info</button>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Programa / App</label>
+                        <select id="card_program">
+                            <option value="SPE 5.0">SPE 5.0</option>
+                            <option value="WorksUP [PROGRAMMING Pack]">WorksUP [PROGRAMMING Pack]</option>
+                            <option value="GreenPC Info">GreenPC Info</option>
+                            <option value="GreenPasskey">GreenPasskey</option>
+                            <option value="GreenInstaller">GreenInstaller</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Versão</label>
+                        <select id="card_versionType">
+                            <option value="PRE-PREVIEW">Pre-Preview</option>
+                            <option value="PREVIEW">Preview</option>
+                            <option value="PRE-BETA">Pre-Beta</option>
+                            <option value="BETA" selected>Beta</option>
+                            <option value="PRE-RELEASE">Pre-Release</option>
+                            <option value="STABLE">Stable</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label>Build Code</label>
+                        <input type="text" id="card_buildCode" placeholder="Ex: 08W7C">
+                    </div>
+                    <div class="form-group">
+                        <label>Build Number</label>
+                        <input type="text" id="card_buildNumber" placeholder="Ex: build.04.03-26">
+                    </div>
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" id="card_publishDate">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Imagem</label>
+                    <select id="card_postImage">
+                        <option value="SPE_logo_remastered.png">SPE Logo Remastered</option>
+                        <option value="WorksUP [WKPP]_icon.png">WorksUP [WKPP] Icon</option>
+                        <option value="GreenPC Info_icon.png">GreenPC Info Icon</option>
+                        <option value="Toast_insider_icon.png">Toast Insider Icon</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Link do Post (arquivo .html)</label>
+                    <input type="text" id="card_link" placeholder="Ex: greeninsider/spe50/SPE 5.0 (08W7C_04.03-26).html">
+                    <p class="help-text">Deixe vazio para gerar automaticamente</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Descrição Curta</label>
+                    <textarea id="card_shortDesc" rows="2" placeholder="Use {TYPE} e {VERSION} como placeholders..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="generateCardOnly()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"/>
+                            <polyline points="8 6 2 12 8 18"/>
+                        </svg>
+                        Gerar Código
+                    </button>
+                    <button class="btn btn-success" onclick="addCardToBlog()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                        Adicionar ao Blog
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel-alt">
+                <h2 class="panel-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Preview & Código
+                </h2>
+
+                <p style="color:#94a3b8; margin-bottom:1rem; font-size:0.9rem;">Preview do card:</p>
+                <div class="preview-card">
+                    <img src="../SPE_logo_remastered.png" alt="Preview" id="card_previewImg">
+                    <div class="preview-card-content">
+                        <h3 id="card_previewTitle">SPE 5.0 BETA VERSION</h3>
+                        <p><strong id="card_previewDate">March 4, 2026</strong></p>
+                        <p id="card_previewDesc" style="font-size:0.85rem;">Descrição...</p>
+                    </div>
+                </div>
+
+                <div style="margin-top:1.5rem;">
+                    <div class="output-header">
+                        <h3>Código HTML</h3>
+                        <button class="btn btn-secondary" onclick="copyCode('card_output')">Copiar</button>
+                    </div>
+                    <div class="output-box" id="card_output"><!-- Código será gerado aqui --></div>
+                </div>
+
+                <div class="result-panel" id="card_resultPanel">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        Card Adicionado!
+                    </h3>
+                    <p style="color:#22c55e;">✓ Card inserido no SPE_blog.html</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FULL POST SECTION ==================== -->
+    <div id="content-full" class="main-content">
+        <div class="container">
+            <div class="panel">
+                <h2 class="panel-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Criar Post Completo
+                </h2>
+
+                <div class="info-box">
+                    <strong>Post Completo:</strong> Cria automaticamente a página HTML do post E adiciona o card ao blog.
+                    Ideal para criar tudo de uma vez!
+                </div>
+
+                <div class="quick-templates">
+                    <button class="quick-btn" onclick="loadTemplate('spe')">SPE 5.0</button>
+                    <button class="quick-btn" onclick="loadTemplate('worksup')">WorksUP</button>
+                    <button class="quick-btn" onclick="loadTemplate('greenpc')">GreenPC Info</button>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Programa / App</label>
+                        <select id="program">
+                            <option value="SPE 5.0">SPE 5.0</option>
+                            <option value="WorksUP [PROGRAMMING Pack]">WorksUP [PROGRAMMING Pack]</option>
+                            <option value="GreenPC Info">GreenPC Info</option>
+                            <option value="GreenPasskey">GreenPasskey</option>
+                            <option value="GreenInstaller">GreenInstaller</option>
+                            <option value="custom">Outro (personalizado)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Versão</label>
+                        <select id="versionType">
+                            <option value="PRE-PREVIEW">Pre-Preview</option>
+                            <option value="PREVIEW">Preview</option>
+                            <option value="PRE-BETA">Pre-Beta</option>
+                            <option value="BETA" selected>Beta</option>
+                            <option value="PRE-RELEASE">Pre-Release</option>
+                            <option value="STABLE">Stable</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" id="customProgramGroup" style="display:none;">
+                    <label>Nome do Programa (personalizado)</label>
+                    <input type="text" id="customProgram" placeholder="Ex: MeuApp 2.0">
+                </div>
+
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label>Build Code</label>
+                        <input type="text" id="buildCode" placeholder="Ex: 08W7C">
+                        <p class="help-text">Código da build</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Build Number</label>
+                        <input type="text" id="buildNumber" placeholder="Ex: build.04.03-26">
+                        <p class="help-text">Data da build</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Data de Publicação</label>
+                        <input type="date" id="publishDate">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Imagem do Post</label>
+                    <select id="postImage">
+                        <option value="SPE_logo_remastered.png">SPE Logo Remastered</option>
+                        <option value="SPE_icon.png">SPE Icon</option>
+                        <option value="WorksUP [WKPP]_icon.png">WorksUP [WKPP] Icon</option>
+                        <option value="Toast_insider_icon.png">Toast Insider Icon</option>
+                        <option value="Toast_4K_icon.png">Toast 4K Icon</option>
+                        <option value="GreenPC Info_icon.png">GreenPC Info Icon</option>
+                        <option value="custom">URL Personalizada</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="customImageGroup" style="display:none;">
+                    <label>Nome da Imagem</label>
+                    <input type="text" id="customImage" placeholder="imagem.png">
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="form-group">
+                    <label>Descrição Curta (para o card)</label>
+                    <textarea id="shortDesc" rows="2" placeholder="Use {TYPE} e {VERSION} como placeholders..."></textarea>
+                    <p class="help-text">Ex: Announcing GreenToast Insider {TYPE}, SPE 5.0 release ({VERSION})</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Conteúdo Principal do Post</label>
+                    <textarea id="mainContent" rows="4" placeholder="Descrição completa do post..."></textarea>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="form-group">
+                    <label>Novidades / Features</label>
+                    <div class="feature-input">
+                        <input type="text" id="featureInput" placeholder="Ex: Nova interface redesenhada">
+                        <button class="btn btn-secondary" onclick="addFeature()">+ Adicionar</button>
+                    </div>
+                    <ul class="feature-list" id="featureList"></ul>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Requisitos Mínimos</label>
+                        <select id="minReq">
+                            <option value="Windows 10/11">Windows 10/11</option>
+                            <option value="Windows 11">Windows 11</option>
+                            <option value="Windows 10">Windows 10</option>
+                            <option value="Windows 7+">Windows 7+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Arquitetura</label>
+                        <select id="arch">
+                            <option value="x64">x64</option>
+                            <option value="x86 / x64">x86 / x64</option>
+                            <option value="ARM64">ARM64</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tamanho do Download</label>
+                        <input type="text" id="downloadSize" placeholder="Ex: 15 MB">
+                    </div>
+                    <div class="form-group">
+                        <label>Licença</label>
+                        <select id="license">
+                            <option value="MIT License">MIT License</option>
+                            <option value="Free for Personal Use">Free for Personal Use</option>
+                            <option value="GreenToast EULA">GreenToast EULA</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-success" onclick="createPost()" id="createBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                        Criar Post Automaticamente
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearForm()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                        Limpar
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel-alt">
+                <h2 class="panel-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <polyline points="9 11 12 14 22 4"/>
+                    </svg>
+                    Preview do Card
+                </h2>
+
+                <p style="color:#94a3b8; margin-bottom:1rem; font-size:0.9rem;">Assim ficará o card no blog:</p>
+                <div class="preview-card" id="previewCard">
+                    <img src="../SPE_logo_remastered.png" alt="Preview" id="previewImg">
+                    <div class="preview-card-content">
+                        <h3 id="previewTitle">SPE 5.0 BETA VERSION</h3>
+                        <p><strong id="previewDate">March 4, 2026</strong></p>
+                        <p id="previewDesc" style="font-size:0.85rem;">Anúncio da versão...</p>
+                    </div>
+                </div>
+
+                <div class="result-panel" id="resultPanel">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        Post Criado com Sucesso!
+                    </h3>
+                    <p style="margin-bottom:0.5rem; color:#cbd5e1;">Arquivo criado:</p>
+                    <div class="filename" id="resultFilename"></div>
+                    <p style="margin-top:1rem; color:#22c55e; font-size:0.9rem;">
+                        ✓ Página do post criada<br>
+                        ✓ Card adicionado ao SPE_blog.html
+                    </p>
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="openFile()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                            Abrir Post
+                        </button>
+                        <button class="btn btn-secondary" onclick="openBlog()">Ver Blog</button>
+                    </div>
+                </div>
+
+                <div class="log-panel" id="logPanel">
+                    <div class="log-entry info">Pronto para criar posts...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Mensagem</div>
+
+    <script>
+        let features = [];
+        let lastCreatedFile = '';
+
+        // Set today's date as default
+        document.getElementById('publishDate').valueAsDate = new Date();
+        document.getElementById('card_publishDate').valueAsDate = new Date();
+
+        // ==================== MAIN TAB SWITCH ====================
+        function switchMainTab(tab) {
+            document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.main-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`.main-tab[onclick="switchMainTab('${tab}')"]`).classList.add('active');
+            document.getElementById(`content-${tab}`).classList.add('active');
+        }
+
+        // ==================== CONNECTION CHECK ====================
+        async function checkConnection() {
+            try {
+                const response = await fetch('/api/images');
+                if (response.ok) {
+                    document.getElementById('statusDot').classList.remove('offline');
+                    document.getElementById('statusText').textContent = 'Conectado';
+                    return true;
+                }
+            } catch (e) {
+                document.getElementById('statusDot').classList.add('offline');
+                document.getElementById('statusText').textContent = 'Desconectado';
+                return false;
+            }
+        }
+
+        // ==================== CARD ONLY FUNCTIONS ====================
+        function loadCardTemplate(type) {
+            const templates = {
+                spe: { program: 'SPE 5.0', image: 'SPE_logo_remastered.png', shortDesc: 'Announcing GreenToast Insider {TYPE}, SPE 5.0 release ({VERSION})' },
+                worksup: { program: 'WorksUP [PROGRAMMING Pack]', image: 'WorksUP [WKPP]_icon.png', shortDesc: 'Announcing GreenToast Insider {TYPE}, WorksUP [PROGRAMMING Pack] release ({VERSION})' },
+                greenpc: { program: 'GreenPC Info', image: 'GreenPC Info_icon.png', shortDesc: 'Announcing GreenToast Insider {TYPE}, GreenPC Info release ({VERSION})' }
+            };
+            const template = templates[type];
+            if (template) {
+                document.getElementById('card_program').value = template.program;
+                document.getElementById('card_postImage').value = template.image;
+                document.getElementById('card_shortDesc').value = template.shortDesc;
+                updateCardPreview();
+                showToast('Template carregado!');
+            }
+        }
+
+        function getCardFormData() {
+            const program = document.getElementById('card_program').value;
+            const versionType = document.getElementById('card_versionType').value;
+            const buildCode = document.getElementById('card_buildCode').value;
+            const buildNumber = document.getElementById('card_buildNumber').value;
+            const publishDate = document.getElementById('card_publishDate').value;
+            const image = document.getElementById('card_postImage').value;
+            const link = document.getElementById('card_link').value;
+            const shortDesc = document.getElementById('card_shortDesc').value;
+            const versionDisplay = `${buildCode}_${buildNumber.replace('build.', '')}`;
+            const date = new Date(publishDate);
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const dateDisplay = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+            return { program, versionType, buildCode, buildNumber, versionDisplay, dateDisplay, image, link, shortDesc };
+        }
+
+        function updateCardPreview() {
+            const data = getCardFormData();
+            document.getElementById('card_previewImg').src = '../' + data.image;
+            document.getElementById('card_previewTitle').textContent = `${data.program} ${data.versionType} VERSION (${data.versionDisplay})`;
+            document.getElementById('card_previewDate').textContent = data.dateDisplay;
+            let desc = data.shortDesc.replace('{TYPE}', data.versionType).replace('{VERSION}', data.versionDisplay);
+            document.getElementById('card_previewDesc').textContent = desc || 'Descrição...';
+        }
+
+        function getSubfolder(program) {
+            if (program.toLowerCase().includes('spe')) return 'greeninsider/spe50/';
+            if (program.toLowerCase().includes('worksup')) return 'greeninsider/worksup/';
+            return '';
+        }
+
+        function generateCardOnly() {
+            const data = getCardFormData();
+            const processedDesc = data.shortDesc.replace('{TYPE}', data.versionType).replace('{VERSION}', data.versionDisplay);
+            const autoLink = `${getSubfolder(data.program)}${data.program} (${data.buildCode}_${data.buildNumber.replace('build.', '').replace(/\//g, '-')}).html`;
+            const link = data.link || autoLink;
+            const cardHtml = `<a href="${link}" class="blog-card" style="text-decoration: none; color: inherit;">
+    <img src="${data.image}" alt="${data.program}">
+    <div class="blog-card-content">
+        <h3>${data.program} ${data.versionType} VERSION (${data.versionDisplay})</h3>
+        <p><strong>${data.dateDisplay}</strong></p>
+        <p style="font-size: 0.85rem;">${processedDesc}</p>
+        <span style="display:inline-flex;align-items:center;margin-top:1rem;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="vertical-align:middle;">
+                <path d="M6 4l5 5-5 5" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+    </div>
+</a>`;
+            document.getElementById('card_output').textContent = cardHtml;
+            updateCardPreview();
+            showToast('Código gerado!');
+        }
+
+        async function addCardToBlog() {
+            if (!await checkConnection()) {
+                showToast('Servidor não conectado!', true);
+                return;
+            }
+            const data = getCardFormData();
+            const processedDesc = data.shortDesc.replace('{TYPE}', data.versionType).replace('{VERSION}', data.versionDisplay);
+            const autoLink = `${getSubfolder(data.program)}${data.program} (${data.buildCode}_${data.buildNumber.replace('build.', '').replace(/\//g, '-')}).html`;
+            const link = data.link || autoLink;
+            try {
+                const response = await fetch('/api/add-card', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ program: data.program, versionType: data.versionType, versionDisplay: data.versionDisplay, dateDisplay: data.dateDisplay, image: data.image, link: link, shortDesc: processedDesc })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    document.getElementById('card_resultPanel').classList.add('show');
+                    showToast('Card adicionado ao blog!');
+                } else { throw new Error(result.error); }
+            } catch (error) { showToast('Erro: ' + error.message, true); }
+        }
+
+        ['card_program', 'card_versionType', 'card_buildCode', 'card_buildNumber', 'card_publishDate', 'card_postImage', 'card_shortDesc'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateCardPreview);
+            document.getElementById(id).addEventListener('change', updateCardPreview);
+        });
+
+        // ==================== FULL POST FUNCTIONS ====================
+        document.getElementById('program').addEventListener('change', function() {
+            document.getElementById('customProgramGroup').style.display = this.value === 'custom' ? 'block' : 'none';
+            updatePreview();
+        });
+        document.getElementById('postImage').addEventListener('change', function() {
+            document.getElementById('customImageGroup').style.display = this.value === 'custom' ? 'block' : 'none';
+            updatePreview();
+        });
+        ['buildCode', 'buildNumber', 'publishDate', 'versionType', 'shortDesc'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updatePreview);
+            document.getElementById(id).addEventListener('change', updatePreview);
+        });
+
+        function loadTemplate(type) {
+            const templates = {
+                spe: { program: 'SPE 5.0', image: 'SPE_logo_remastered.png', shortDesc: 'Announcing GreenToast Insider {TYPE}, SPE 5.0 release ({VERSION})', mainContent: 'Descubra as novidades da versão SPE 5.0. Esta atualização traz melhorias de performance, novos recursos e correções importantes para todos os usuários.', features: ['Nova interface aprimorada', 'Melhorias de performance', 'Correções de bugs'] },
+                worksup: { program: 'WorksUP [PROGRAMMING Pack]', image: 'WorksUP [WKPP]_icon.png', shortDesc: 'Announcing GreenToast Insider {TYPE}, WorksUP [PROGRAMMING Pack] release ({VERSION})', mainContent: 'Nova versão do WorksUP [PROGRAMMING Pack] disponível. Confira as novidades e melhorias desta build para desenvolvedores.', features: ['Novos templates de código', 'Suporte a mais linguagens', 'Melhor integração com sistemas'] },
+                greenpc: { program: 'GreenPC Info', image: 'GreenPC Info_icon.png', shortDesc: 'Announcing GreenToast Insider {TYPE}, GreenPC Info release ({VERSION})', mainContent: 'Atualização do GreenPC Info com novos recursos de monitoramento e interface renovada para melhor análise do seu sistema.', features: ['Monitoramento em tempo real', 'Interface modernizada', 'Relatórios detalhados'] }
+            };
+            const template = templates[type];
+            if (template) {
+                document.getElementById('program').value = template.program;
+                document.getElementById('postImage').value = template.image;
+                document.getElementById('shortDesc').value = template.shortDesc;
+                document.getElementById('mainContent').value = template.mainContent;
+                features = [...template.features];
+                renderFeatures();
+                document.getElementById('customProgramGroup').style.display = 'none';
+                document.getElementById('customImageGroup').style.display = 'none';
+                updatePreview();
+                addLog('Template "' + type + '" carregado', 'info');
+            }
+        }
+
+        function addFeature() {
+            const input = document.getElementById('featureInput');
+            const value = input.value.trim();
+            if (value) { features.push(value); input.value = ''; renderFeatures(); }
+        }
+        function removeFeature(index) { features.splice(index, 1); renderFeatures(); }
+        function renderFeatures() {
+            const list = document.getElementById('featureList');
+            list.innerHTML = features.map((f, i) => `<li><button onclick="removeFeature(${i})">×</button>${f}</li>`).join('');
+        }
+        document.getElementById('featureInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') { e.preventDefault(); addFeature(); } });
+
+        function getFormData() {
+            const programSelect = document.getElementById('program');
+            const program = programSelect.value === 'custom' ? document.getElementById('customProgram').value : programSelect.value;
+            const imageSelect = document.getElementById('postImage');
+            const image = imageSelect.value === 'custom' ? document.getElementById('customImage').value : imageSelect.value;
+            return { program, versionType: document.getElementById('versionType').value, buildCode: document.getElementById('buildCode').value, buildNumber: document.getElementById('buildNumber').value, publishDate: document.getElementById('publishDate').value, image, shortDesc: document.getElementById('shortDesc').value, mainContent: document.getElementById('mainContent').value, features, minReq: document.getElementById('minReq').value, arch: document.getElementById('arch').value, downloadSize: document.getElementById('downloadSize').value, license: document.getElementById('license').value };
+        }
+
+        function updatePreview() {
+            const data = getFormData();
+            const versionDisplay = `${data.buildCode}_${data.buildNumber.replace('build.', '')}`;
+            const date = new Date(data.publishDate);
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const dateDisplay = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+            document.getElementById('previewImg').src = '../' + data.image;
+            document.getElementById('previewTitle').textContent = `${data.program} ${data.versionType} VERSION (${versionDisplay})`;
+            document.getElementById('previewDate').textContent = dateDisplay;
+            let desc = data.shortDesc.replace('{TYPE}', data.versionType).replace('{VERSION}', versionDisplay);
+            document.getElementById('previewDesc').textContent = desc || 'Descrição...';
+        }
+
+        function addLog(message, type = 'info') {
+            const logPanel = document.getElementById('logPanel');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry ' + type;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logPanel.appendChild(entry);
+            logPanel.scrollTop = logPanel.scrollHeight;
+        }
+
+        async function createPost() {
+            const btn = document.getElementById('createBtn');
+            const originalText = btn.innerHTML;
+            const data = getFormData();
+            if (!data.buildCode || !data.buildNumber) { showToast('Preencha o Build Code e Build Number!', true); return; }
+            if (!await checkConnection()) { showToast('Servidor não conectado! Execute: node blog-creator/server.js', true); return; }
+            btn.innerHTML = '<span class="loading"></span> Criando...';
+            btn.disabled = true;
+            addLog('Iniciando criação do post...', 'info');
+            try {
+                const response = await fetch('/api/create-post', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+                const result = await response.json();
+                if (result.success) {
+                    lastCreatedFile = result.filename;
+                    document.getElementById('resultFilename').textContent = result.filename;
+                    document.getElementById('resultPanel').classList.add('show');
+                    addLog('Arquivo criado: ' + result.filename, 'success');
+                    addLog('Card adicionado ao SPE_blog.html', 'success');
+                    showToast('Post criado com sucesso!');
+                } else { throw new Error(result.error || 'Erro desconhecido'); }
+            } catch (error) { addLog('Erro: ' + error.message, 'error'); showToast('Erro: ' + error.message, true); }
+            finally { btn.innerHTML = originalText; btn.disabled = false; }
+        }
+
+        function openFile() { if (lastCreatedFile) window.open('../' + lastCreatedFile, '_blank'); }
+        function openBlog() { window.open('../SPE_blog.html', '_blank'); }
+        function copyCode(elementId) { navigator.clipboard.writeText(document.getElementById(elementId).textContent).then(() => showToast('Copiado!')); }
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.toggle('error', isError);
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        function clearForm() {
+            document.getElementById('program').value = 'SPE 5.0';
+            document.getElementById('versionType').value = 'BETA';
+            document.getElementById('buildCode').value = '';
+            document.getElementById('buildNumber').value = '';
+            document.getElementById('publishDate').valueAsDate = new Date();
+            document.getElementById('postImage').value = 'SPE_logo_remastered.png';
+            document.getElementById('shortDesc').value = '';
+            document.getElementById('mainContent').value = '';
+            document.getElementById('downloadSize').value = '';
+            document.getElementById('customProgramGroup').style.display = 'none';
+            document.getElementById('customImageGroup').style.display = 'none';
+            document.getElementById('resultPanel').classList.remove('show');
+            features = [];
+            renderFeatures();
+            updatePreview();
+            addLog('Formulário limpo', 'info');
+            showToast('Formulário limpo!');
+        }
+
+        // Initialize
+        checkConnection();
+        setInterval(checkConnection, 5000);
+        loadTemplate('spe');
+        loadCardTemplate('spe');
+    </script>
+</body>
+</html>
