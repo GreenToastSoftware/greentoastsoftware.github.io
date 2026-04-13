@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://greentoastsoftware.github.io/</loc>
@@ -55,43 +55,37 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://greentoastsoftware.github.io/Helps/index_guide.html</loc>
-    <lastmod>2025-12-12</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
     <loc>https://greentoastsoftware.github.io/worksup.html</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://greentoastsoftware.github.io/SPE%205.0%20%2805W4C_build.27.05-25%29.html</loc>
+    <loc>https://greentoastsoftware.github.io/greeninsider/spe50/SPE%205.0%20%2805W4C_build.27.05-25%29.html</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://greentoastsoftware.github.io/SPE%205.0%20%2806.Y.7b-build.18.12-24%29.html</loc>
+    <loc>https://greentoastsoftware.github.io/greeninsider/spe50/SPE%205.0%20%2806.Y.7b-build.18.12-24%29.html</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://greentoastsoftware.github.io/SPE%205.0%20%2808.W.7C_build.23.05-25%29.html</loc>
+    <loc>https://greentoastsoftware.github.io/greeninsider/spe50/SPE%205.0%20%2808.W.7C_build.23.05-25%29.html</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://greentoastsoftware.github.io/SPE%205.0%20%2808.W.9c_build.29.03-25%29.html</loc>
+    <loc>https://greentoastsoftware.github.io/greeninsider/spe50/SPE%205.0%20%2808.W.9c_build.29.03-25%29.html</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://greentoastsoftware.github.io/WorksUP%20%5BPROGRAMMING%20Pack%5D%20%28WKPP.03W4C_build.16.10-25%29.html</loc>
+    <loc>https://greentoastsoftware.github.io/greeninsider/worksup/WorksUP%20%5BProgramming%20Pack%5D%20%28WKPP.03W4C_build.16.10-25%29.html</loc>
     <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
