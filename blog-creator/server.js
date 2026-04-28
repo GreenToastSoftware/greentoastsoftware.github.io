@@ -393,6 +393,8 @@ function createBlogPost(data) {
                     <div class="dropdown-content">
                         <a href="${pathPrefix}GreenToast Apps.html" class="dropdown-link">GreenToast Apps</a>
                         <a href="${pathPrefix}SPE_blog.html" class="dropdown-link">GreenInsider Blog</a>
+                        <a href="${pathPrefix}projects.html" class="dropdown-link">GreenProjects</a>
+                        <a href="${pathPrefix}greentoastlearn/index.html" class="dropdown-link">GreenToast Learn</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="${pathPrefix}worksup.html" class="nav-link">WorksUP</a></li>

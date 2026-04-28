@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn SPE 5.0 - Documentation - GreenToastSoftware</title>
+  <link rel="icon" type="image/png" href="../../Toast_4K_icon.png">
+  <link rel="apple-touch-icon" href="../../Toast_4K_icon.png">
+  <link rel="stylesheet" href="../../styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <style>
+    .version-tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .version-tab { padding: .6rem 1.4rem; border-radius: 8px; background: rgba(255,255,255,.06); color: var(--gray-300); text-decoration: none; font-weight: 600; border: 1px solid rgba(255,255,255,.1); transition: all .2s; }
+    .version-tab:hover { background: rgba(255,255,255,.12); color: #fff; }
+    .version-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .doc-section { background: rgba(255,255,255,.03); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,.06); }
+    .doc-section h3 { margin-bottom: .75rem; color: var(--gray-100); }
+    .doc-section p, .doc-section li { color: var(--gray-300); line-height: 1.7; }
+    .doc-section ul { padding-left: 1.2rem; }
+    .doc-section li { margin-bottom: .4rem; }
+    .doc-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .doc-table th, .doc-table td { padding: .6rem 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,.08); color: var(--gray-200); }
+    .doc-table th { color: var(--gray-100); font-weight: 600; background: rgba(255,255,255,.04); }
+    .code-block { background: rgba(0,0,0,.3); border-radius: 8px; padding: 1.2rem; font-family: 'Courier New', monospace; font-size: .82rem; color: #a0f0a0; line-height: 1.6; overflow-x: auto; margin: 1rem 0; }
+    .code-block p { margin: 0; color: #a0f0a0; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" data-aos="fade-down">
+    <div class="nav-container">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Toast_4K_icon.png" alt="Toast Icon" class="nav-logo-icon" onerror="this.src='../../Toast_4K_icon.png'">
+        <span class="logo-text">GreenToastSoftware</span>
+        <span class="logo-dot"></span>
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="../../index.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="../../index.html#innovation" class="nav-link">
+            Innovation
+            <span class="dropdown-arrow">▾</span>
+          </a>
+          <div class="dropdown-content">
+            <a href="../../GreenToast Apps.html" class="dropdown-link">
+              <span class="dropdown-text">GreenToast Apps</span>
+            </a>
+            <a href="../../greentoastinsider_blog.html" class="dropdown-link">
+              <span class="dropdown-text">GreenInsider Blog</span>
+            </a>
+            <a href="../../projects.html" class="dropdown-link">
+              <span class="dropdown-text">GreenProjects</span>
+            </a>
+            <a href="../index.html" class="dropdown-link">
+              <span class="dropdown-text">GreenToast Learn</span>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="../../worksup.html" class="nav-link">WorksUP</a>
+        </li>
+        <li class="nav-item">
+          <a href="../../index.html#services" class="nav-link">Services</a>
+        </li>
+        <li class="nav-item">
+          <a href="../../about.html" class="nav-link">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a href="../../contact.html" class="nav-link">Contact Us</a>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height: 50vh; margin-top: 80px;">
+    <div class="hero-background">
+      <div class="theme-image-bg"></div>
+    </div>
+    <div class="container" style="position: relative; z-index: 4;">
+      <div class="intro-grid solo">
+        <div>
+          <h1 class="hero-title gradient-text">SPE Documentation</h1>
+          <p style="margin-top:.75rem; color: var(--gray-200); max-width:760px;">
+            Complete documentation for all major SPE versions. Select a version below to explore its documentation.
+          </p>
+          <div style="margin-top:1rem;">
+            <a class="quick-link" href="../index.html">← Back to GreenToast Learn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="padding: 2rem 0 4rem;">
+
+    <!-- Version Tabs -->
+    <nav aria-label="SPE version documentation">
+      <div class="version-tabs">
+        <a class="version-tab active" href="spe50.html">SPE 5.0</a>
+        <!-- Future versions: uncomment when available
+        <a class="version-tab" href="spe51.html">SPE 5.1</a>
+        <a class="version-tab" href="spe4x.html">SPE 4.X</a>
+        -->
+      </div>
+    </nav>
+
+    <h2 style="margin-bottom:.5rem;">SPE 5.0 — System Programs Easier</h2>
+    <p style="color: var(--gray-300); margin-bottom: 2rem;">Version <strong>v1.0.0</strong> &bull; ©GreenToastSoftware Corporation 2020–2025</p>
+
+    <!-- Quick Links -->
+    <div class="services-grid" style="margin-bottom: 2.5rem;">
+      <a class="service-card learn-card" href="../../wiki/SPE50_wiki.html" aria-label="Wiki SPE 5.0">
+        <div class="service-icon"><span style="font-weight:700;">📖</span></div>
+        <h3>SPE 5.0 Wiki</h3>
+        <p>Interactive wiki page with visuals, features showcase and FAQ.</p>
+      </a>
+      <a class="service-card learn-card" href="../../wiki/SPE5X_wiki.html" aria-label="Wiki SPE 5.X">
+        <div class="service-icon"><span style="font-weight:700;">📚</span></div>
+        <h3>SPE 5.X Wiki</h3>
+        <p>Installation, configuration and version comparison.</p>
+      </a>
+      <a class="service-card learn-card" href="../../greentoastinsider_blog.html" aria-label="Changelog">
+        <div class="service-icon"><span style="font-weight:700;">📰</span></div>
+        <h3>Changelog & Updates</h3>
+        <p>Release notes and recent updates.</p>
+      </a>
+    </div>
+
+    <!-- Overview -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Overview</h3>
+      <p><strong>SPE 5.0</strong> (System Programs Easier) is a WPF desktop application developed by <strong>GreenToastSoftware Corporation</strong> that centralizes various system tools, utilities and productivity features in a single interface.</p>
+      <p>The application is designed to work with <strong>administrator privileges</strong> and offers everything from hardware/software diagnostics to converters, entertainment and an integrated chat assistant.</p>
+      <table class="doc-table">
+        <tr><th>Field</th><th>Value</th></tr>
+        <tr><td>Name</td><td>SPE 5.0 (System Programs Easier 5.0)</td></tr>
+        <tr><td>Framework</td><td>.NET Framework 4.8</td></tr>
+        <tr><td>Project Type</td><td>WPF (Windows Presentation Foundation)</td></tr>
+        <tr><td>Root Namespace</td><td>SPE50 / PSWRDMGR</td></tr>
+        <tr><td>Company</td><td>GreenToastSoftware Corporation</td></tr>
+        <tr><td>Version</td><td>1.0.0.0</td></tr>
+      </table>
+    </div>
+
+    <!-- Architecture -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Architecture</h3>
+      <p>The application follows a <strong>Frame-based navigation</strong> architecture inside a main window (<code>MainWindowHome</code>). Features are implemented as WPF <strong>Pages</strong> loaded dynamically into the <code>MainFrame</code>.</p>
+      <div class="code-block">
+        <p>App.xaml / App.xaml.cs</p>
+        <p>&nbsp;&nbsp;→ LoadingScreen (7s animation)</p>
+        <p>&nbsp;&nbsp;→ Intro_Toast (logo animation + sound)</p>
+        <p>&nbsp;&nbsp;→ MainWindowHome (Window)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;└ MainFrame (Frame)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ MainWindowPage (navigation hub)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ config_page &bull; Currency_page</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ pdf_page &bull; QR_page</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ CheckDrivers &bull; Checkdisk_page</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ gpedit_page &bull; SpeedTest_page</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ SPE_Installer &bull; Entertainment</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ WINtoolsRemastered</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└ GreenToastHelper_page</p>
+      </div>
+      <h4 style="margin-top:1.5rem;">Startup Flow</h4>
+      <ol>
+        <li><code>App.OnStartup()</code> checks if the app is packaged (MSIX) via <code>PackageIdentityHelper</code>.</li>
+        <li>If not packaged and without admin privileges, restarts with elevation (<code>runas</code>).</li>
+        <li>Registers global handlers for unhandled exceptions.</li>
+        <li>Based on <code>ShowIntroEnabled</code> setting: shows LoadingScreen → Intro_Toast → MainWindowHome, or opens directly.</li>
+      </ol>
+    </div>
+
+    <!-- Folder Structure -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Folder Structure</h3>
+      <div class="code-block">
+        <p>PSWRDMGR/</p>
+        <p>├ App.xaml / App.xaml.cs</p>
+        <p>├ MainWindowHome.xaml.cs</p>
+        <p>├ MainWindowPage.xaml.cs</p>
+        <p>├ dev_dialog.xaml.cs</p>
+        <p>├ Pages/</p>
+        <p>│&nbsp;&nbsp;├ config_page &bull; Currency_page &bull; Temp_unit_page</p>
+        <p>│&nbsp;&nbsp;├ pdf_page &bull; QR_page &bull; CheckDrivers &bull; Checkdisk_page</p>
+        <p>│&nbsp;&nbsp;├ gpedit_page &bull; SpeedTest_Internet &bull; SPE_Installer_page</p>
+        <p>│&nbsp;&nbsp;├ Entertainment &bull; WINtoolsRemastered &bull; GreenToastHelper</p>
+        <p>│&nbsp;&nbsp;└ SPE_entert_plat &bull; WINtoolsMenu_page</p>
+        <p>├ Window/</p>
+        <p>│&nbsp;&nbsp;├ Intro_Toast &bull; LoadingScreen &bull; SPE_terminal</p>
+        <p>│&nbsp;&nbsp;└ SPE_Entertainment &bull; Windows_welscreen</p>
+        <p>├ Pop_ups/</p>
+        <p>│&nbsp;&nbsp;├ InternetControlPanel &bull; SoundControlPanel</p>
+        <p>├ Chat/ &bull; Themes/ &bull; Utilities/ &bull; Dialogs/</p>
+        <p>├ Function reports_dialogs/ &bull; Warning_dialogs/</p>
+        <p>├ WindowsTools/ &bull; TestResources/ &bull; Properties/</p>
+        <p>└ Add-ons/ &bull; docs/</p>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Features</h3>
+
+      <h4>Main Page</h4>
+      <p>Navigation hub with buttons for each module, status indicators (Internet/Sound), embedded chat, theme menu and automatic location detection.</p>
+
+      <h4 style="margin-top:1.5rem;">Currency Converter</h4>
+      <p>Conversion between multiple fiat and cryptocurrencies using ExchangeRate-API and CoinAPI. Historical charts with LiveCharts, currency search, and persistent configuration memory.</p>
+
+      <h4 style="margin-top:1.5rem;">Temperature Converter</h4>
+      <p>Conversion between 6 units: Celsius, Fahrenheit, Kelvin, Rankine, Réaumur and Delisle.</p>
+
+      <h4 style="margin-top:1.5rem;">PDF Converter</h4>
+      <p>File to PDF conversion using Spire.PDF with support for Word and PowerPoint via Microsoft Office Interop. Multi-file selection with Ookii.Dialogs.Wpf.</p>
+
+      <h4 style="margin-top:1.5rem;">QR Code Generator</h4>
+      <p>QR Code generation from URLs/text using QRCoder. URL history persisted locally.</p>
+
+      <h4 style="margin-top:1.5rem;">Driver Verification</h4>
+      <p>Full system driver analysis via WMI: outdated, missing, problematic. BackgroundWorker execution with statistics and reports.</p>
+
+      <h4 style="margin-top:1.5rem;">CheckDisk</h4>
+      <p>GUI interface for Windows chkdsk utility. Options: fix errors (/F), recover bad sectors (/R). Cancellation support.</p>
+
+      <h4 style="margin-top:1.5rem;">Group Policy Editor</h4>
+      <p>Interface for gpedit.msc with state verification and installation on Windows editions that don't include it.</p>
+
+      <h4 style="margin-top:1.5rem;">Internet Speed Test</h4>
+      <p>Async download speed test with HttpClient, visual timer and cancellation support.</p>
+
+      <h4 style="margin-top:1.5rem;">SPE Installer (Package Manager)</h4>
+      <p>Integrated package manager supporting Winget and Chocolatey. Package listing with name, description, version, source and status. Multi-selection for installation.</p>
+
+      <h4 style="margin-top:1.5rem;">Entertainment</h4>
+      <p>Embedded web browser via WebView2 with dedicated window and navigation frame.</p>
+
+      <h4 style="margin-top:1.5rem;">WINtools Remastered</h4>
+      <p>Advanced Windows tools: WinSAT, Welcome Screen, GreenVisualizationPC and informational links.</p>
+
+      <h4 style="margin-top:1.5rem;">SPE Terminal</h4>
+      <p>Integrated terminal with custom commands, interactive Yes/No confirmation and auto-scroll.</p>
+
+      <h4 style="margin-top:1.5rem;">Chat Assistant</h4>
+      <p>Integrated assistant with local intent engine (regex patterns), TTS via System.Speech, voice recognition (en-US), pre-defined responses in JSON and colored message bubbles.</p>
+    </div>
+
+    <!-- Theme System -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Theme System</h3>
+      <p>4 visual themes managed by ResourceDictionary, with runtime switching:</p>
+      <table class="doc-table">
+        <tr><th>Theme</th><th>File</th><th>UID</th></tr>
+        <tr><td>Light</td><td>LightTheme.xaml</td><td>0</td></tr>
+        <tr><td>Colourful Light</td><td>ColourfulLightTheme.xaml</td><td>1</td></tr>
+        <tr><td>Dark (default)</td><td>DarkTheme.xaml</td><td>2</td></tr>
+        <tr><td>Colourful Dark</td><td>ColourfulDarkTheme.xaml</td><td>3</td></tr>
+      </table>
+    </div>
+
+    <!-- Audio, Panels, Settings -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Audio System</h3>
+      <p>Centralized audio manager using NAudio (WaveOutEvent, AudioFileReader). Volume control combining original and app volume, mute checking and real-time volume change events.</p>
+    </div>
+
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Internet Control Panel</h3>
+      <p>Pop-up for blocking/unblocking internet access for the app (via invalid proxy 127.0.0.1:65000). Quick access to Windows network settings. Periodic connectivity check every 5 seconds.</p>
+    </div>
+
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Sound Control Panel</h3>
+      <p>Volume control via Core Audio API (COM Interop) with independent app volume. Static functions for effective volume and mute state.</p>
+    </div>
+
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Settings</h3>
+      <table class="doc-table">
+        <tr><th>Option</th><th>Property</th><th>Description</th></tr>
+        <tr><td>Terminal</td><td>TerminalButtonChecked</td><td>Show/hide terminal button</td></tr>
+        <tr><td>PDF Report</td><td>PdfReportEnabled</td><td>Enable/disable PDF conversion reports</td></tr>
+        <tr><td>App Memory</td><td>MemoryAppEnabled</td><td>Persist state between sessions</td></tr>
+        <tr><td>Currency Memory</td><td>CurrencyAppMemoryEnabled</td><td>Persist currency configuration</td></tr>
+        <tr><td>Intro/Loading</td><td>ShowIntroEnabled</td><td>Show intro animation on startup</td></tr>
+      </table>
+    </div>
+
+    <!-- Dependencies -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Dependencies (NuGet)</h3>
+      <table class="doc-table">
+        <tr><th>Package</th><th>Version</th><th>Usage</th></tr>
+        <tr><td>NAudio</td><td>2.2.1</td><td>Audio playback and management</td></tr>
+        <tr><td>Newtonsoft.Json</td><td>13.0.3</td><td>JSON serialization</td></tr>
+        <tr><td>Microsoft.Web.WebView2</td><td>1.0.3351.48</td><td>Embedded web browser</td></tr>
+        <tr><td>LiveCharts + Wpf</td><td>0.9.7</td><td>Charts (currency converter)</td></tr>
+        <tr><td>QRCoder</td><td>1.6.0</td><td>QR Code generation</td></tr>
+        <tr><td>Spire.PDF</td><td>11.7.10</td><td>PDF conversion</td></tr>
+        <tr><td>Ookii.Dialogs.Wpf</td><td>5.0.1</td><td>Native Windows dialogs</td></tr>
+        <tr><td>LibreHardwareMonitorLib</td><td>0.9.4</td><td>Hardware monitoring</td></tr>
+        <tr><td>System.Management</td><td>9.0.0</td><td>WMI access</td></tr>
+      </table>
+    </div>
+
+    <!-- Keyboard Shortcuts -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Keyboard Shortcuts</h3>
+      <table class="doc-table">
+        <tr><th>Shortcut</th><th>Action</th></tr>
+        <tr><td>Ctrl + Shift + G</td><td>Open/close chat assistant</td></tr>
+        <tr><td>Alt + Ctrl + Shift + F10</td><td>Open developer dialog</td></tr>
+      </table>
+    </div>
+
+    <!-- System Requirements -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>System Requirements</h3>
+      <ul>
+        <li><strong>OS:</strong> Windows 10 or higher</li>
+        <li><strong>Framework:</strong> .NET Framework 4.8</li>
+        <li><strong>Privileges:</strong> Administrator (automatic elevation on startup)</li>
+        <li><strong>Optional:</strong> Microsoft Office (Word/PowerPoint) for PDF conversion</li>
+        <li><strong>Optional:</strong> Winget and/or Chocolatey for SPE Installer</li>
+        <li><strong>Optional:</strong> WebView2 Runtime for entertainment features</li>
+        <li><strong>Optional:</strong> SPE.Helper auxiliary service for advanced operations</li>
+      </ul>
+    </div>
+
+    <!-- Technical Notes -->
+    <div class="doc-section" data-aos="fade-up">
+      <h3>Technical Notes</h3>
+      <h4>MSIX / Packaging</h4>
+      <p>The application detects if running as a packaged app (MSIX) via <code>PackageIdentityHelper.IsPackagedApp()</code>, using the <code>GetCurrentPackageFullName</code> API. In packaged mode, privilege elevation is skipped.</p>
+      <h4 style="margin-top:1rem;">Tray Icon</h4>
+      <p>Creates a NotifyIcon (system tray) for notifications about internet connection status.</p>
+      <h4 style="margin-top:1rem;">Exception Handling</h4>
+      <p>Two global handlers capture unhandled exceptions: <code>AppDomain.CurrentDomain.UnhandledException</code> and <code>DispatcherUnhandledException</code>.</p>
+      <h4 style="margin-top:1rem;">MSI Installer</h4>
+      <p>PowerShell script using WiX Toolset v4 to generate <code>SPE_5.0_Setup.msi</code>. Compiles project in Release mode via MSBuild.</p>
+    </div>
+
+    <!-- Featured Versions -->
+    <section style="margin-top:3rem;">
+      <h3 style="margin-bottom:.75rem;">Featured Builds</h3>
+      <div class="quick-links" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1rem;">
+        <a class="quick-link" href="../../SPE 5.0 (08.W.7C_build.23.05-25).html">SPE 5.0 • 08.W.7C</a>
+        <a class="quick-link" href="../../SPE 5.0 (05W4C_build.27.05-25).html">SPE 5.0 • 05W4C</a>
+        <a class="quick-link" href="../../SPE 5.0 (08.W.9c_build.29.03-25).html">SPE 5.0 • 08.W.9c</a>
+        <a class="quick-link" href="../../SPE 5.0 (06.Y.7b-build.18.12-24).html">SPE 5.0 • 06.Y.7b</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../../script.js"></script>
+</body>
+</html>

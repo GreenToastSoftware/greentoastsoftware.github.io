@@ -1,0 +1,823 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPE 5.0 Wiki v1.0.0 - GreenToastSoftware</title>
+    <link rel="icon" type="image/png" href="../Toast_4K_icon.png">
+    <link rel="apple-touch-icon" href="../Toast_4K_icon.png">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        /* Override local do background apenas para a página SPE WIKI */
+        .apps-hero.spe-hero .theme-image-bg {
+            background-image: url('../Theme_colour.png');
+        }
+    </style>
+    <style>
+        /* Temas dos cards: substitui gradientes por cores/imagens de tema */
+        .service-card.card-theme1::before {
+            background: url('../Theme_colour.png') center/cover no-repeat !important;
+        }
+        .service-card.card-theme2::before {
+            background: url('../Theme2_colour.png') center/cover no-repeat !important;
+        }
+        .service-card.card-theme1 .service-icon {
+            background: url('../Theme_colour.png') center/cover no-repeat !important;
+        }
+        .service-card.card-theme2 .service-icon {
+            background: url('../Theme2_colour.png') center/cover no-repeat !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" data-aos="fade-down">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../Toast_4K_icon.png" alt="Toast Icon" class="nav-logo-icon" onerror="this.src='../Toast_4K_icon.png'">
+                <span class="logo-text">GreenToastSoftware</span>
+                <span class="logo-dot"></span>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="../index.html#innovation" class="nav-link">
+                        Innovation
+                        <span class="dropdown-arrow">▾</span>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="../GreenToast Apps.html" class="dropdown-link">
+                            <span class="dropdown-text">GreenToast Apps</span>
+                        </a>
+                            <a href="../greentoastinsider_blog.html" class="dropdown-link">
+                            <span class="dropdown-text">GreenInsider Blog</span>
+                        </a>
+                        <a href="../projects.html" class="dropdown-link">
+                            <span class="dropdown-text">GreenProjects</span>
+                        </a>
+                        <a href="../greentoastlearn/index.html" class="dropdown-link">
+                            <span class="dropdown-text">GreenToast Learn</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../worksup.html" class="nav-link">WorksUP</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../about.html" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../contact.html" class="nav-link">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../login.html" class="nav-link account-link" id="auth-nav-btn">Sign In</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    
+        <!-- Header: Conheça o SPE (painel como hero) -->
+        <section class="feature-split feature-split--diagonal intro-panel intro-panel--hero" aria-label="Conheça o SPE">
+            <div class="container">
+                <div class="split-grid">
+                    <div class="split-left" data-aos="fade-right">
+                        <div class="intro-text">
+                            <h2 class="intro-title">Get to know SPE 5.0</h2>
+                            <p class="intro-lead">Control Windows with convenience and native power — all with one click. <strong>v1.0.0</strong></p>
+                            <p class="intro-dynamic">
+                                <span class="static">SPE is</span>
+                                <span id="dynamicText" class="dynamic-text" aria-live="polite"></span>
+                                <span class="cursor">|</span>
+                            </p>
+                            <ul class="intro-bullets">
+                                <li>Native Windows shortcuts ready for you</li>
+                                <li>Modern and straightforward interface</li>
+                                <li>No data collection, everything local</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="split-right" data-aos="zoom-in">
+                        <div class="intro-visual" aria-label="Carrossel 3D de imagens do SPE">
+                            <div class="aura" aria-hidden="true"></div>
+                            <div class="carousel-3d">
+                                <div class="carousel" id="speCarousel">
+                                    <div class="carousel-item"><img src="../SPE_icon.png" alt="Ícone SPE"></div>
+                                    <div class="carousel-item"><img src="../Toast_4K_icon.png" alt="Ícone Toast"></div>
+                                    <div class="carousel-item"><img src="../Resources/GreenToastSoftware_logo_banner.png" alt="Banner GreenToastSoftware"></div>
+                                    <div class="carousel-item"><img src="../Resources/gpedit_icon.png" alt="Ferramenta do Windows"></div>
+                                    <div class="carousel-item"><img src="../Resources/notifications_icon.png" alt="Notificações"></div>
+                                    <div class="carousel-item"><img src="../Resources/GreenPC Info_icon.png" alt="GreenPC Info"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator" style="color: #fff;" data-aos="bounce" data-aos-delay="1000">
+                <div class="mouse" style="border: 2px solid #fff;">
+                    <div class="wheel" style="border: 2px solid #fff;"></div>
+                </div>
+                <span>Explorar</span>
+            </div>
+        </section>
+
+    
+
+    <!-- Marquee de funcionalidades -->
+    <section class="marquee-features" aria-label="Destaques do SPE rolantes">
+        <div class="marquee-mask">
+            <div class="marquee-track">
+                <span>Windows Installer</span>
+                <span>Administrative Panel</span>
+                <span>SPE Extras</span>
+                <span>GreenToast Workstations</span>
+                <span>One‑Click Actions</span>
+                <span>Secure & Local</span>
+                <span>Productivity</span>
+                <!-- duplicação para efeito contínuo -->
+                <span>Windows Installer</span>
+                <span>Administrative Panel</span>
+                <span>SPE Extras</span>
+                <span>GreenToast Workstations</span>
+                <span>One‑Click Actions</span>
+                <span>Secure & Local</span>
+                <span>Productivity</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funcionalidades (layout split como no exemplo) -->
+    <section id="features" class="feature-split section--diagonal">
+        <div class="container">
+            <div class="split-grid">
+                <div class="split-left" data-aos="fade-right">
+                    <h2 class="split-title">Funcionalidades</h2>
+                    <ul class="split-list">
+                        <li><span>Windows Installer</span></li>
+                        <li><span>Administrative Panel</span></li>
+                        <li><span>SPE Extras</span></li>
+                        <li><span>GreenToast Workstations</span></li>
+                    </ul>
+                    <p class="split-note">Organização por painéis com ações em um clique e integração nativa ao Windows.</p>
+                </div>
+                <div class="split-right" data-aos="fade-left">
+                    <figure class="tilt-mock" aria-label="Prévia do SPE">
+                        <img class="mock-screen" src="../Resources/Captura de ecrã 2024-12-18 201547.png" alt="Menu principal do SPE com painéis">
+                    </figure>
+                    <div class="mock-dots" role="tablist" aria-label="Navegação de screenshots">
+                        <button class="dot active" role="tab" aria-selected="true" data-shot="../Resources/Captura de ecrã 2024-12-18 201547.png" aria-label="Screenshot 1"></button>
+                        <button class="dot" role="tab" aria-selected="false" data-shot="../Resources/Captura de ecrã 2024-12-16 214453.png" aria-label="Screenshot 2"></button>
+                        <button class="dot" role="tab" aria-selected="false" data-shot="../Resources/Captura de ecrã 2024-12-16 233524.png" aria-label="Screenshot 3"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funcionalidades 2 (plano diagonal, invertido) -->
+    <section class="feature-split feature-split--diagonal flip" aria-label="Funcionalidades avançadas">
+        <div class="container">
+            <div class="split-grid">
+                <div class="split-right" data-aos="fade-right">
+                    <figure class="tilt-mock tilt-mock--large" aria-label="Prévia do SPE">
+                        <img class="mock-screen" src="../Resources/Captura de ecrã 2024-12-18 201610.png" alt="Prévia SPE com painéis">
+                    </figure>
+                </div>
+                <div class="split-left" data-aos="fade-left">
+                    <h2 class="split-title">Painéis modulares</h2>
+                    <div class="split-paragraphs">
+                        <p><span>Windows Installer</span> Instale e gerencie componentes do sistema com segurança, em menos etapas.</p>
+                        <p><span>Painel Administrativo</span> Acesse verificações de disco, drivers e ferramentas nativas direto do SPE.</p>
+                        <p><span>SPE Extras</span> Atalhos para utilitários úteis como conversão de PDF e gerador de QR.</p>
+                        <p><span>Workstations</span> Agrupamento inteligente por tarefas do dia a dia para ganhar tempo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Campo de funcionalidade (Branco) -->
+    <section class="feature-block feature-block--white section--diagonal" aria-label="Campo de funcionalidade branco">
+        <div class="container">
+            <div class="block-grid">
+                <div class="block-text" data-aos="fade-right">
+                    <h2 class="block-title">Controle em 1 clique</h2>
+                    <p>Execute tarefas críticas sem navegar por menus. Com atalhos diretos, você acelera instalações, diagnósticos e ações de energia.</p>
+                    <ul class="block-list">
+                        <li>Limpeza e manutenção</li>
+                        <li>Rede e energia</li>
+                        <li>Ferramentas administrativas</li>
+                    </ul>
+                </div>
+                <div class="block-media" data-aos="fade-left">
+                    <figure class="tilt-mock" aria-label="Prévia do SPE">
+                        <img class="mock-screen" src="../Resources/Captura de ecrã 2024-12-18 204201.png" alt="Ações em 1 clique no SPE">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Campo de funcionalidade (Theme_colour.png) -->
+    <section class="feature-block feature-block--theme section--diagonal" aria-label="Campo de funcionalidade com fundo Theme">
+        <div class="container">
+            <div class="block-grid">
+                <div class="block-media" data-aos="fade-right">
+                    <figure class="tilt-mock tilt-mock--large" aria-label="Prévia do SPE">
+                        <img class="mock-screen" src="../Resources/Captura de ecrã 2024-12-18 211543.png" alt="Painéis do SPE">
+                    </figure>
+                </div>
+                <div class="block-text" data-aos="fade-left">
+                    <h2 class="block-title block-title--invert">Painéis organizados</h2>
+                    <p class="invert">Todos os recursos agrupados por contexto — Installer, Administrativo, Extras e Workstations — para encontrar rápido e agir melhor.</p>
+                    <ul class="block-list invert">
+                        <li>Layout intuitivo</li>
+                        <li>Confiável e local</li>
+                        <li>Fluxos consistentes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Versões -->
+    <section id="versions" class="versions">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">SPE 5X — Escolha sua versão</h2>
+                <p class="section-subtitle">Encontre o equilíbrio ideal entre simplicidade e potência</p>
+            </div>
+            <div class="versions-grid">
+                <a class="version-card" href="SPE5X_wiki.html" data-aos="fade-up" data-aos-delay="150">
+                    <div class="version-media">
+                        <img src="../SPE_icon.png" alt="SPE 5.0">
+                    </div>
+                    <div class="version-body">
+                        <h3>SPE 5.0®</h3>
+                        <p>Rápido e objetivo. Tudo que você precisa para o dia a dia com estabilidade.</p>
+                        <ul>
+                            <li>Atalhos essenciais</li>
+                            <li>Leve e ágil</li>
+                            <li>ToastUI 3.2</li>
+                        </ul>
+                        <span class="version-cta">Ver detalhes</span>
+                    </div>
+                </a>
+                <a class="version-card" href="SPE5X_wiki.html" data-aos="fade-up" data-aos-delay="250">
+                    <div class="version-media">
+                        <img src="../SPE_icon.png" alt="SPE 5.1">
+                    </div>
+                    <div class="version-body">
+                        <h3>SPE 5.1®</h3>
+                        <p>Mais inteligente. Integrado à experiência do Windows 11 com recursos extras.</p>
+                        <ul>
+                            <li>Toast Assistance 2.0</li>
+                            <li>Fluxos mais intuitivos</li>
+                            <li>Toast AURA UI (WinUI3)</li>
+                        </ul>
+                        <span class="version-cta">Ver detalhes</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deck 3D de screenshots (única galeria visual) -->
+    <section class="deck-showcase" aria-label="Galeria 3D do SPE">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Explorar visualmente</h2>
+                <p class="section-subtitle">Clique ou use as setas • Avanço automático</p>
+            </div>
+            <!-- Carrossel 3D adicional, igual ao do topo -->
+            <div class="spe-carousel-wrap" data-aos="zoom-in">
+                <div class="aura" aria-hidden="true"></div>
+                <div class="carousel-3d">
+                    <div class="carousel" id="speCarousel2" aria-label="Carrossel 3D de ícones SPE">
+                        <div class="carousel-item"><img src="../SPE_icon.png" alt="Ícone SPE"></div>
+                        <div class="carousel-item"><img src="../Toast_4K_icon.png" alt="Ícone Toast"></div>
+                        <div class="carousel-item"><img src="../Resources/GreenToastSoftware_logo_banner.png" alt="Banner GreenToastSoftware"></div>
+                        <div class="carousel-item"><img src="../Resources/gpedit_icon.png" alt="Ferramenta do Windows"></div>
+                        <div class="carousel-item"><img src="../Resources/notifications_icon.png" alt="Notificações"></div>
+                        <div class="carousel-item"><img src="../Resources/GreenPC Info_icon.png" alt="GreenPC Info"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Substituição do Deck 3D pelo carrossel 3D acima -->
+        </div>
+    </section>
+
+    <!-- Versões -->
+    <section id="versions" class="versions">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">SPE 5X — Escolha sua versão</h2>
+                <p class="section-subtitle">Encontre o equilíbrio ideal entre simplicidade e potência</p>
+            </div>
+            <div class="versions-grid">
+                <a class="version-card" href="SPE5X_wiki.html" data-aos="fade-up" data-aos-delay="150">
+                    <div class="version-media">
+                        <img src="../SPE_icon.png" alt="SPE 5.0">
+                    </div>
+                    <div class="version-body">
+                        <h3>SPE 5.0®</h3>
+                        <p>Rápido e objetivo. Tudo que você precisa para o dia a dia com estabilidade.</p>
+                        <ul>
+                            <li>Atalhos essenciais</li>
+                            <li>Leve e ágil</li>
+                            <li>ToastUI 3.2</li>
+                        </ul>
+                        <span class="version-cta">Ver detalhes</span>
+                    </div>
+                </a>
+                <a class="version-card" href="SPE5X_wiki.html" data-aos="fade-up" data-aos-delay="250">
+                    <div class="version-media">
+                        <img src="../SPE_icon.png" alt="SPE 5.1">
+                    </div>
+                    <div class="version-body">
+                        <h3>SPE 5.1®</h3>
+                        <p>Mais inteligente. Integrado à experiência do Windows 11 com recursos extras.</p>
+                        <ul>
+                            <li>Toast Assistance 2.0</li>
+                            <li>Fluxos mais intuitivos</li>
+                            <li>Toast AURA UI (WinUI3)</li>
+                        </ul>
+                        <span class="version-cta">Ver detalhes</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Informações do Projeto -->
+    <section id="project-info" class="requirements">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Informações do Projeto</h2>
+                <p class="section-subtitle">SPE 5.0 — System Programs Easier v1.0.0</p>
+            </div>
+            <div class="requirements-grid">
+                <div class="req-card" data-aos="fade-up" data-aos-delay="100">
+                    <h4>Framework</h4>
+                    <p>.NET Framework 4.8</p>
+                </div>
+                <div class="req-card" data-aos="fade-up" data-aos-delay="150">
+                    <h4>Tipo de Projeto</h4>
+                    <p>WPF (Windows Presentation Foundation)</p>
+                </div>
+                <div class="req-card" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Versão</h4>
+                    <p>v1.0.0</p>
+                </div>
+                <div class="req-card" data-aos="fade-up" data-aos-delay="250">
+                    <h4>Empresa</h4>
+                    <p>GreenToastSoftware Corporation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Arquitetura -->
+    <section class="feature-split feature-split--diagonal" aria-label="Arquitetura">
+        <div class="container">
+            <div class="split-grid">
+                <div class="split-left" data-aos="fade-right">
+                    <h2 class="split-title">Arquitetura</h2>
+                    <p class="split-note">Navegação por Frame dentro de uma janela principal (MainWindowHome). As funcionalidades são implementadas como Pages WPF carregadas dinamicamente no MainFrame.</p>
+                    <ul class="split-list">
+                        <li><span>App.OnStartup()</span> — Verifica se empacotada (MSIX), eleva privilégios se necessário</li>
+                        <li><span>LoadingScreen</span> — Ecrã de carregamento com animação de 7s</li>
+                        <li><span>Intro_Toast</span> — Animação de introdução com logo e som</li>
+                        <li><span>MainWindowHome</span> — Janela principal host do Frame</li>
+                    </ul>
+                </div>
+                <div class="split-right" data-aos="fade-left">
+                    <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 1.5rem; font-family: 'Courier New', monospace; font-size: 0.8rem; color: #a0f0a0; line-height: 1.6;">
+                        <p>App.xaml → LoadingScreen → Intro_Toast →</p>
+                        <p style="margin-left:1rem;">MainWindowHome (Window)</p>
+                        <p style="margin-left:2rem;">└ MainFrame (Frame)</p>
+                        <p style="margin-left:3rem;">├ MainWindowPage</p>
+                        <p style="margin-left:3rem;">├ config_page</p>
+                        <p style="margin-left:3rem;">├ Currency_page</p>
+                        <p style="margin-left:3rem;">├ pdf_page / QR_page</p>
+                        <p style="margin-left:3rem;">├ CheckDrivers / Checkdisk</p>
+                        <p style="margin-left:3rem;">├ SPE_Installer / Entertainment</p>
+                        <p style="margin-left:3rem;">└ WINtoolsRemastered</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funcionalidades Detalhadas -->
+    <section class="feature-block feature-block--white section--diagonal" aria-label="Funcionalidades detalhadas">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Funcionalidades Detalhadas</h2>
+                <p class="section-subtitle">Tudo o que o SPE 5.0 oferece num único lugar</p>
+            </div>
+            <div class="services-grid" style="margin-top: 2rem;">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon"><span style="font-weight:700;">💱</span></div>
+                    <h3>Conversor de Moedas</h3>
+                    <p>Conversão entre moedas fiat e criptomoedas com APIs (ExchangeRate-API, CoinAPI) e gráficos históricos via LiveCharts.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="service-icon"><span style="font-weight:700;">🌡️</span></div>
+                    <h3>Conversor de Temperaturas</h3>
+                    <p>Conversão entre 6 unidades: Celsius, Fahrenheit, Kelvin, Rankine, Réaumur e Delisle.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon"><span style="font-weight:700;">📄</span></div>
+                    <h3>Conversor de PDF</h3>
+                    <p>Conversão de Word e PowerPoint para PDF com Spire.PDF e Microsoft Office Interop.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="service-icon"><span style="font-weight:700;">📱</span></div>
+                    <h3>Gerador de QR Code</h3>
+                    <p>Geração de QR Codes com QRCoder. Histórico de URLs persistido localmente.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon"><span style="font-weight:700;">🔧</span></div>
+                    <h3>Verificação de Drivers</h3>
+                    <p>Análise completa de drivers via WMI: desatualizados, em falta, com problemas. Execução em BackgroundWorker.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="service-icon"><span style="font-weight:700;">💿</span></div>
+                    <h3>CheckDisk</h3>
+                    <p>Interface para chkdsk do Windows com opções de correção de erros (/F) e recuperação de sectores (/R).</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon"><span style="font-weight:700;">📦</span></div>
+                    <h3>SPE Installer</h3>
+                    <p>Gestor de pacotes integrado com suporte a Winget e Chocolatey. Listagem, seleção e instalação múltipla.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="service-icon"><span style="font-weight:700;">🎮</span></div>
+                    <h3>Entretenimento</h3>
+                    <p>Navegador web integrado via WebView2. Janela dedicada com menu e frame de navegação.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon"><span style="font-weight:700;">🛠️</span></div>
+                    <h3>WINtools Remastered</h3>
+                    <p>Ferramentas avançadas: WinSAT, GPEdit, GreenVisualizationPC e mais.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="service-icon"><span style="font-weight:700;">💬</span></div>
+                    <h3>Chat Assistente</h3>
+                    <p>Motor local de intents com regex, TTS via System.Speech, reconhecimento de voz e respostas em JSON.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon"><span style="font-weight:700;">🎨</span></div>
+                    <h3>4 Temas Visuais</h3>
+                    <p>Light, Dark, Colourful Light e Colourful Dark. Troca em runtime via ResourceDictionary.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="service-icon"><span style="font-weight:700;">⚡</span></div>
+                    <h3>Terminal SPE</h3>
+                    <p>Terminal integrado com comandos personalizados, confirmação interativa e scroll automático.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download -->
+    <section id="download" class="final-cta light" style="padding: 4rem 0;">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <div class="cta-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="60" height="60"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                </div>
+                <h3 class="cta-title">Download SPE 5.0 v1.0.0</h3>
+                <p class="cta-description">Obtenha a versão mais recente do SPE diretamente do GitHub.</p>
+                <div class="cta-buttons">
+                    <a class="btn btn-primary btn-large" href="#" id="spe50-github-page" target="_blank" rel="noopener noreferrer">
+                        <svg style="width:20px;height:20px;vertical-align:middle;margin-right:8px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        Página do GitHub
+                    </a>
+                    <a class="btn btn-secondary btn-large" href="#" id="spe50-direct-download" target="_blank" rel="noopener noreferrer">
+                        <svg style="width:20px;height:20px;vertical-align:middle;margin-right:8px;" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                        Download Direto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requisitos -->
+    <section id="requirements" class="requirements">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Requisitos do sistema</h2>
+                <p class="section-subtitle">Compatível com Windows 10 e 11</p>
+            </div>
+            <div class="requirements-grid">
+                <div class="req-card" data-aos="fade-up" data-aos-delay="100">
+                    <h4>Sistema Operativo</h4>
+                    <p>Windows 10 ou superior (x64)</p>
+                </div>
+                <div class="req-card" data-aos="fade-up" data-aos-delay="150">
+                    <h4>Framework</h4>
+                    <p>.NET Framework 4.8</p>
+                </div>
+                <div class="req-card" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Privilégios</h4>
+                    <p>Administrador (elevação automática ao arranque)</p>
+                </div>
+                <div class="req-card" data-aos="fade-up" data-aos-delay="250">
+                    <h4>Dependências Opcionais</h4>
+                    <p>Microsoft Office (PDF), Winget/Chocolatey, WebView2, SPE.Helper</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (curta) -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title gradient-text">Perguntas frequentes</h2>
+                <p class="section-subtitle">Algumas respostas rápidas</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-question">
+                        <h3>O SPE coleta dados?</h3>
+                        <div class="faq-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não. O SPE opera localmente e não realiza coleta de dados pessoais.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
+                    <div class="faq-question">
+                        <h3>Posso usar no trabalho?</h3>
+                        <div class="faq-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, desde que sua organização permita. Algumas funções podem exigir permissões elevadas.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="faq-question">
+                        <h3>Qual versão escolher?</h3>
+                        <div class="faq-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A 5.0 foca no essencial e estabilidade; a 5.1 expande recursos e fluidez no Windows 11.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="final-cta light">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <div class="cta-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="60" height="60"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z"/></svg>
+                </div>
+                <h3 class="cta-title">Pronto para simplificar o Windows?</h3>
+                <p class="cta-description">Explore detalhes, compare versões e comece agora com o SPE 5X.</p>
+                <div class="cta-buttons">
+                    <a class="btn btn-primary btn-large" href="SPE5X_wiki.html">Ver SPE 5X</a>
+                        <a class="btn btn-secondary btn-large" href="../greentoastinsider_blog.html">Ler atualizações</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand"><div class="nav-logo">
+                        <img src="../Toast_4K_icon.png" 
+                             alt="Toast Icon" 
+                             class="nav-logo-icon"
+                             onerror="this.src='../Toast_4K_icon.png';">
+                        <span class="logo-text">©GreenToastSoftware Corporation</span>
+                    </div>
+                    <p>Imagining a technological future for everyone®</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h3>Navigation</h3>
+                        <a href="../index.html">Home</a>
+                        <a href="../index.html#innovation">Innovation</a>
+                        <a href="../index.html#services">Services</a>
+                        <a href="../about.html">About</a>
+                        <a href="../contact.html">Contact</a>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Company</h3>
+                        <a href="../status">Status</a>
+                        <a href="../legal/terms">Terms of Use</a>
+                        <a href="../legal/privacity">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy;GreenToastSoftware. All rights reserved 2020-2026.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+
+        // FAQ toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('.faq-question');
+                if (question) {
+                    question.addEventListener('click', () => {
+                        item.classList.toggle('active');
+                    });
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 3D Tilt Effect for Service Cards (igual ao index)
+        const speServiceCards = document.querySelectorAll('.service-card');
+        speServiceCards.forEach(card => {
+            let isAnimating = false;
+
+            card.addEventListener('mousemove', (e) => {
+                if (isAnimating) return;
+                isAnimating = true;
+                requestAnimationFrame(() => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = (y - centerY) / centerY * -12;
+                    const rotateY = (x - centerX) / centerX * 12;
+
+                    card.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                    card.style.transition = 'none';
+                    isAnimating = false;
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                card.style.transform = 'translateY(0) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        // Evitar que o typewriter remova o logo do título quando não houver texto
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                const onlyText = heroTitle.innerHTML.replace(/<[^>]*>/g, '').trim();
+                if (!onlyText) {
+                    // não executar typewriter quando o título é apenas imagem
+                    window.typeWriter = () => {};
+                }
+            }
+        });
+
+        // Texto dinâmico (digitar/apagar)
+        (function initDynamicIntroText(){
+            const el = document.getElementById('dynamicText');
+            if (!el) return;
+            const frases = [
+                'rápido e intuitivo',
+                'poderoso como o Windows',
+                'seguro e local',
+                'feito para produtividade',
+                'simples como 1 clique'
+            ];
+            const typingSpeed = 55;
+            const erasingSpeed = 35;
+            const holdTime = 1200;
+            let i = 0, j = 0, apagando = false;
+
+            function tick(){
+                const alvo = frases[i % frases.length];
+                if (!apagando) {
+                    el.textContent = alvo.slice(0, j+1);
+                    j++;
+                    if (j === alvo.length) {
+                        apagando = true;
+                        setTimeout(tick, holdTime);
+                        return;
+                    }
+                    setTimeout(tick, typingSpeed);
+                } else {
+                    el.textContent = alvo.slice(0, j-1);
+                    j--;
+                    if (j === 0) {
+                        apagando = false;
+                        i++;
+                        setTimeout(tick, 250);
+                        return;
+                    }
+                    setTimeout(tick, erasingSpeed);
+                }
+            }
+            tick();
+        })();
+
+        // Carrossel 3D: distribuir itens em círculo e rotacionar (suporta múltiplos)
+        (function init3DCarousels(){
+            const containers = Array.from(document.querySelectorAll('.carousel-3d .carousel'));
+            if (!containers.length) return;
+            const layouts = [];
+            containers.forEach((container) => {
+                const items = Array.from(container.querySelectorAll('.carousel-item'));
+                const doLayout = () => {
+                    const n = items.length;
+                    const rect = container.getBoundingClientRect();
+                    const radius = Math.max(160, Math.min(320, rect.width / 2.2));
+                    const step = 360 / n;
+                    items.forEach((item, idx) => {
+                        const angle = step * idx;
+                        item.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+                    });
+                };
+                doLayout();
+                layouts.push(doLayout);
+            });
+            let rto;
+            window.addEventListener('resize', () => {
+                clearTimeout(rto);
+                rto = setTimeout(() => layouts.forEach(fn => fn()), 120);
+            });
+        })();
+
+        // Navegação de screenshots (dots) no split mock
+        (function initMockDots(){
+            const dots = document.querySelectorAll('.mock-dots .dot');
+            const img = document.querySelector('.tilt-mock .mock-screen');
+            if (!dots.length || !img) return;
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    dots.forEach(d => d.classList.remove('active'));
+                    dot.classList.add('active');
+                    const src = dot.getAttribute('data-shot');
+                    if (src) {
+                        img.style.opacity = '0';
+                        setTimeout(() => { img.src = src; img.style.opacity = '1'; }, 150);
+                    }
+                });
+            });
+        })();
+
+        // Deck 3D: auto-ciclo e clique para focar
+        // Deck 3D removido: seção substituída por carrossel 3D adicional
+    </script>
+</body>
+</html>
