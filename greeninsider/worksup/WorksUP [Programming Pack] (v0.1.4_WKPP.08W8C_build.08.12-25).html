@@ -259,6 +259,95 @@
   box-shadow: 0 4px 24px rgba(79,70,229,0.08);
   margin: 1.2rem 0 0.5rem 0;
   display: block;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.insider-img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 32px rgba(79,70,229,0.15);
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  animation: fadeIn 0.3s ease;
+}
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90vh;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.modal-img {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  border-radius: 12px;
+  object-fit: contain;
+}
+.modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+.modal-close:hover {
+  color: #ff6b6b;
+}
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 24px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  z-index: 2001;
+}
+.modal-nav:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+.modal-prev {
+  left: 20px;
+}
+.modal-next {
+  right: 20px;
+}
+.modal-counter {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 14px;
 }
 .insider-caption {
   font-size: 0.98rem;
@@ -569,9 +658,12 @@
     </aside>
     <article class="insider-content">
       <p>Hello WorksUP INSIDERS, today we are launching the fourth and the biggest update INSIDER VERSION of our new app! And we are launching<b> WorksUP [Programming Pack] (v0.1.4_WKPP.08W8C_build.08.12-25) BETA</b> for all users! </p>
-      <H2>DISCLAIMER: This version has only Portuguese(Portugal) language, we are working on adding more languages in the future!</h2>
       
       <h3 style="font-size:2rem; font-weight:600;">New Features:</h3>
+      <figure>
+        <img src="../../Captura de ecrã 2026-06-03 114405.png" alt="Editor UI" class="insider-img">
+        <figcaption class="insider-caption">C Editor interface</figcaption>
+      </figure>
       <ul>
         <li>English Language Support added</li>
         <li>New <code>.ctxt</code> file format for save and load .c files combined with .txt files</li>
@@ -583,6 +675,10 @@
       </ul>
 
       <h2>SideBar Details</h2>
+      <figure>
+        <img src="../../Captura de ecrã 2026-06-03 115158.png" alt="Editor UI" class="insider-img">
+        <figcaption class="insider-caption">C Editor SideBar Interface</figcaption>
+      </figure>
 
       <h3 style="font-size:1.4rem; font-weight:600;">ExplorerBar</h3>
       <ul>
@@ -759,6 +855,409 @@ document.addEventListener('click', (e) => {
     if (dropdownContent) dropdownContent.style.display = 'none';
   }
 });
+</script>
+
+<!-- ===== Image Gallery Lightbox ===== -->
+<style>
+/* Override modal-img inside gallery modal */
+#gImgModal .modal-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#gImgModal .img-wrapper {
+  overflow: hidden;
+  max-width: min(940px, 90vw);
+  max-height: 76vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  position: relative;
+  background: rgba(0,0,0,0.12);
+}
+#gImgModal .modal-img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 76vh;
+  object-fit: unset !important;
+  transform-origin: center center;
+  will-change: transform;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: zoom-in;
+  transition: transform 0.07s linear;
+  border-radius: 10px;
+  box-shadow: 0 6px 40px rgba(0,0,0,0.4);
+  display: block;
+}
+#gImgModal .modal-img.g-pan { cursor: grabbing !important; transition: none; }
+
+/* Zoom bar (fixed, always on top when modal open) */
+.g-zbar {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(8,8,20,0.84);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 40px;
+  padding: 0.44rem 1rem;
+  z-index: 2200;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s;
+  white-space: nowrap;
+}
+body.g-open .g-zbar { opacity: 1; pointer-events: auto; }
+.g-zbtn {
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.14s, transform 0.1s;
+  flex-shrink: 0;
+  line-height: 1;
+  padding: 0;
+}
+.g-zbtn:hover { background: rgba(255,255,255,0.22); transform: scale(1.08); }
+.g-zbtn:active { transform: scale(0.93); }
+.g-zbtn.mag-on { background: rgba(37,99,235,0.6); border-color: #60a5fa; }
+.g-zsep { width: 1px; height: 18px; background: rgba(255,255,255,0.18); margin: 0 0.1rem; flex-shrink: 0; }
+.g-zlevel {
+  color: rgba(255,255,255,0.9);
+  font-size: 0.82rem;
+  font-weight: 700;
+  min-width: 46px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ctrl hint */
+.g-hint {
+  position: fixed;
+  bottom: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.75rem;
+  background: rgba(0,0,0,0.38);
+  padding: 0.22rem 0.7rem;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 2100;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+body.g-open .g-hint { opacity: 1; }
+
+/* Thumbnail strip */
+.g-thumbs {
+  position: fixed;
+  bottom: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.42rem;
+  z-index: 2150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s;
+  padding: 0.28rem 0.55rem;
+  background: rgba(8,8,20,0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+}
+body.g-open .g-thumbs { opacity: 1; pointer-events: auto; }
+.g-th {
+  width: 54px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px solid rgba(255,255,255,0.22);
+  cursor: pointer;
+  opacity: 0.58;
+  transition: border-color 0.17s, opacity 0.17s, transform 0.14s;
+}
+.g-th.g-cur { border-color: #fff; opacity: 1; transform: scale(1.06); }
+.g-th:hover { opacity: 0.88; }
+
+/* Magnifier glass */
+.g-mag {
+  position: fixed;
+  width: 184px;
+  height: 184px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.82);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.6);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3000;
+  background-repeat: no-repeat;
+  background-color: #0a0a14;
+  display: none;
+}
+.g-mag.on { display: block; }
+/* Crosshair inside lens */
+.g-mag::before, .g-mag::after {
+  content: '';
+  position: absolute;
+  background: rgba(255,255,255,0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+.g-mag::before { width: 1px; height: 100%; left: 50%; top: 0; }
+.g-mag::after  { height: 1px; width: 100%; top: 50%; left: 0; }
+</style>
+
+<script>
+(function initGallery() {
+  'use strict';
+  const imgs = Array.from(document.querySelectorAll('.insider-img'));
+  if (!imgs.length) return;
+
+  /* ---- State ---- */
+  let cur = 0, zoom = 1, px = 0, py = 0;
+  let drag = false, dx0 = 0, dy0 = 0;
+  let magOn = false;
+  const MIN_Z = 0.4, MAX_Z = 8, STEP = 0.2, MAG_R = 92, MAG_MULT = 3.2;
+
+  /* ---- Build modal ---- */
+  const modal = document.createElement('div');
+  modal.id = 'gImgModal';
+  modal.className = 'modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-label', 'Image gallery');
+  modal.innerHTML = `
+    <button class="modal-close" id="gCl" aria-label="Close">&#10005;</button>
+    <button class="modal-nav modal-prev" id="gPr" aria-label="Previous image" style="display:none">&#10094;</button>
+    <div class="modal-content" id="gCnt">
+      <div class="img-wrapper" id="gWr">
+        <img class="modal-img" id="gIm" src="" alt="" draggable="false" tabindex="0">
+      </div>
+      <div class="modal-counter" id="gCo" style="bottom:-30px;font-size:0.85rem;"></div>
+    </div>
+    <button class="modal-nav modal-next" id="gNx" aria-label="Next image" style="display:none">&#10095;</button>
+  `;
+  document.body.appendChild(modal);
+
+  /* ---- Zoom bar ---- */
+  const zbar = document.createElement('div');
+  zbar.className = 'g-zbar';
+  zbar.innerHTML = `
+    <button class="g-zbtn" id="gZO" title="Zoom out (−)">&#8722;</button>
+    <span class="g-zlevel" id="gZL">100%</span>
+    <button class="g-zbtn" id="gZI" title="Zoom in (+)">+</button>
+    <button class="g-zbtn" id="gZR" title="Reset zoom (0)" style="font-size:0.72rem;letter-spacing:-0.3px;width:38px;border-radius:12px;">100%</button>
+    <div class="g-zsep"></div>
+    <button class="g-zbtn" id="gMb" title="Enable magnifier" style="font-size:0.95rem;">&#128270;</button>
+  `;
+  document.body.appendChild(zbar);
+
+  /* ---- Ctrl hint ---- */
+  const hint = document.createElement('div');
+  hint.className = 'g-hint';
+  hint.textContent = 'Ctrl + Scroll to zoom  ·  drag to pan when zoomed in  ·  Esc to close';
+  document.body.appendChild(hint);
+
+  /* ---- Thumbnail strip ---- */
+  const thumbWrap = document.createElement('div');
+  thumbWrap.className = 'g-thumbs';
+  if (imgs.length > 1) {
+    imgs.forEach((img, i) => {
+      const t = document.createElement('img');
+      t.className = 'g-th';
+      t.src = img.src;
+      t.alt = '';
+      t.addEventListener('click', () => goTo(i));
+      thumbWrap.appendChild(t);
+    });
+    document.body.appendChild(thumbWrap);
+  }
+
+  /* ---- Magnifier glass ---- */
+  const mag = document.createElement('div');
+  mag.className = 'g-mag';
+  document.body.appendChild(mag);
+
+  /* ---- Refs ---- */
+  const gIm = document.getElementById('gIm');
+  const gCo = document.getElementById('gCo');
+  const gZL = document.getElementById('gZL');
+  const gMb = document.getElementById('gMb');
+  const gPr = document.getElementById('gPr');
+  const gNx = document.getElementById('gNx');
+
+  /* ---- Helpers ---- */
+  function applyT() {
+    gIm.style.transform = `translate(${px}px,${py}px) scale(${zoom})`;
+    gZL.textContent = Math.round(zoom * 100) + '%';
+  }
+
+  function setZ(v) {
+    zoom = Math.min(MAX_Z, Math.max(MIN_Z, v));
+    if (zoom <= 1) { px = 0; py = 0; }
+    applyT();
+  }
+
+  function updateUI() {
+    gIm.src = imgs[cur].src;
+    gIm.alt = imgs[cur].alt || '';
+    if (imgs.length > 1) {
+      gCo.textContent = `${cur + 1} / ${imgs.length}`;
+      gPr.style.display = '';
+      gNx.style.display = '';
+      thumbWrap.querySelectorAll('.g-th').forEach((t, i) => t.classList.toggle('g-cur', i === cur));
+    }
+  }
+
+  function open(i) {
+    cur = i; zoom = 1; px = 0; py = 0;
+    magOn = false; mag.classList.remove('on'); gMb.classList.remove('mag-on');
+    updateUI(); applyT();
+    modal.classList.add('active');
+    document.body.classList.add('g-open');
+    document.body.style.overflow = 'hidden';
+    gIm.focus();
+  }
+
+  function close() {
+    modal.classList.remove('active');
+    document.body.classList.remove('g-open');
+    document.body.style.overflow = '';
+    mag.classList.remove('on');
+  }
+
+  function goTo(i) {
+    cur = ((i % imgs.length) + imgs.length) % imgs.length;
+    zoom = 1; px = 0; py = 0;
+    updateUI(); applyT();
+  }
+
+  /* ---- Make images clickable ---- */
+  imgs.forEach((img, i) => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => open(i));
+  });
+
+  /* ---- Modal controls ---- */
+  document.getElementById('gCl').addEventListener('click', close);
+  modal.addEventListener('click', e => { if (e.target === modal) close(); });
+
+  gPr.addEventListener('click', () => goTo(cur - 1));
+  gNx.addEventListener('click', () => goTo(cur + 1));
+
+  document.getElementById('gZO').addEventListener('click', () => setZ(zoom - STEP));
+  document.getElementById('gZI').addEventListener('click', () => setZ(zoom + STEP));
+  document.getElementById('gZR').addEventListener('click', () => { zoom = 1; px = 0; py = 0; applyT(); gZL.textContent = '100%'; });
+
+  /* ---- Magnifier toggle ---- */
+  gMb.addEventListener('click', () => {
+    magOn = !magOn;
+    gMb.classList.toggle('mag-on', magOn);
+    gMb.title = magOn ? 'Disable magnifier' : 'Enable magnifier';
+    if (!magOn) mag.classList.remove('on');
+  });
+
+  /* ---- Ctrl + Scroll zoom ---- */
+  modal.addEventListener('wheel', e => {
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    const delta = e.deltaY < 0 ? STEP : -STEP;
+    setZ(zoom + delta);
+  }, { passive: false });
+
+  /* Prevent browser native zoom when modal is open */
+  document.addEventListener('wheel', e => {
+    if (e.ctrlKey && modal.classList.contains('active')) e.preventDefault();
+  }, { passive: false });
+
+  /* ---- Pan (drag) ---- */
+  gIm.addEventListener('mousedown', e => {
+    if (zoom <= 1) return;
+    drag = true;
+    dx0 = e.clientX - px;
+    dy0 = e.clientY - py;
+    gIm.classList.add('g-pan');
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (drag) {
+      px = e.clientX - dx0;
+      py = e.clientY - dy0;
+      applyT();
+    }
+    if (magOn && modal.classList.contains('active')) moveMag(e);
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (drag) { drag = false; gIm.classList.remove('g-pan'); }
+  });
+
+  /* ---- Magnifier ---- */
+  function moveMag(e) {
+    const r = gIm.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
+      mag.classList.remove('on'); return;
+    }
+    mag.classList.add('on');
+
+    /* Position lens: prefer right of cursor, clamp to viewport edges */
+    let lx = e.clientX + 26;
+    let ly = e.clientY - MAG_R;
+    if (lx + MAG_R * 2 > window.innerWidth - 8) lx = e.clientX - MAG_R * 2 - 26;
+    ly = Math.max(8, Math.min(window.innerHeight - MAG_R * 2 - 8, ly));
+    mag.style.left = lx + 'px';
+    mag.style.top  = ly + 'px';
+
+    /* Map cursor position to background image crop */
+    const rx = e.clientX - r.left;  /* px inside displayed image */
+    const ry = e.clientY - r.top;
+    const bW = r.width  * MAG_MULT;
+    const bH = r.height * MAG_MULT;
+    mag.style.backgroundImage    = `url('${gIm.src}')`;
+    mag.style.backgroundSize     = `${bW}px ${bH}px`;
+    mag.style.backgroundPosition = `${-(rx * MAG_MULT - MAG_R)}px ${-(ry * MAG_MULT - MAG_R)}px`;
+  }
+
+  gIm.addEventListener('mouseleave', () => { if (magOn) mag.classList.remove('on'); });
+
+  /* ---- Keyboard shortcuts ---- */
+  document.addEventListener('keydown', e => {
+    if (!modal.classList.contains('active')) return;
+    switch (e.key) {
+      case 'Escape':    close(); break;
+      case 'ArrowLeft':  goTo(cur - 1); break;
+      case 'ArrowRight': goTo(cur + 1); break;
+      case '+': case '=': setZ(zoom + STEP); break;
+      case '-': setZ(zoom - STEP); break;
+      case '0': zoom = 1; px = 0; py = 0; applyT(); gZL.textContent = '100%'; break;
+    }
+  });
+})();
 </script>
 </body>
 </html>

@@ -78,7 +78,7 @@
                 <span class="ticker-sep">•</span>
                 <span>News about SPE 5.0 coming soon!</span>
                 <span class="ticker-sep">•</span>
-                <span>[IMPORTANT]: GreenToastSoftware will be on vacation during the month of May, as a result there will be no updates to all products.</span>
+                <span>Check out our Minecraft mods on Curseforge & Modrinth!</span>
             </div>
             <div class="ticker-content" aria-hidden="true">
                 <span>New versions 0.1.3 and 0.1.4 of WorksUP [PROGRAMMING Learn Pack] have been released!</span>
@@ -87,7 +87,7 @@
                 <span class="ticker-sep">•</span>
                 <span>News about SPE 5.0 coming soon!</span>
                 <span class="ticker-sep">•</span>
-                <span>[IMPORTANT]: GreenToastSoftware will be on vacation during the month of May, as a result there will be no updates to all products.</span>
+                <span>Check out our Minecraft mods on Curseforge & Modrinth!</span>
             </div>
         </div>
     </div>
@@ -133,6 +133,65 @@
             <div class="scroll-arrow"></div>
         </div>
     </section>
+
+    <!-- Project News Carousel Section -->
+    <section id="project-news" class="project-news" aria-label="Recent project news">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Latest Project News</h2>
+                <p class="section-subtitle">Recent updates from SPE, WorksUP and GreenToast ecosystem</p>
+            </div>
+
+            <div class="project-news-carousel" data-aos="fade-up" data-aos-delay="120" data-autoplay="4500">
+                <button class="news-nav prev" type="button" aria-label="Previous news">
+                    <span aria-hidden="true">&#10094;</span>
+                </button>
+
+                <div class="news-track" aria-live="polite">
+                    <article class="news-slide active">
+                        <span class="news-tag">WorksUP</span>
+                        <h3 class="news-title">WorksUP Learn Pack 0.1.4 released</h3>
+                        <p class="news-text">New exercises and productivity modules are now available to accelerate your learning journey.</p>
+                        <a class="news-link" href="worksup.html">Open WorksUP page</a>
+                    </article>
+
+                    <article class="news-slide">
+                        <span class="news-tag">SPE 5.0</span>
+                        <h3 class="news-title">Next SPE 5.0 build is on the way</h3>
+                        <p class="news-text">Stability improvements and more accessible tools are being prepared for the upcoming release.</p>
+                        <a class="news-link" href="greentoastinsider_blog.html">Read GreenInsider updates</a>
+                    </article>
+
+                    <article class="news-slide">
+                        <span class="news-tag">GreenProjects</span>
+                        <h3 class="news-title">Minecraft mod support keeps growing</h3>
+                        <p class="news-text">Our community projects continue expanding with optimization and compatibility upgrades.</p>
+                        <a class="news-link" href="projects.html">Explore GreenProjects</a>
+                    </article>
+
+                    <article class="news-slide">
+                        <span class="news-tag">Learning</span>
+                        <h3 class="news-title">GreenToast Learn keeps receiving new content</h3>
+                        <p class="news-text">Fresh guides and practical tutorials are being published to help users at every level.</p>
+                        <a class="news-link" href="greentoastlearn/index.html">Visit GreenToast Learn</a>
+                    </article>
+                </div>
+
+                <button class="news-nav next" type="button" aria-label="Next news">
+                    <span aria-hidden="true">&#10095;</span>
+                </button>
+
+                <div class="news-dots" role="tablist" aria-label="News pagination">
+                    <button class="news-dot active" type="button" role="tab" aria-selected="true" aria-label="News item 1"></button>
+                    <button class="news-dot" type="button" role="tab" aria-selected="false" aria-label="News item 2"></button>
+                    <button class="news-dot" type="button" role="tab" aria-selected="false" aria-label="News item 3"></button>
+                    <button class="news-dot" type="button" role="tab" aria-selected="false" aria-label="News item 4"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
 
     <!-- Innovation Section -->
     <section id="innovation" class="innovation">
@@ -349,6 +408,80 @@
                 }
             });
         });
+
+        // Auto project news carousel
+        function initProjectNewsCarousel() {
+            const carousel = document.querySelector('.project-news-carousel');
+            if (!carousel) return;
+
+            const slides = Array.from(carousel.querySelectorAll('.news-slide'));
+            const dots = Array.from(carousel.querySelectorAll('.news-dot'));
+            const prevBtn = carousel.querySelector('.news-nav.prev');
+            const nextBtn = carousel.querySelector('.news-nav.next');
+
+            if (!slides.length) return;
+
+            let current = 0;
+            let intervalId = null;
+            const delay = parseInt(carousel.getAttribute('data-autoplay'), 10) || 4500;
+
+            const showSlide = (index) => {
+                current = (index + slides.length) % slides.length;
+
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === current);
+                });
+
+                dots.forEach((dot, i) => {
+                    const isActive = i === current;
+                    dot.classList.toggle('active', isActive);
+                    dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                });
+            };
+
+            const startAutoplay = () => {
+                stopAutoplay();
+                intervalId = setInterval(() => {
+                    showSlide(current + 1);
+                }, delay);
+            };
+
+            const stopAutoplay = () => {
+                if (intervalId) {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                }
+            };
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    showSlide(current - 1);
+                    startAutoplay();
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    showSlide(current + 1);
+                    startAutoplay();
+                });
+            }
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    showSlide(i);
+                    startAutoplay();
+                });
+            });
+
+            carousel.addEventListener('mouseenter', stopAutoplay);
+            carousel.addEventListener('mouseleave', startAutoplay);
+
+            showSlide(0);
+            startAutoplay();
+        }
+
+        initProjectNewsCarousel();
 
         // 3D Tilt Effect for Service Cards
         const serviceCards = document.querySelectorAll('.service-card');
